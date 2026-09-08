@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Redireccionando...</title>
+</head>
+<body>
+    <p>Redireccionando...</p>
+
+    <script>
+        window.location.href = "window.location.href = "https://wa.me/5492604800024";
+    </script>
+</body>
+</html>
