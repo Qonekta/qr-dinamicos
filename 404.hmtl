@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Redireccionando...</title>
+</head>
+<body>
+
+<p>Redireccionando...</p>
+
+<script>
+
+const enlaces = {
+    "001": "https://wa.me/5492604800024",
+    "002": "https://https://www.instagram.com/planetaboca/"
+};
+
+const partes = window.location.pathname.split("/");
+const codigo = partes[partes.length - 1];
+
+if (enlaces[codigo]) {
+    window.location.href = enlaces[codigo];
+} else {
+    document.body.innerHTML = "<h2>Enlace no encontrado</h2>";
+}
+
+</script>
+
+</body>
+</html>
