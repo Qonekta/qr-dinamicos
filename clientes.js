@@ -44,7 +44,8 @@ const negocios = {
                 enlace: "https://www.google.com/maps/"
             }
         ]
-    },
+    }
+    
     "003": {
 
         nombre: "cafe san rafael",
