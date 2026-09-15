@@ -2,153 +2,488 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Panel de clientes</title>
 
+
     <style>
 
         body {
+
             font-family: Arial, sans-serif;
+
             background: #f5f5f5;
+
+            margin: 0;
+
             padding: 30px 15px;
+
+            color: #222;
+
         }
+
 
         .contenedor {
-            max-width: 600px;
+
+            max-width: 700px;
+
             margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
+
         }
+
+
+        .tarjeta {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            margin-bottom: 20px;
+
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+
+        }
+
 
         h1 {
+
             text-align: center;
+
+            margin-top: 0;
+
         }
+
+
+        h2 {
+
+            margin-top: 0;
+
+        }
+
 
         label {
+
             display: block;
+
             margin-top: 15px;
+
             font-weight: bold;
+
         }
+
 
         input {
+
             width: 100%;
+
             box-sizing: border-box;
+
             padding: 12px;
+
             margin-top: 6px;
+
             border: 1px solid #ccc;
+
             border-radius: 8px;
+
+            font-size: 15px;
+
         }
+
 
         button {
+
             width: 100%;
+
             padding: 14px;
-            margin-top: 25px;
+
+            margin-top: 20px;
+
             background: #222;
+
             color: white;
+
             border: none;
+
             border-radius: 8px;
+
             font-size: 16px;
+
             cursor: pointer;
+
         }
+
+
+        button:hover {
+
+            background: #444;
+
+        }
+
 
         .resultado {
+
             margin-top: 25px;
-            padding: 15px;
+
+            padding: 20px;
+
             background: #f0f0f0;
-            border-radius: 8px;
+
+            border-radius: 10px;
+
             display: none;
+
         }
 
+
         .url {
+
             word-break: break-all;
+
             font-weight: bold;
+
+        }
+
+
+        .codigo {
+
+            background: #222;
+
+            color: #fff;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            overflow-x: auto;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+
+        }
+
+
+        .boton-secundario {
+
+            background: #555;
+
+        }
+
+
+        .cliente {
+
+            border: 1px solid #ddd;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-top: 10px;
+
+            background: #fafafa;
+
+        }
+
+
+        .cliente strong {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .aviso {
+
+            color: #777;
+
+            font-size: 14px;
+
         }
 
     </style>
 
 </head>
 
+
 <body>
+
 
 <div class="contenedor">
 
-    <h1>Panel de clientes</h1>
 
-    <p>
-        Creá la información básica del cliente.
-    </p>
+    <!-- ENCABEZADO -->
 
-    <label>Código del cliente</label>
-    <input id="codigo" placeholder="Ejemplo: 003">
+    <div class="tarjeta">
 
-    <label>Nombre del negocio</label>
-    <input id="nombre" placeholder="Ejemplo: Café San Rafael">
-
-    <label>WhatsApp</label>
-    <input id="whatsapp" placeholder="Ejemplo: https://wa.me/549260...">
-
-    <label>Instagram</label>
-    <input id="instagram" placeholder="https://instagram.com/...">
-
-    <label>Google Reviews</label>
-    <input id="reviews" placeholder="Link de Google Reviews">
-
-    <label>Ubicación</label>
-    <input id="ubicacion" placeholder="Link de Google Maps">
-
-    <button onclick="crearCliente()">
-        Crear cliente
-    </button>
-
-    <div class="resultado" id="resultado">
-
-        <h3>Cliente creado</h3>
+        <h1>Panel de clientes</h1>
 
         <p>
-            Su enlace será:
-        </p>
 
-        <p class="url" id="urlCliente"></p>
-<h3>Código para clientes.js</h3>
+            Desde acá podemos crear la información de cada negocio.
 
-<pre id="codigoGenerado"></pre>
-        <p>
-            ⚠️ Este panel todavía no guarda automáticamente el cliente.
-            Primero genera la información que necesitamos.
         </p>
 
     </div>
 
+
+
+    <!-- CLIENTES ACTUALES -->
+
+    <div class="tarjeta">
+
+        <h2>Clientes actuales</h2>
+
+        <div id="listaClientes">
+
+            <div class="cliente">
+
+                <strong>001 — Barbería de prueba</strong>
+
+                https://qonekta.github.io/qr-dinamicos/r/001
+
+            </div>
+
+
+            <div class="cliente">
+
+                <strong>002 — Restaurante de prueba</strong>
+
+                https://qonekta.github.io/qr-dinamicos/r/002
+
+            </div>
+
+
+            <div class="cliente">
+
+                <strong>003 — Café San Rafael</strong>
+
+                https://qonekta.github.io/qr-dinamicos/r/003
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- CREAR CLIENTE -->
+
+    <div class="tarjeta">
+
+        <h2>Crear nuevo cliente</h2>
+
+
+        <label>Código del cliente</label>
+
+        <input
+            id="codigo"
+            placeholder="Ejemplo: 004"
+        >
+
+
+        <label>Nombre del negocio</label>
+
+        <input
+            id="nombre"
+            placeholder="Ejemplo: Barbería San Rafael"
+        >
+
+
+        <label>WhatsApp</label>
+
+        <input
+            id="whatsapp"
+            placeholder="https://wa.me/549260..."
+        >
+
+
+        <label>Instagram</label>
+
+        <input
+            id="instagram"
+            placeholder="https://instagram.com/..."
+        >
+
+
+        <label>Google Reviews</label>
+
+        <input
+            id="reviews"
+            placeholder="Link de Google Reviews"
+        >
+
+
+        <label>Ubicación</label>
+
+        <input
+            id="ubicacion"
+            placeholder="Link de Google Maps"
+        >
+
+
+        <button onclick="crearCliente()">
+
+            Crear cliente
+
+        </button>
+
+
+
+        <!-- RESULTADO -->
+
+        <div
+            class="resultado"
+            id="resultado"
+        >
+
+            <h3>✅ Cliente generado</h3>
+
+
+            <p>
+
+                Su enlace permanente será:
+
+            </p>
+
+
+            <p
+                class="url"
+                id="urlCliente"
+            ></p>
+
+
+            <button
+                class="boton-secundario"
+                onclick="copiarEnlace()"
+            >
+
+                Copiar enlace
+
+            </button>
+
+
+            <h3>
+
+                Código para clientes.js
+
+            </h3>
+
+
+            <pre
+                class="codigo"
+                id="codigoGenerado"
+            ></pre>
+
+
+            <button
+                class="boton-secundario"
+                onclick="copiarCodigo()"
+            >
+
+                Copiar código
+
+            </button>
+
+
+            <p class="aviso">
+
+                ⚠️ Por ahora el panel no modifica automáticamente
+                clientes.js. Copiá el bloque generado y agregalo
+                manualmente.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
 </div>
+
 
 
 <script>
 
+
+let enlaceActual = "";
+
+let codigoActual = "";
+
+
+
 function crearCliente() {
 
-    const codigo = document.getElementById("codigo").value.trim();
 
-    const nombre = document.getElementById("nombre").value.trim();
+    const codigo =
+        document.getElementById("codigo").value.trim();
 
-    const whatsapp = document.getElementById("whatsapp").value.trim();
 
-    const instagram = document.getElementById("instagram").value.trim();
+    const nombre =
+        document.getElementById("nombre").value.trim();
 
-    const reviews = document.getElementById("reviews").value.trim();
 
-    const ubicacion = document.getElementById("ubicacion").value.trim();
+    const whatsapp =
+        document.getElementById("whatsapp").value.trim();
+
+
+    const instagram =
+        document.getElementById("instagram").value.trim();
+
+
+    const reviews =
+        document.getElementById("reviews").value.trim();
+
+
+    const ubicacion =
+        document.getElementById("ubicacion").value.trim();
+
+
+
+    // VALIDACIONES
 
 
     if (!codigo || !nombre) {
 
-        alert("Completá al menos el código y el nombre del negocio.");
+        alert(
+            "Completá el código y el nombre del negocio."
+        );
 
         return;
 
     }
+
+
+
+    // Evitar códigos repetidos
+
+
+    if (
+        codigo === "001" ||
+        codigo === "002" ||
+        codigo === "003"
+    ) {
+
+        alert(
+            "Ese código ya está utilizado. Probá con otro, por ejemplo 004."
+        );
+
+        return;
+
+    }
+
+
+
+    // Generar bloque para clientes.js
 
 
     const codigoCliente = `
@@ -160,23 +495,35 @@ function crearCliente() {
         botones: [
 
             {
+
                 nombre: "📱 WhatsApp",
+
                 enlace: "${whatsapp}"
+
             },
 
             {
+
                 nombre: "📸 Instagram",
+
                 enlace: "${instagram}"
+
             },
 
             {
+
                 nombre: "⭐ Dejar una reseña",
+
                 enlace: "${reviews}"
+
             },
 
             {
+
                 nombre: "📍 Cómo llegar",
+
                 enlace: "${ubicacion}"
+
             }
 
         ]
@@ -186,20 +533,94 @@ function crearCliente() {
 `;
 
 
-    document.getElementById("codigoGenerado").textContent = codigoCliente;
 
-    document.getElementById("resultado").style.display = "block";
+    // Generar URL
 
 
     const url =
-        "https://qonekta.github.io/qr-dinamicos/r/" + codigo;
+        "https://qonekta.github.io/qr-dinamicos/r/"
+        + codigo;
 
 
-    document.getElementById("urlCliente").textContent = url;
+
+    enlaceActual = url;
+
+    codigoActual = codigoCliente;
+
+
+
+    // Mostrar información
+
+
+    document.getElementById(
+        "urlCliente"
+    ).textContent = url;
+
+
+    document.getElementById(
+        "codigoGenerado"
+    ).textContent = codigoCliente;
+
+
+    document.getElementById(
+        "resultado"
+    ).style.display = "block";
+
+
+    // Llevar al resultado
+
+
+    document.getElementById(
+        "resultado"
+    ).scrollIntoView({
+
+        behavior: "smooth"
+
+    });
 
 }
 
+
+
+// COPIAR ENLACE
+
+
+function copiarEnlace() {
+
+
+    navigator.clipboard.writeText(
+        enlaceActual
+    );
+
+
+    alert(
+        "Enlace copiado."
+    );
+
+}
+
+
+
+// COPIAR CÓDIGO
+
+
+function copiarCodigo() {
+
+
+    navigator.clipboard.writeText(
+        codigoActual
+    );
+
+
+    alert(
+        "Código copiado."
+    );
+
+}
+
+
 </script>
+
 
 </body>
 
