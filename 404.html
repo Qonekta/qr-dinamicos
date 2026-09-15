@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Barbería - Opciones</title>
+    <title>Mi negocio</title>
 
     <style>
         body {
@@ -46,29 +47,115 @@
 
 <body>
 
-    <div class="contenedor">
+<div class="contenedor">
 
-        <h1>Barbería</h1>
+    <h1 id="nombre">Cargando...</h1>
 
-        <p>¿Qué querés hacer?</p>
+    <p>¿Qué querés hacer?</p>
 
-        <a class="boton" href="https://wa.me/5492604800024">
-            📱 WhatsApp
-        </a>
+    <div id="botones"></div>
 
-        <a class="boton" href="https://www.instagram.com/">
-            📸 Instagram
-        </a>
+</div>
 
-        <a class="boton" href="https://www.google.com/">
-            ⭐ Dejar una reseña
-        </a>
+<script>
 
-        <a class="boton" href="https://www.google.com/maps/">
-            📍 Cómo llegar
-        </a>
+const negocios = {
 
-    </div>
+    "001": {
+        nombre: "Barbería de prueba",
+
+        botones: [
+            {
+                nombre: "📱 WhatsApp",
+                enlace: "https://wa.me/549260XXXXXXXX"
+            },
+            {
+                nombre: "📸 Instagram",
+                enlace: "https://www.instagram.com/"
+            },
+            {
+                nombre: "⭐ Dejar una reseña",
+                enlace: "https://www.google.com/"
+            },
+            {
+                nombre: "📍 Cómo llegar",
+                enlace: "https://www.google.com/maps/"
+            }
+        ]
+    },
+
+    "002": {
+        nombre: "Restaurante de prueba",
+
+        botones: [
+            {
+                nombre: "📱 WhatsApp",
+                enlace: "https://wa.me/549260XXXXXXXX"
+            },
+            {
+                nombre: "📸 Instagram",
+                enlace: "https://www.instagram.com/"
+            },
+            {
+                nombre: "📖 Ver menú",
+                enlace: "https://www.google.com/"
+            },
+            {
+                nombre: "📍 Cómo llegar",
+                enlace: "https://www.google.com/maps/"
+            }
+        ]
+    }
+
+};
+
+
+// Detectar qué código se está utilizando
+
+const partes = window.location.pathname.split("/");
+
+const codigo = partes[partes.length - 1];
+
+
+// Buscar el negocio
+
+const negocio = negocios[codigo];
+
+
+// Mostrar la información
+
+if (negocio) {
+
+    document.getElementById("nombre").textContent = negocio.nombre;
+
+    const contenedorBotones = document.getElementById("botones");
+
+    negocio.botones.forEach(function(boton) {
+
+        const elemento = document.createElement("a");
+
+        elemento.className = "boton";
+
+        elemento.textContent = boton.nombre;
+
+        elemento.href = boton.enlace;
+
+        elemento.target = "_blank";
+
+        contenedorBotones.appendChild(elemento);
+
+    });
+
+} else {
+
+    document.getElementById("nombre").textContent = "Enlace no encontrado";
+
+    document.querySelector("p").textContent =
+        "El código utilizado no está configurado.";
+
+}
+
+</script>
 
 </body>
 </html>
