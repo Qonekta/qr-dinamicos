@@ -94,6 +94,17 @@
         }
 
 
+        .boton-eliminar {
+            background: #b00020;
+            margin-top: 10px;
+        }
+
+
+        .boton-eliminar:hover {
+            background: #8a0018;
+        }
+
+
         .boton-agregar {
             background: #1976d2;
         }
@@ -123,12 +134,12 @@
 
 
         .boton-cancelar {
-            background: #b00020;
+            background: #777;
         }
 
 
         .boton-cancelar:hover {
-            background: #8a0018;
+            background: #555;
         }
 
 
@@ -195,13 +206,29 @@
         }
 
 
-        .modo-edicion {
-            border: 2px solid #1976d2;
+        .titulo-edicion {
+            color: #1976d2;
         }
 
 
-        .titulo-edicion {
-            color: #1976d2;
+        .cliente-acciones {
+            display: flex;
+            gap: 10px;
+        }
+
+
+        .cliente-acciones button {
+            margin-top: 12px;
+        }
+
+
+        @media (max-width: 500px) {
+
+            .cliente-acciones {
+                flex-direction: column;
+                gap: 0;
+            }
+
         }
 
     </style>
@@ -213,9 +240,9 @@
 <body>
 
 
-<!-- =========================
+<!-- =====================================================
      LOGIN
-========================= -->
+===================================================== -->
 
 <div id="login">
 
@@ -251,9 +278,9 @@
 
 
 
-<!-- =========================
+<!-- =====================================================
      PANEL
-========================= -->
+===================================================== -->
 
 <div
     class="contenedor"
@@ -277,98 +304,24 @@
 
 
 
-    <!-- =========================
+    <!-- =================================================
          CLIENTES ACTUALES
-    ========================== -->
+    ================================================== -->
 
     <div class="tarjeta">
 
         <h2>Clientes actuales</h2>
 
 
-        <div id="listaClientes">
-
-
-            <div class="cliente">
-
-                <strong>
-                    001 — Barbería de prueba
-                </strong>
-
-                <div class="cliente-url">
-                    /r/001
-                </div>
-
-
-                <button
-                    class="boton-editar"
-                    onclick="editarCliente('001')"
-                >
-
-                    ✏️ Editar
-
-                </button>
-
-            </div>
-
-
-
-            <div class="cliente">
-
-                <strong>
-                    002 — Restaurante de prueba
-                </strong>
-
-                <div class="cliente-url">
-                    /r/002
-                </div>
-
-
-                <button
-                    class="boton-editar"
-                    onclick="editarCliente('002')"
-                >
-
-                    ✏️ Editar
-
-                </button>
-
-            </div>
-
-
-
-            <div class="cliente">
-
-                <strong>
-                    003 — Café San Rafael
-                </strong>
-
-                <div class="cliente-url">
-                    /r/003
-                </div>
-
-
-                <button
-                    class="boton-editar"
-                    onclick="editarCliente('003')"
-                >
-
-                    ✏️ Editar
-
-                </button>
-
-            </div>
-
-
-        </div>
+        <div id="listaClientes"></div>
 
     </div>
 
 
 
-    <!-- =========================
+    <!-- =================================================
          CREAR / EDITAR CLIENTE
-    ========================== -->
+    ================================================== -->
 
     <div
         class="tarjeta"
@@ -387,8 +340,7 @@
         >
 
             Estás editando un cliente existente.
-            Los cambios generarán un nuevo código
-            para reemplazar en clientes.js.
+            Podés modificar cualquiera de sus datos.
 
         </p>
 
@@ -431,14 +383,13 @@
 
         <p class="aviso">
 
-            Agregá los botones que querés que aparezcan
-            cuando el cliente escanee su QR o NFC.
+            Cada botón puede tener un nombre y un enlace
+            diferente.
 
         </p>
 
 
         <div id="botonesPersonalizados"></div>
-
 
 
         <button
@@ -452,11 +403,11 @@
 
 
 
-        <!-- CREAR -->
+        <!-- GUARDAR -->
 
         <button
             id="botonGuardar"
-            onclick="crearCliente()"
+            onclick="guardarCliente()"
         >
 
             Crear cliente
@@ -465,7 +416,7 @@
 
 
 
-        <!-- CANCELAR EDICIÓN -->
+        <!-- CANCELAR -->
 
         <button
             id="botonCancelar"
@@ -474,7 +425,7 @@
             style="display:none;"
         >
 
-            Cancelar edición
+            Cancelar
 
         </button>
 
@@ -488,12 +439,12 @@
         >
 
             <h3>
-                ✅ Código generado
+                ✅ Cambios preparados
             </h3>
 
 
             <p>
-                El enlace permanente es:
+                El enlace permanente del cliente es:
             </p>
 
 
@@ -515,7 +466,7 @@
 
 
             <h3>
-                Código para clientes.js
+                Código completo para clientes.js
             </h3>
 
 
@@ -530,16 +481,16 @@
                 onclick="copiarCodigo()"
             >
 
-                Copiar código
+                📋 Copiar clientes.js completo
 
             </button>
 
 
             <p class="aviso">
 
-                ⚠️ Este panel genera el código actualizado,
-                pero todavía tenés que reemplazarlo manualmente
-                dentro de clientes.js.
+                ⚠️ Este panel todavía no modifica automáticamente
+                el archivo de GitHub. Copiá el código completo
+                y reemplazá el contenido de clientes.js.
 
             </p>
 
@@ -579,6 +530,9 @@ function iniciarSesion() {
         document.getElementById("panel").style.display =
             "block";
 
+
+        mostrarClientes();
+
     } else {
 
         document.getElementById("errorLogin").textContent =
@@ -591,7 +545,7 @@ function iniciarSesion() {
 
 
 /* =====================================================
-   BASE DE DATOS TEMPORAL DE CLIENTES
+   CLIENTES
 ===================================================== */
 
 const clientes = {
@@ -628,7 +582,6 @@ const clientes = {
     },
 
 
-
     "002": {
 
         nombre: "Restaurante de prueba",
@@ -658,7 +611,6 @@ const clientes = {
         ]
 
     },
-
 
 
     "003": {
@@ -710,6 +662,111 @@ let clienteEditando = null;
 
 
 /* =====================================================
+   MOSTRAR CLIENTES
+===================================================== */
+
+function mostrarClientes() {
+
+
+    const lista =
+        document.getElementById(
+            "listaClientes"
+        );
+
+
+    lista.innerHTML = "";
+
+
+
+    const codigos =
+        Object.keys(clientes);
+
+
+
+    if (codigos.length === 0) {
+
+        lista.innerHTML = `
+
+            <p class="aviso">
+                No hay clientes registrados.
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    codigos.forEach(function(codigo) {
+
+
+        const cliente =
+            clientes[codigo];
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "cliente";
+
+
+        div.innerHTML = `
+
+            <strong>
+                ${escaparHTML(codigo)}
+                —
+                ${escaparHTML(cliente.nombre)}
+            </strong>
+
+
+            <div class="cliente-url">
+
+                /r/${escaparHTML(codigo)}
+
+            </div>
+
+
+            <div class="cliente-acciones">
+
+
+                <button
+                    class="boton-editar"
+                    onclick="editarCliente('${escaparJS(codigo)}')"
+                >
+
+                    ✏️ Editar
+
+                </button>
+
+
+                <button
+                    class="boton-eliminar"
+                    onclick="eliminarCliente('${escaparJS(codigo)}')"
+                >
+
+                    🗑️ Eliminar
+
+                </button>
+
+
+            </div>
+
+        `;
+
+
+        lista.appendChild(div);
+
+    });
+
+}
+
+
+
+/* =====================================================
    AGREGAR BOTÓN
 ===================================================== */
 
@@ -717,6 +774,7 @@ function agregarBoton(
     nombreInicial = "",
     enlaceInicial = ""
 ) {
+
 
     contadorBotones++;
 
@@ -770,7 +828,7 @@ function agregarBoton(
             onclick="quitarBoton(${contadorBotones})"
         >
 
-            Quitar botón
+            🗑️ Quitar botón
 
         </button>
 
@@ -789,33 +847,47 @@ function agregarBoton(
 
 function quitarBoton(id) {
 
+
     const elemento =
         document.getElementById(
             "boton-" + id
         );
 
 
-    if (elemento) {
+    if (!elemento) {
+
+        return;
+
+    }
+
+
+
+    const nombreInput =
+        elemento.querySelector(
+            ".nombre-boton"
+        );
+
+
+    const nombre =
+        nombreInput.value.trim()
+        || "este botón";
+
+
+
+    const confirmar =
+        confirm(
+            "¿Estás seguro que querés borrar " +
+            '"' + nombre + '"' +
+            "?\n\nEsta acción quitará este botón del cliente."
+        );
+
+
+
+    if (confirmar) {
 
         elemento.remove();
 
     }
-
-}
-
-
-
-/* =====================================================
-   ESCAPAR HTML
-===================================================== */
-
-function escaparHTML(texto) {
-
-    return String(texto)
-        .replace(/&/g, "&amp;")
-        .replace(/"/g, "&quot;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
 
 }
 
@@ -844,17 +916,15 @@ function editarCliente(codigo) {
 
 
 
-    clienteEditando = codigo;
+    clienteEditando =
+        codigo;
 
 
-
-    /* CAMBIAR TÍTULO */
 
     document.getElementById(
         "tituloFormulario"
     ).textContent =
         "✏️ Editar cliente " + codigo;
-
 
 
     document.getElementById(
@@ -864,9 +934,6 @@ function editarCliente(codigo) {
     );
 
 
-
-    /* MOSTRAR AVISO */
-
     document.getElementById(
         "avisoEdicion"
     ).style.display =
@@ -874,13 +941,10 @@ function editarCliente(codigo) {
 
 
 
-    /* CARGAR CÓDIGO */
-
     document.getElementById(
         "codigo"
     ).value =
         codigo;
-
 
 
     document.getElementById(
@@ -890,8 +954,6 @@ function editarCliente(codigo) {
 
 
 
-    /* CARGAR NOMBRE */
-
     document.getElementById(
         "nombre"
     ).value =
@@ -899,20 +961,15 @@ function editarCliente(codigo) {
 
 
 
-    /* LIMPIAR BOTONES */
-
     document.getElementById(
         "botonesPersonalizados"
     ).innerHTML =
         "";
 
 
-
     contadorBotones = 0;
 
 
-
-    /* CARGAR BOTONES */
 
     cliente.botones.forEach(function(boton) {
 
@@ -925,16 +982,11 @@ function editarCliente(codigo) {
 
 
 
-    /* CAMBIAR BOTÓN PRINCIPAL */
-
     document.getElementById(
         "botonGuardar"
     ).textContent =
-        "Guardar cambios y generar código";
+        "💾 Guardar cambios";
 
-
-
-    /* MOSTRAR CANCELAR */
 
     document.getElementById(
         "botonCancelar"
@@ -942,17 +994,12 @@ function editarCliente(codigo) {
         "block";
 
 
-
-    /* OCULTAR RESULTADO ANTERIOR */
-
     document.getElementById(
         "resultado"
     ).style.display =
         "none";
 
 
-
-    /* IR AL FORMULARIO */
 
     document.getElementById(
         "formularioCliente"
@@ -967,14 +1014,112 @@ function editarCliente(codigo) {
 
 
 /* =====================================================
+   ELIMINAR CLIENTE
+===================================================== */
+
+function eliminarCliente(codigo) {
+
+
+    const cliente =
+        clientes[codigo];
+
+
+    if (!cliente) {
+
+        alert(
+            "No se encontró ese cliente."
+        );
+
+        return;
+
+    }
+
+
+
+    const confirmar =
+        confirm(
+
+            "⚠️ ATENCIÓN\n\n" +
+
+            "¿Estás seguro que querés borrar " +
+
+            "al cliente " +
+
+            codigo +
+
+            " — " +
+
+            cliente.nombre +
+
+            "?\n\n" +
+
+            "Se eliminarán todos sus botones " +
+
+            "y sus datos del panel.\n\n" +
+
+            "Esta acción no se puede deshacer."
+
+        );
+
+
+
+    if (!confirmar) {
+
+        return;
+
+    }
+
+
+
+    delete clientes[codigo];
+
+
+
+    /* SI ESTABA EDITANDO ESE CLIENTE */
+
+    if (clienteEditando === codigo) {
+
+        cancelarEdicion();
+
+    }
+
+
+
+    mostrarClientes();
+
+
+
+    /* GENERAR CLIENTES.JS ACTUALIZADO */
+
+    generarClientesJS();
+
+
+
+    alert(
+
+        "El cliente " +
+
+        codigo +
+
+        " fue eliminado del panel.\n\n" +
+
+        "Recordá reemplazar clientes.js con el código generado."
+
+    );
+
+}
+
+
+
+/* =====================================================
    CANCELAR EDICIÓN
 ===================================================== */
 
 function cancelarEdicion() {
 
 
-    clienteEditando = null;
-
+    clienteEditando =
+        null;
 
 
     document.getElementById(
@@ -1020,7 +1165,8 @@ function cancelarEdicion() {
         "";
 
 
-    contadorBotones = 0;
+    contadorBotones =
+        0;
 
 
     document.getElementById(
@@ -1045,10 +1191,10 @@ function cancelarEdicion() {
 
 
 /* =====================================================
-   CREAR / ACTUALIZAR CLIENTE
+   GUARDAR CLIENTE
 ===================================================== */
 
-function crearCliente() {
+function guardarCliente() {
 
 
     const codigo =
@@ -1076,9 +1222,7 @@ function crearCliente() {
 
 
 
-    /* =================================================
-       EVITAR CÓDIGOS EXISTENTES AL CREAR
-    ================================================= */
+    /* EVITAR CÓDIGOS DUPLICADOS */
 
     if (
         !clienteEditando &&
@@ -1095,9 +1239,7 @@ function crearCliente() {
 
 
 
-    /* =================================================
-       OBTENER BOTONES
-    ================================================= */
+    /* OBTENER BOTONES */
 
     const nombres =
         document.querySelectorAll(
@@ -1124,7 +1266,7 @@ function crearCliente() {
 
 
 
-    let botones = "";
+    const botones = [];
 
 
 
@@ -1159,83 +1301,11 @@ function crearCliente() {
 
 
 
-        botones += `
+        botones.push({
 
-            {
-                nombre: "${escaparJS(nombreBoton)}",
-                enlace: "${escaparJS(enlaceBoton)}"
-            },
+            nombre: nombreBoton,
 
-`;
-
-    }
-
-
-
-    /* =================================================
-       GENERAR CÓDIGO
-    ================================================= */
-
-    const codigoCliente = `
-
-    "${codigo}": {
-
-        nombre: "${escaparJS(nombre)}",
-
-        botones: [
-
-${botones}
-
-        ]
-
-    },
-
-`;
-
-
-
-    /* =================================================
-       GENERAR URL
-    ================================================= */
-
-    const url =
-        "https://qonekta.github.io/qr-dinamicos/r/"
-        + codigo;
-
-
-
-    enlaceActual = url;
-
-    codigoActual = codigoCliente;
-
-
-
-    /* =================================================
-       ACTUALIZAR DATOS TEMPORALES
-    ================================================= */
-
-    clientes[codigo] = {
-
-        nombre: nombre,
-
-        botones: []
-
-    };
-
-
-    for (
-        let i = 0;
-        i < nombres.length;
-        i++
-    ) {
-
-        clientes[codigo].botones.push({
-
-            nombre:
-                nombres[i].value.trim(),
-
-            enlace:
-                enlaces[i].value.trim()
+            enlace: enlaceBoton
 
         });
 
@@ -1243,21 +1313,46 @@ ${botones}
 
 
 
-    /* =================================================
-       MOSTRAR RESULTADO
-    ================================================= */
+    /* GUARDAR DATOS */
+
+    clientes[codigo] = {
+
+        nombre: nombre,
+
+        botones: botones
+
+    };
+
+
+
+    /* GENERAR CLIENTES.JS */
+
+    generarClientesJS();
+
+
+
+    /* MOSTRAR LISTA ACTUALIZADA */
+
+    mostrarClientes();
+
+
+
+    /* MOSTRAR ENLACE */
+
+    enlaceActual =
+        "https://qonekta.github.io/qr-dinamicos/r/"
+        + codigo;
+
+
 
     document.getElementById(
         "urlCliente"
     ).textContent =
-        url;
+        enlaceActual;
 
 
-    document.getElementById(
-        "codigoGenerado"
-    ).textContent =
-        codigoCliente;
 
+    /* RESULTADO */
 
     document.getElementById(
         "resultado"
@@ -1265,49 +1360,155 @@ ${botones}
         "block";
 
 
-    document.getElementById(
-        "resultado"
-    ).scrollIntoView({
 
-        behavior: "smooth"
-
-    });
-
-
-
-    /* =================================================
-       SI ESTABA EDITANDO
-    ================================================= */
+    /* MENSAJE */
 
     if (clienteEditando) {
 
         alert(
-            "Cambios preparados. Copiá el código generado y reemplazalo en clientes.js."
+            "Cliente actualizado correctamente."
         );
 
     } else {
 
         alert(
-            "Cliente generado correctamente."
+            "Cliente creado correctamente."
         );
 
     }
+
+
+
+    /* SALIR DE EDICIÓN */
+
+    clienteEditando =
+        null;
+
+
+    document.getElementById(
+        "codigo"
+    ).disabled =
+        false;
+
+
+    document.getElementById(
+        "botonGuardar"
+    ).textContent =
+        "Crear cliente";
+
+
+    document.getElementById(
+        "botonCancelar"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "tituloFormulario"
+    ).textContent =
+        "Crear nuevo cliente";
+
+
+    document.getElementById(
+        "tituloFormulario"
+    ).classList.remove(
+        "titulo-edicion"
+    );
+
+
+    document.getElementById(
+        "avisoEdicion"
+    ).style.display =
+        "none";
 
 }
 
 
 
 /* =====================================================
-   ESCAPAR JAVASCRIPT
+   GENERAR CLIENTES.JS COMPLETO
 ===================================================== */
 
-function escaparJS(texto) {
+function generarClientesJS() {
 
-    return String(texto)
-        .replace(/\\/g, "\\\\")
-        .replace(/"/g, '\\"')
-        .replace(/\n/g, "\\n")
-        .replace(/\r/g, "\\r");
+
+    let codigo =
+
+`const negocios = {
+
+`;
+
+
+
+    const codigos =
+        Object.keys(clientes);
+
+
+
+    codigos.forEach(function(id) {
+
+
+        const cliente =
+            clientes[id];
+
+
+        codigo +=
+
+`    "${id}": {
+
+        nombre: "${escaparJS(cliente.nombre)}",
+
+        botones: [
+
+`;
+
+
+
+        cliente.botones.forEach(function(boton) {
+
+
+            codigo +=
+
+`            {
+                nombre: "${escaparJS(boton.nombre)}",
+                enlace: "${escaparJS(boton.enlace)}"
+            },
+
+`;
+
+        });
+
+
+
+        codigo +=
+
+`        ]
+
+    },
+
+`;
+
+    });
+
+
+
+    codigo +=
+
+`};
+
+`;
+
+
+
+    codigoActual =
+        codigo;
+
+
+
+    document.getElementById(
+        "codigoGenerado"
+    ).textContent =
+        codigo;
 
 }
 
@@ -1334,7 +1535,7 @@ function copiarEnlace() {
 
 
 /* =====================================================
-   COPIAR CÓDIGO
+   COPIAR CLIENTES.JS
 ===================================================== */
 
 function copiarCodigo() {
@@ -1346,8 +1547,48 @@ function copiarCodigo() {
 
 
     alert(
-        "Código copiado."
+        "clientes.js completo copiado."
     );
+
+}
+
+
+
+/* =====================================================
+   ESCAPAR HTML
+===================================================== */
+
+function escaparHTML(texto) {
+
+    return String(texto)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;");
+
+}
+
+
+
+/* =====================================================
+   ESCAPAR JAVASCRIPT
+===================================================== */
+
+function escaparJS(texto) {
+
+    return String(texto)
+
+        .replace(/\\/g, "\\\\")
+
+        .replace(/"/g, '\\"')
+
+        .replace(/\n/g, "\\n")
+
+        .replace(/\r/g, "\\r");
 
 }
 
