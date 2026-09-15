@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Panel de clientes</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 30px 15px;
+        }
+
+        .contenedor {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            background: #222;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .resultado {
+            margin-top: 25px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .url {
+            word-break: break-all;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <h1>Panel de clientes</h1>
+
+    <p>
+        Creá la información básica del cliente.
+    </p>
+
+    <label>Código del cliente</label>
+    <input id="codigo" placeholder="Ejemplo: 003">
+
+    <label>Nombre del negocio</label>
+    <input id="nombre" placeholder="Ejemplo: Café San Rafael">
+
+    <label>WhatsApp</label>
+    <input id="whatsapp" placeholder="Ejemplo: https://wa.me/549260...">
+
+    <label>Instagram</label>
+    <input id="instagram" placeholder="https://instagram.com/...">
+
+    <label>Google Reviews</label>
+    <input id="reviews" placeholder="Link de Google Reviews">
+
+    <label>Ubicación</label>
+    <input id="ubicacion" placeholder="Link de Google Maps">
+
+    <button onclick="crearCliente()">
+        Crear cliente
+    </button>
+
+    <div class="resultado" id="resultado">
+
+        <h3>Cliente creado</h3>
+
+        <p>
+            Su enlace será:
+        </p>
+
+        <p class="url" id="urlCliente"></p>
+
+        <p>
+            ⚠️ Este panel todavía no guarda automáticamente el cliente.
+            Primero genera la información que necesitamos.
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function crearCliente() {
+
+    const codigo = document.getElementById("codigo").value;
+
+    const nombre = document.getElementById("nombre").value;
+
+    const whatsapp = document.getElementById("whatsapp").value;
+
+    const instagram = document.getElementById("instagram").value;
+
+    const reviews = document.getElementById("reviews").value;
+
+    const ubicacion = document.getElementById("ubicacion").value;
+
+
+    if (!codigo || !nombre) {
+
+        alert("Completá al menos el código y el nombre del negocio.");
+
+        return;
+
+    }
+
+
+    const url =
+        "https://qonekta.github.io/qr-dinamicos/r/" + codigo;
+
+
+    document.getElementById("urlCliente").textContent = url;
+
+    document.getElementById("resultado").style.display = "block";
+
+
+    console.log({
+
+        codigo: codigo,
+
+        nombre: nombre,
+
+        whatsapp: whatsapp,
+
+        instagram: instagram,
+
+        reviews: reviews,
+
+        ubicacion: ubicacion
+
+    });
+
+}
+
+</script>
+
+</body>
+
+</html>
