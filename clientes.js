@@ -44,6 +44,36 @@ const negocios = {
                 enlace: "https://www.google.com/maps/"
             }
         ]
-    }
+    },
+    "003": {
+
+        nombre: "cafe san rafael",
+
+        botones: [
+
+            {
+                nombre: "📱 WhatsApp",
+                enlace: ""
+            },
+
+            {
+                nombre: "📸 Instagram",
+                enlace: ""
+            },
+
+            {
+                nombre: "⭐ Dejar una reseña",
+                enlace: ""
+            },
+
+            {
+                nombre: "📍 Cómo llegar",
+                enlace: ""
+            }
+
+        ]
+
+    },
+
 
 };
