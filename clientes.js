@@ -44,7 +44,7 @@ const negocios = {
                 enlace: "https://www.google.com/maps/"
             }
         ]
-    }
+    },
     
     "003": {
 
