@@ -112,7 +112,9 @@
         </p>
 
         <p class="url" id="urlCliente"></p>
+<h3>Código para clientes.js</h3>
 
+<pre id="codigoGenerado"></pre>
         <p>
             ⚠️ Este panel todavía no guarda automáticamente el cliente.
             Primero genera la información que necesitamos.
@@ -127,17 +129,17 @@
 
 function crearCliente() {
 
-    const codigo = document.getElementById("codigo").value;
+    const codigo = document.getElementById("codigo").value.trim();
 
-    const nombre = document.getElementById("nombre").value;
+    const nombre = document.getElementById("nombre").value.trim();
 
-    const whatsapp = document.getElementById("whatsapp").value;
+    const whatsapp = document.getElementById("whatsapp").value.trim();
 
-    const instagram = document.getElementById("instagram").value;
+    const instagram = document.getElementById("instagram").value.trim();
 
-    const reviews = document.getElementById("reviews").value;
+    const reviews = document.getElementById("reviews").value.trim();
 
-    const ubicacion = document.getElementById("ubicacion").value;
+    const ubicacion = document.getElementById("ubicacion").value.trim();
 
 
     if (!codigo || !nombre) {
@@ -149,30 +151,51 @@ function crearCliente() {
     }
 
 
+    const codigoCliente = `
+
+    "${codigo}": {
+
+        nombre: "${nombre}",
+
+        botones: [
+
+            {
+                nombre: "📱 WhatsApp",
+                enlace: "${whatsapp}"
+            },
+
+            {
+                nombre: "📸 Instagram",
+                enlace: "${instagram}"
+            },
+
+            {
+                nombre: "⭐ Dejar una reseña",
+                enlace: "${reviews}"
+            },
+
+            {
+                nombre: "📍 Cómo llegar",
+                enlace: "${ubicacion}"
+            }
+
+        ]
+
+    },
+
+`;
+
+
+    document.getElementById("codigoGenerado").textContent = codigoCliente;
+
+    document.getElementById("resultado").style.display = "block";
+
+
     const url =
         "https://qonekta.github.io/qr-dinamicos/r/" + codigo;
 
 
     document.getElementById("urlCliente").textContent = url;
-
-    document.getElementById("resultado").style.display = "block";
-
-
-    console.log({
-
-        codigo: codigo,
-
-        nombre: nombre,
-
-        whatsapp: whatsapp,
-
-        instagram: instagram,
-
-        reviews: reviews,
-
-        ubicacion: ubicacion
-
-    });
 
 }
 
