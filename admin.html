@@ -9,204 +9,149 @@
 
     <title>Panel de clientes</title>
 
-
     <style>
 
         body {
-
             font-family: Arial, sans-serif;
-
             background: #f5f5f5;
-
             margin: 0;
-
             padding: 30px 15px;
-
             color: #222;
-
         }
-
 
         .contenedor {
-
             max-width: 700px;
-
             margin: auto;
-
         }
-
 
         .tarjeta {
-
             background: white;
-
             padding: 30px;
-
             border-radius: 15px;
-
             margin-bottom: 20px;
-
             box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-
         }
-
 
         h1 {
-
             text-align: center;
-
             margin-top: 0;
-
         }
-
 
         h2 {
-
             margin-top: 0;
-
         }
-
 
         label {
-
             display: block;
-
             margin-top: 15px;
-
             font-weight: bold;
-
         }
-
 
         input {
-
             width: 100%;
-
             box-sizing: border-box;
-
             padding: 12px;
-
             margin-top: 6px;
-
             border: 1px solid #ccc;
-
             border-radius: 8px;
-
             font-size: 15px;
-
         }
-
 
         button {
-
             width: 100%;
-
             padding: 14px;
-
             margin-top: 20px;
-
             background: #222;
-
             color: white;
-
             border: none;
-
             border-radius: 8px;
-
             font-size: 16px;
-
             cursor: pointer;
-
         }
-
 
         button:hover {
-
             background: #444;
-
         }
 
+        .boton-eliminar {
+            background: #b00020;
+            margin-top: 10px;
+        }
+
+        .boton-eliminar:hover {
+            background: #8a0018;
+        }
 
         .resultado {
-
             margin-top: 25px;
-
             padding: 20px;
-
             background: #f0f0f0;
-
             border-radius: 10px;
-
             display: none;
-
         }
-
 
         .url {
-
             word-break: break-all;
-
             font-weight: bold;
-
         }
-
 
         .codigo {
-
             background: #222;
-
-            color: #fff;
-
+            color: white;
             padding: 15px;
-
             border-radius: 8px;
-
             overflow-x: auto;
-
             white-space: pre-wrap;
-
             word-break: break-word;
-
         }
-
 
         .boton-secundario {
-
             background: #555;
-
         }
 
+        .boton-agregar {
+            background: #1976d2;
+        }
+
+        .boton-agregar:hover {
+            background: #125aa0;
+        }
+
+        .boton-quitar {
+            background: #777;
+            width: auto;
+            padding: 8px 12px;
+            margin-top: 10px;
+        }
+
+        .boton-quitar:hover {
+            background: #555;
+        }
+
+        .boton-personalizado {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+            background: #fafafa;
+        }
 
         .cliente {
-
             border: 1px solid #ddd;
-
             padding: 15px;
-
             border-radius: 10px;
-
             margin-top: 10px;
-
             background: #fafafa;
-
         }
-
 
         .cliente strong {
-
             display: block;
-
             margin-bottom: 5px;
-
         }
 
-
         .aviso {
-
             color: #777;
-
             font-size: 14px;
-
         }
 
     </style>
@@ -227,9 +172,7 @@
         <h1>Panel de clientes</h1>
 
         <p>
-
-            Desde acá podemos crear la información de cada negocio.
-
+            Administrá los enlaces de los clientes de tu sistema QR/NFC.
         </p>
 
     </div>
@@ -248,7 +191,7 @@
 
                 <strong>001 — Barbería de prueba</strong>
 
-                https://qonekta.github.io/qr-dinamicos/r/001
+                /r/001
 
             </div>
 
@@ -257,7 +200,7 @@
 
                 <strong>002 — Restaurante de prueba</strong>
 
-                https://qonekta.github.io/qr-dinamicos/r/002
+                /r/002
 
             </div>
 
@@ -266,7 +209,7 @@
 
                 <strong>003 — Café San Rafael</strong>
 
-                https://qonekta.github.io/qr-dinamicos/r/003
+                /r/003
 
             </div>
 
@@ -299,37 +242,37 @@
         >
 
 
-        <label>WhatsApp</label>
 
-        <input
-            id="whatsapp"
-            placeholder="https://wa.me/549260..."
+        <!-- BOTONES PERSONALIZADOS -->
+
+        <h3 style="margin-top:30px;">
+            Botones del negocio
+        </h3>
+
+
+        <p class="aviso">
+
+            Agregá los botones que querés que aparezcan
+            cuando el cliente escanee su QR o NFC.
+
+        </p>
+
+
+        <div id="botonesPersonalizados"></div>
+
+
+        <button
+            class="boton-agregar"
+            onclick="agregarBoton()"
         >
 
+            + Agregar botón
 
-        <label>Instagram</label>
-
-        <input
-            id="instagram"
-            placeholder="https://instagram.com/..."
-        >
+        </button>
 
 
-        <label>Google Reviews</label>
 
-        <input
-            id="reviews"
-            placeholder="Link de Google Reviews"
-        >
-
-
-        <label>Ubicación</label>
-
-        <input
-            id="ubicacion"
-            placeholder="Link de Google Maps"
-        >
-
+        <!-- CREAR -->
 
         <button onclick="crearCliente()">
 
@@ -373,9 +316,7 @@
 
 
             <h3>
-
                 Código para clientes.js
-
             </h3>
 
 
@@ -397,9 +338,9 @@
 
             <p class="aviso">
 
-                ⚠️ Por ahora el panel no modifica automáticamente
-                clientes.js. Copiá el bloque generado y agregalo
-                manualmente.
+                ⚠️ Por ahora este panel genera el código,
+                pero todavía no modifica automáticamente
+                clientes.js.
 
             </p>
 
@@ -415,41 +356,118 @@
 <script>
 
 
+let contadorBotones = 0;
+
 let enlaceActual = "";
 
 let codigoActual = "";
 
 
 
+// AGREGAR BOTÓN
+
+
+function agregarBoton() {
+
+
+    contadorBotones++;
+
+
+    const contenedor =
+        document.getElementById(
+            "botonesPersonalizados"
+        );
+
+
+    const div =
+        document.createElement("div");
+
+
+    div.className =
+        "boton-personalizado";
+
+
+    div.id =
+        "boton-" + contadorBotones;
+
+
+    div.innerHTML = `
+
+        <label>
+            Nombre del botón
+        </label>
+
+        <input
+            class="nombre-boton"
+            placeholder="Ejemplo: 📱 WhatsApp"
+        >
+
+        <label>
+            Enlace
+        </label>
+
+        <input
+            class="enlace-boton"
+            placeholder="https://..."
+        >
+
+        <button
+            class="boton-quitar"
+            onclick="quitarBoton(${contadorBotones})"
+        >
+
+            Quitar botón
+
+        </button>
+
+    `;
+
+
+    contenedor.appendChild(div);
+
+}
+
+
+
+// QUITAR BOTÓN
+
+
+function quitarBoton(id) {
+
+
+    const elemento =
+        document.getElementById(
+            "boton-" + id
+        );
+
+
+    if (elemento) {
+
+        elemento.remove();
+
+    }
+
+}
+
+
+
+// CREAR CLIENTE
+
+
 function crearCliente() {
 
 
     const codigo =
-        document.getElementById("codigo").value.trim();
+        document.getElementById(
+            "codigo"
+        ).value.trim();
 
 
     const nombre =
-        document.getElementById("nombre").value.trim();
+        document.getElementById(
+            "nombre"
+        ).value.trim();
 
-
-    const whatsapp =
-        document.getElementById("whatsapp").value.trim();
-
-
-    const instagram =
-        document.getElementById("instagram").value.trim();
-
-
-    const reviews =
-        document.getElementById("reviews").value.trim();
-
-
-    const ubicacion =
-        document.getElementById("ubicacion").value.trim();
-
-
-
-    // VALIDACIONES
 
 
     if (!codigo || !nombre) {
@@ -464,7 +482,7 @@ function crearCliente() {
 
 
 
-    // Evitar códigos repetidos
+    // EVITAR CÓDIGOS DE PRUEBA YA EXISTENTES
 
 
     if (
@@ -474,7 +492,7 @@ function crearCliente() {
     ) {
 
         alert(
-            "Ese código ya está utilizado. Probá con otro, por ejemplo 004."
+            "Ese código ya está utilizado. Probá con otro."
         );
 
         return;
@@ -483,7 +501,81 @@ function crearCliente() {
 
 
 
-    // Generar bloque para clientes.js
+    // OBTENER BOTONES
+
+
+    const nombres =
+        document.querySelectorAll(
+            ".nombre-boton"
+        );
+
+
+    const enlaces =
+        document.querySelectorAll(
+            ".enlace-boton"
+        );
+
+
+
+    if (nombres.length === 0) {
+
+        alert(
+            "Agregá al menos un botón para el cliente."
+        );
+
+        return;
+
+    }
+
+
+
+    let botones = "";
+
+
+
+    for (
+        let i = 0;
+        i < nombres.length;
+        i++
+    ) {
+
+
+        const nombreBoton =
+            nombres[i].value.trim();
+
+
+        const enlaceBoton =
+            enlaces[i].value.trim();
+
+
+
+        if (!nombreBoton || !enlaceBoton) {
+
+            alert(
+                "Completá el nombre y el enlace de cada botón."
+            );
+
+            return;
+
+        }
+
+
+
+        botones += `
+
+            {
+                nombre: "${nombreBoton}",
+
+                enlace: "${enlaceBoton}"
+            },
+
+`;
+
+    }
+
+
+
+    // GENERAR CLIENTE
 
 
     const codigoCliente = `
@@ -494,37 +586,7 @@ function crearCliente() {
 
         botones: [
 
-            {
-
-                nombre: "📱 WhatsApp",
-
-                enlace: "${whatsapp}"
-
-            },
-
-            {
-
-                nombre: "📸 Instagram",
-
-                enlace: "${instagram}"
-
-            },
-
-            {
-
-                nombre: "⭐ Dejar una reseña",
-
-                enlace: "${reviews}"
-
-            },
-
-            {
-
-                nombre: "📍 Cómo llegar",
-
-                enlace: "${ubicacion}"
-
-            }
+${botones}
 
         ]
 
@@ -534,7 +596,7 @@ function crearCliente() {
 
 
 
-    // Generar URL
+    // GENERAR URL
 
 
     const url =
@@ -549,7 +611,7 @@ function crearCliente() {
 
 
 
-    // Mostrar información
+    // MOSTRAR RESULTADO
 
 
     document.getElementById(
@@ -565,9 +627,6 @@ function crearCliente() {
     document.getElementById(
         "resultado"
     ).style.display = "block";
-
-
-    // Llevar al resultado
 
 
     document.getElementById(
