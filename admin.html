@@ -12,29 +12,6 @@
     <style>
 
         body {
-            <div id="login">
-
-    <div class="tarjeta">
-
-        <h2>🔐 Acceso restringido</h2>
-
-        <p>Ingresá la contraseña para acceder al panel.</p>
-
-        <input
-            type="password"
-            id="password"
-            placeholder="Contraseña"
-        >
-
-        <button onclick="iniciarSesion()">
-            Ingresar
-        </button>
-
-        <p id="errorLogin" style="color:red;"></p>
-
-    </div>
-
-</div>
             font-family: Arial, sans-serif;
             background: #f5f5f5;
             margin: 0;
@@ -185,7 +162,46 @@
 <body>
 
 
-<div class="contenedor" id="panel" style="display:none;">
+<!-- LOGIN -->
+
+<div id="login">
+
+    <div class="tarjeta">
+
+        <h2>🔐 Acceso restringido</h2>
+
+        <p>
+            Ingresá la contraseña para acceder al panel.
+        </p>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Contraseña"
+        >
+
+        <button onclick="iniciarSesion()">
+            Ingresar
+        </button>
+
+        <p
+            id="errorLogin"
+            style="color:red;"
+        ></p>
+
+    </div>
+
+</div>
+
+
+
+<!-- PANEL -->
+
+<div
+    class="contenedor"
+    id="panel"
+    style="display:none;"
+>
 
 
     <!-- ENCABEZADO -->
@@ -195,7 +211,8 @@
         <h1>Panel de clientes</h1>
 
         <p>
-            Administrá los enlaces de los clientes de tu sistema QR/NFC.
+            Administrá los enlaces de los clientes
+            de tu sistema QR/NFC.
         </p>
 
     </div>
@@ -210,31 +227,41 @@
 
         <div id="listaClientes">
 
+
             <div class="cliente">
 
-                <strong>001 — Barbería de prueba</strong>
+                <strong>
+                    001 — Barbería de prueba
+                </strong>
 
                 /r/001
 
             </div>
 
 
+
             <div class="cliente">
 
-                <strong>002 — Restaurante de prueba</strong>
+                <strong>
+                    002 — Restaurante de prueba
+                </strong>
 
                 /r/002
 
             </div>
 
 
+
             <div class="cliente">
 
-                <strong>003 — Café San Rafael</strong>
+                <strong>
+                    003 — Café San Rafael
+                </strong>
 
                 /r/003
 
             </div>
+
 
         </div>
 
@@ -249,7 +276,9 @@
         <h2>Crear nuevo cliente</h2>
 
 
-        <label>Código del cliente</label>
+        <label>
+            Código del cliente
+        </label>
 
         <input
             id="codigo"
@@ -257,7 +286,10 @@
         >
 
 
-        <label>Nombre del negocio</label>
+
+        <label>
+            Nombre del negocio
+        </label>
 
         <input
             id="nombre"
@@ -297,7 +329,9 @@
 
         <!-- CREAR -->
 
-        <button onclick="crearCliente()">
+        <button
+            onclick="crearCliente()"
+        >
 
             Crear cliente
 
@@ -312,13 +346,13 @@
             id="resultado"
         >
 
-            <h3>✅ Cliente generado</h3>
+            <h3>
+                ✅ Cliente generado
+            </h3>
 
 
             <p>
-
                 Su enlace permanente será:
-
             </p>
 
 
@@ -336,6 +370,7 @@
                 Copiar enlace
 
             </button>
+
 
 
             <h3>
@@ -367,6 +402,7 @@
 
             </p>
 
+
         </div>
 
     </div>
@@ -377,7 +413,14 @@
 
 
 <script>
+
+
+/* =========================
+   CONTRASEÑA
+========================= */
+
 const CONTRASENA = "Callejeros12";
+
 
 
 function iniciarSesion() {
@@ -385,11 +428,14 @@ function iniciarSesion() {
     const password =
         document.getElementById("password").value;
 
+
     if (password === CONTRASENA) {
 
-        document.getElementById("login").style.display = "none";
+        document.getElementById("login").style.display =
+            "none";
 
-        document.getElementById("panel").style.display = "block";
+        document.getElementById("panel").style.display =
+            "block";
 
     } else {
 
@@ -400,6 +446,12 @@ function iniciarSesion() {
 
 }
 
+
+
+/* =========================
+   VARIABLES
+========================= */
+
 let contadorBotones = 0;
 
 let enlaceActual = "";
@@ -408,11 +460,11 @@ let codigoActual = "";
 
 
 
-// AGREGAR BOTÓN
-
+/* =========================
+   AGREGAR BOTÓN
+========================= */
 
 function agregarBoton() {
-
 
     contadorBotones++;
 
@@ -446,6 +498,7 @@ function agregarBoton() {
             placeholder="Ejemplo: 📱 WhatsApp"
         >
 
+
         <label>
             Enlace
         </label>
@@ -454,6 +507,7 @@ function agregarBoton() {
             class="enlace-boton"
             placeholder="https://..."
         >
+
 
         <button
             class="boton-quitar"
@@ -473,11 +527,11 @@ function agregarBoton() {
 
 
 
-// QUITAR BOTÓN
-
+/* =========================
+   QUITAR BOTÓN
+========================= */
 
 function quitarBoton(id) {
-
 
     const elemento =
         document.getElementById(
@@ -495,11 +549,11 @@ function quitarBoton(id) {
 
 
 
-// CREAR CLIENTE
-
+/* =========================
+   CREAR CLIENTE
+========================= */
 
 function crearCliente() {
-
 
     const codigo =
         document.getElementById(
@@ -526,8 +580,7 @@ function crearCliente() {
 
 
 
-    // EVITAR CÓDIGOS DE PRUEBA YA EXISTENTES
-
+    /* EVITAR CÓDIGOS EXISTENTES */
 
     if (
         codigo === "001" ||
@@ -545,8 +598,7 @@ function crearCliente() {
 
 
 
-    // OBTENER BOTONES
-
+    /* OBTENER BOTONES */
 
     const nombres =
         document.querySelectorAll(
@@ -583,7 +635,6 @@ function crearCliente() {
         i++
     ) {
 
-
         const nombreBoton =
             nombres[i].value.trim();
 
@@ -609,18 +660,16 @@ function crearCliente() {
 
             {
                 nombre: "${nombreBoton}",
-
                 enlace: "${enlaceBoton}"
             },
 
-`;
+        `;
 
     }
 
 
 
-    // GENERAR CLIENTE
-
+    /* GENERAR CLIENTE */
 
     const codigoCliente = `
 
@@ -640,8 +689,7 @@ ${botones}
 
 
 
-    // GENERAR URL
-
+    /* GENERAR URL */
 
     const url =
         "https://qonekta.github.io/qr-dinamicos/r/"
@@ -655,8 +703,7 @@ ${botones}
 
 
 
-    // MOSTRAR RESULTADO
-
+    /* MOSTRAR RESULTADO */
 
     document.getElementById(
         "urlCliente"
@@ -685,11 +732,11 @@ ${botones}
 
 
 
-// COPIAR ENLACE
-
+/* =========================
+   COPIAR ENLACE
+========================= */
 
 function copiarEnlace() {
-
 
     navigator.clipboard.writeText(
         enlaceActual
@@ -704,11 +751,11 @@ function copiarEnlace() {
 
 
 
-// COPIAR CÓDIGO
-
+/* =========================
+   COPIAR CÓDIGO
+========================= */
 
 function copiarCodigo() {
-
 
     navigator.clipboard.writeText(
         codigoActual
