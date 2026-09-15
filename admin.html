@@ -9,6 +9,7 @@
 
     <title>Panel de clientes</title>
 
+
     <style>
 
         body {
@@ -19,10 +20,12 @@
             color: #222;
         }
 
+
         .contenedor {
             max-width: 700px;
             margin: auto;
         }
+
 
         .tarjeta {
             background: white;
@@ -32,20 +35,24 @@
             box-shadow: 0 3px 12px rgba(0,0,0,0.08);
         }
 
+
         h1 {
             text-align: center;
             margin-top: 0;
         }
 
+
         h2 {
             margin-top: 0;
         }
+
 
         label {
             display: block;
             margin-top: 15px;
             font-weight: bold;
         }
+
 
         input {
             width: 100%;
@@ -56,6 +63,7 @@
             border-radius: 8px;
             font-size: 15px;
         }
+
 
         button {
             width: 100%;
@@ -69,18 +77,97 @@
             cursor: pointer;
         }
 
+
         button:hover {
             background: #444;
         }
 
-        .boton-eliminar {
-            background: #b00020;
+
+        .boton-editar {
+            background: #1976d2;
+            margin-top: 12px;
+        }
+
+
+        .boton-editar:hover {
+            background: #125aa0;
+        }
+
+
+        .boton-agregar {
+            background: #1976d2;
+        }
+
+
+        .boton-agregar:hover {
+            background: #125aa0;
+        }
+
+
+        .boton-quitar {
+            background: #777;
+            width: auto;
+            padding: 8px 12px;
             margin-top: 10px;
         }
 
-        .boton-eliminar:hover {
+
+        .boton-quitar:hover {
+            background: #555;
+        }
+
+
+        .boton-secundario {
+            background: #555;
+        }
+
+
+        .boton-cancelar {
+            background: #b00020;
+        }
+
+
+        .boton-cancelar:hover {
             background: #8a0018;
         }
+
+
+        .boton-personalizado {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+
+
+        .cliente {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            background: #fafafa;
+        }
+
+
+        .cliente strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+
+        .cliente-url {
+            color: #777;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+
+        .aviso {
+            color: #777;
+            font-size: 14px;
+        }
+
 
         .resultado {
             margin-top: 25px;
@@ -90,10 +177,12 @@
             display: none;
         }
 
+
         .url {
             word-break: break-all;
             font-weight: bold;
         }
+
 
         .codigo {
             background: #222;
@@ -105,53 +194,14 @@
             word-break: break-word;
         }
 
-        .boton-secundario {
-            background: #555;
+
+        .modo-edicion {
+            border: 2px solid #1976d2;
         }
 
-        .boton-agregar {
-            background: #1976d2;
-        }
 
-        .boton-agregar:hover {
-            background: #125aa0;
-        }
-
-        .boton-quitar {
-            background: #777;
-            width: auto;
-            padding: 8px 12px;
-            margin-top: 10px;
-        }
-
-        .boton-quitar:hover {
-            background: #555;
-        }
-
-        .boton-personalizado {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 10px;
-            background: #fafafa;
-        }
-
-        .cliente {
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 10px;
-            background: #fafafa;
-        }
-
-        .cliente strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .aviso {
-            color: #777;
-            font-size: 14px;
+        .titulo-edicion {
+            color: #1976d2;
         }
 
     </style>
@@ -159,10 +209,13 @@
 </head>
 
 
+
 <body>
 
 
-<!-- LOGIN -->
+<!-- =========================
+     LOGIN
+========================= -->
 
 <div id="login">
 
@@ -174,15 +227,18 @@
             Ingresá la contraseña para acceder al panel.
         </p>
 
+
         <input
             type="password"
             id="password"
             placeholder="Contraseña"
         >
 
+
         <button onclick="iniciarSesion()">
             Ingresar
         </button>
+
 
         <p
             id="errorLogin"
@@ -195,7 +251,9 @@
 
 
 
-<!-- PANEL -->
+<!-- =========================
+     PANEL
+========================= -->
 
 <div
     class="contenedor"
@@ -219,11 +277,14 @@
 
 
 
-    <!-- CLIENTES ACTUALES -->
+    <!-- =========================
+         CLIENTES ACTUALES
+    ========================== -->
 
     <div class="tarjeta">
 
         <h2>Clientes actuales</h2>
+
 
         <div id="listaClientes">
 
@@ -234,7 +295,19 @@
                     001 — Barbería de prueba
                 </strong>
 
-                /r/001
+                <div class="cliente-url">
+                    /r/001
+                </div>
+
+
+                <button
+                    class="boton-editar"
+                    onclick="editarCliente('001')"
+                >
+
+                    ✏️ Editar
+
+                </button>
 
             </div>
 
@@ -246,7 +319,19 @@
                     002 — Restaurante de prueba
                 </strong>
 
-                /r/002
+                <div class="cliente-url">
+                    /r/002
+                </div>
+
+
+                <button
+                    class="boton-editar"
+                    onclick="editarCliente('002')"
+                >
+
+                    ✏️ Editar
+
+                </button>
 
             </div>
 
@@ -258,7 +343,19 @@
                     003 — Café San Rafael
                 </strong>
 
-                /r/003
+                <div class="cliente-url">
+                    /r/003
+                </div>
+
+
+                <button
+                    class="boton-editar"
+                    onclick="editarCliente('003')"
+                >
+
+                    ✏️ Editar
+
+                </button>
 
             </div>
 
@@ -269,16 +366,40 @@
 
 
 
-    <!-- CREAR CLIENTE -->
+    <!-- =========================
+         CREAR / EDITAR CLIENTE
+    ========================== -->
 
-    <div class="tarjeta">
+    <div
+        class="tarjeta"
+        id="formularioCliente"
+    >
 
-        <h2>Crear nuevo cliente</h2>
+        <h2 id="tituloFormulario">
+            Crear nuevo cliente
+        </h2>
 
+
+        <p
+            class="aviso"
+            id="avisoEdicion"
+            style="display:none;"
+        >
+
+            Estás editando un cliente existente.
+            Los cambios generarán un nuevo código
+            para reemplazar en clientes.js.
+
+        </p>
+
+
+
+        <!-- CÓDIGO -->
 
         <label>
             Código del cliente
         </label>
+
 
         <input
             id="codigo"
@@ -287,9 +408,12 @@
 
 
 
+        <!-- NOMBRE -->
+
         <label>
             Nombre del negocio
         </label>
+
 
         <input
             id="nombre"
@@ -298,7 +422,7 @@
 
 
 
-        <!-- BOTONES PERSONALIZADOS -->
+        <!-- BOTONES -->
 
         <h3 style="margin-top:30px;">
             Botones del negocio
@@ -316,6 +440,7 @@
         <div id="botonesPersonalizados"></div>
 
 
+
         <button
             class="boton-agregar"
             onclick="agregarBoton()"
@@ -330,10 +455,26 @@
         <!-- CREAR -->
 
         <button
+            id="botonGuardar"
             onclick="crearCliente()"
         >
 
             Crear cliente
+
+        </button>
+
+
+
+        <!-- CANCELAR EDICIÓN -->
+
+        <button
+            id="botonCancelar"
+            class="boton-cancelar"
+            onclick="cancelarEdicion()"
+            style="display:none;"
+        >
+
+            Cancelar edición
 
         </button>
 
@@ -347,12 +488,12 @@
         >
 
             <h3>
-                ✅ Cliente generado
+                ✅ Código generado
             </h3>
 
 
             <p>
-                Su enlace permanente será:
+                El enlace permanente es:
             </p>
 
 
@@ -396,14 +537,14 @@
 
             <p class="aviso">
 
-                ⚠️ Por ahora este panel genera el código,
-                pero todavía no modifica automáticamente
-                clientes.js.
+                ⚠️ Este panel genera el código actualizado,
+                pero todavía tenés que reemplazarlo manualmente
+                dentro de clientes.js.
 
             </p>
 
-
         </div>
+
 
     </div>
 
@@ -415,9 +556,9 @@
 <script>
 
 
-/* =========================
+/* =====================================================
    CONTRASEÑA
-========================= */
+===================================================== */
 
 const CONTRASENA = "Callejeros12";
 
@@ -434,6 +575,7 @@ function iniciarSesion() {
         document.getElementById("login").style.display =
             "none";
 
+
         document.getElementById("panel").style.display =
             "block";
 
@@ -448,9 +590,114 @@ function iniciarSesion() {
 
 
 
-/* =========================
+/* =====================================================
+   BASE DE DATOS TEMPORAL DE CLIENTES
+===================================================== */
+
+const clientes = {
+
+
+    "001": {
+
+        nombre: "Barbería de prueba",
+
+        botones: [
+
+            {
+                nombre: "📱 WhatsApp",
+                enlace: "https://wa.me/549260XXXXXXXX"
+            },
+
+            {
+                nombre: "📸 Instagram",
+                enlace: "https://www.instagram.com/"
+            },
+
+            {
+                nombre: "⭐ Dejar una reseña",
+                enlace: "https://www.google.com/"
+            },
+
+            {
+                nombre: "📍 Cómo llegar",
+                enlace: "https://www.google.com/maps/"
+            }
+
+        ]
+
+    },
+
+
+
+    "002": {
+
+        nombre: "Restaurante de prueba",
+
+        botones: [
+
+            {
+                nombre: "📱 WhatsApp",
+                enlace: "https://wa.me/549260XXXXXXXX"
+            },
+
+            {
+                nombre: "📸 Instagram",
+                enlace: "https://www.instagram.com/"
+            },
+
+            {
+                nombre: "📖 Ver menú",
+                enlace: "https://www.google.com/"
+            },
+
+            {
+                nombre: "📍 Cómo llegar",
+                enlace: "https://www.google.com/maps/"
+            }
+
+        ]
+
+    },
+
+
+
+    "003": {
+
+        nombre: "cafe san rafael",
+
+        botones: [
+
+            {
+                nombre: "📱 WhatsApp",
+                enlace: ""
+            },
+
+            {
+                nombre: "📸 Instagram",
+                enlace: ""
+            },
+
+            {
+                nombre: "⭐ Dejar una reseña",
+                enlace: ""
+            },
+
+            {
+                nombre: "📍 Cómo llegar",
+                enlace: ""
+            }
+
+        ]
+
+    }
+
+};
+
+
+
+/* =====================================================
    VARIABLES
-========================= */
+===================================================== */
 
 let contadorBotones = 0;
 
@@ -458,13 +705,18 @@ let enlaceActual = "";
 
 let codigoActual = "";
 
+let clienteEditando = null;
 
 
-/* =========================
+
+/* =====================================================
    AGREGAR BOTÓN
-========================= */
+===================================================== */
 
-function agregarBoton() {
+function agregarBoton(
+    nombreInicial = "",
+    enlaceInicial = ""
+) {
 
     contadorBotones++;
 
@@ -493,9 +745,11 @@ function agregarBoton() {
             Nombre del botón
         </label>
 
+
         <input
             class="nombre-boton"
             placeholder="Ejemplo: 📱 WhatsApp"
+            value="${escaparHTML(nombreInicial)}"
         >
 
 
@@ -503,9 +757,11 @@ function agregarBoton() {
             Enlace
         </label>
 
+
         <input
             class="enlace-boton"
             placeholder="https://..."
+            value="${escaparHTML(enlaceInicial)}"
         >
 
 
@@ -527,9 +783,9 @@ function agregarBoton() {
 
 
 
-/* =========================
+/* =====================================================
    QUITAR BOTÓN
-========================= */
+===================================================== */
 
 function quitarBoton(id) {
 
@@ -549,11 +805,251 @@ function quitarBoton(id) {
 
 
 
-/* =========================
-   CREAR CLIENTE
-========================= */
+/* =====================================================
+   ESCAPAR HTML
+===================================================== */
+
+function escaparHTML(texto) {
+
+    return String(texto)
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
+}
+
+
+
+/* =====================================================
+   EDITAR CLIENTE
+===================================================== */
+
+function editarCliente(codigo) {
+
+
+    const cliente =
+        clientes[codigo];
+
+
+    if (!cliente) {
+
+        alert(
+            "No se encontró ese cliente."
+        );
+
+        return;
+
+    }
+
+
+
+    clienteEditando = codigo;
+
+
+
+    /* CAMBIAR TÍTULO */
+
+    document.getElementById(
+        "tituloFormulario"
+    ).textContent =
+        "✏️ Editar cliente " + codigo;
+
+
+
+    document.getElementById(
+        "tituloFormulario"
+    ).classList.add(
+        "titulo-edicion"
+    );
+
+
+
+    /* MOSTRAR AVISO */
+
+    document.getElementById(
+        "avisoEdicion"
+    ).style.display =
+        "block";
+
+
+
+    /* CARGAR CÓDIGO */
+
+    document.getElementById(
+        "codigo"
+    ).value =
+        codigo;
+
+
+
+    document.getElementById(
+        "codigo"
+    ).disabled =
+        true;
+
+
+
+    /* CARGAR NOMBRE */
+
+    document.getElementById(
+        "nombre"
+    ).value =
+        cliente.nombre;
+
+
+
+    /* LIMPIAR BOTONES */
+
+    document.getElementById(
+        "botonesPersonalizados"
+    ).innerHTML =
+        "";
+
+
+
+    contadorBotones = 0;
+
+
+
+    /* CARGAR BOTONES */
+
+    cliente.botones.forEach(function(boton) {
+
+        agregarBoton(
+            boton.nombre,
+            boton.enlace
+        );
+
+    });
+
+
+
+    /* CAMBIAR BOTÓN PRINCIPAL */
+
+    document.getElementById(
+        "botonGuardar"
+    ).textContent =
+        "Guardar cambios y generar código";
+
+
+
+    /* MOSTRAR CANCELAR */
+
+    document.getElementById(
+        "botonCancelar"
+    ).style.display =
+        "block";
+
+
+
+    /* OCULTAR RESULTADO ANTERIOR */
+
+    document.getElementById(
+        "resultado"
+    ).style.display =
+        "none";
+
+
+
+    /* IR AL FORMULARIO */
+
+    document.getElementById(
+        "formularioCliente"
+    ).scrollIntoView({
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+
+/* =====================================================
+   CANCELAR EDICIÓN
+===================================================== */
+
+function cancelarEdicion() {
+
+
+    clienteEditando = null;
+
+
+
+    document.getElementById(
+        "tituloFormulario"
+    ).textContent =
+        "Crear nuevo cliente";
+
+
+    document.getElementById(
+        "tituloFormulario"
+    ).classList.remove(
+        "titulo-edicion"
+    );
+
+
+    document.getElementById(
+        "avisoEdicion"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "codigo"
+    ).disabled =
+        false;
+
+
+    document.getElementById(
+        "codigo"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "nombre"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "botonesPersonalizados"
+    ).innerHTML =
+        "";
+
+
+    contadorBotones = 0;
+
+
+    document.getElementById(
+        "botonGuardar"
+    ).textContent =
+        "Crear cliente";
+
+
+    document.getElementById(
+        "botonCancelar"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "resultado"
+    ).style.display =
+        "none";
+
+}
+
+
+
+/* =====================================================
+   CREAR / ACTUALIZAR CLIENTE
+===================================================== */
 
 function crearCliente() {
+
 
     const codigo =
         document.getElementById(
@@ -580,12 +1076,13 @@ function crearCliente() {
 
 
 
-    /* EVITAR CÓDIGOS EXISTENTES */
+    /* =================================================
+       EVITAR CÓDIGOS EXISTENTES AL CREAR
+    ================================================= */
 
     if (
-        codigo === "001" ||
-        codigo === "002" ||
-        codigo === "003"
+        !clienteEditando &&
+        clientes[codigo]
     ) {
 
         alert(
@@ -598,7 +1095,9 @@ function crearCliente() {
 
 
 
-    /* OBTENER BOTONES */
+    /* =================================================
+       OBTENER BOTONES
+    ================================================= */
 
     const nombres =
         document.querySelectorAll(
@@ -635,6 +1134,7 @@ function crearCliente() {
         i++
     ) {
 
+
         const nombreBoton =
             nombres[i].value.trim();
 
@@ -644,7 +1144,10 @@ function crearCliente() {
 
 
 
-        if (!nombreBoton || !enlaceBoton) {
+        if (
+            !nombreBoton ||
+            !enlaceBoton
+        ) {
 
             alert(
                 "Completá el nombre y el enlace de cada botón."
@@ -659,23 +1162,25 @@ function crearCliente() {
         botones += `
 
             {
-                nombre: "${nombreBoton}",
-                enlace: "${enlaceBoton}"
+                nombre: "${escaparJS(nombreBoton)}",
+                enlace: "${escaparJS(enlaceBoton)}"
             },
 
-        `;
+`;
 
     }
 
 
 
-    /* GENERAR CLIENTE */
+    /* =================================================
+       GENERAR CÓDIGO
+    ================================================= */
 
     const codigoCliente = `
 
     "${codigo}": {
 
-        nombre: "${nombre}",
+        nombre: "${escaparJS(nombre)}",
 
         botones: [
 
@@ -689,7 +1194,9 @@ ${botones}
 
 
 
-    /* GENERAR URL */
+    /* =================================================
+       GENERAR URL
+    ================================================= */
 
     const url =
         "https://qonekta.github.io/qr-dinamicos/r/"
@@ -703,21 +1210,59 @@ ${botones}
 
 
 
-    /* MOSTRAR RESULTADO */
+    /* =================================================
+       ACTUALIZAR DATOS TEMPORALES
+    ================================================= */
+
+    clientes[codigo] = {
+
+        nombre: nombre,
+
+        botones: []
+
+    };
+
+
+    for (
+        let i = 0;
+        i < nombres.length;
+        i++
+    ) {
+
+        clientes[codigo].botones.push({
+
+            nombre:
+                nombres[i].value.trim(),
+
+            enlace:
+                enlaces[i].value.trim()
+
+        });
+
+    }
+
+
+
+    /* =================================================
+       MOSTRAR RESULTADO
+    ================================================= */
 
     document.getElementById(
         "urlCliente"
-    ).textContent = url;
+    ).textContent =
+        url;
 
 
     document.getElementById(
         "codigoGenerado"
-    ).textContent = codigoCliente;
+    ).textContent =
+        codigoCliente;
 
 
     document.getElementById(
         "resultado"
-    ).style.display = "block";
+    ).style.display =
+        "block";
 
 
     document.getElementById(
@@ -728,15 +1273,52 @@ ${botones}
 
     });
 
+
+
+    /* =================================================
+       SI ESTABA EDITANDO
+    ================================================= */
+
+    if (clienteEditando) {
+
+        alert(
+            "Cambios preparados. Copiá el código generado y reemplazalo en clientes.js."
+        );
+
+    } else {
+
+        alert(
+            "Cliente generado correctamente."
+        );
+
+    }
+
 }
 
 
 
-/* =========================
+/* =====================================================
+   ESCAPAR JAVASCRIPT
+===================================================== */
+
+function escaparJS(texto) {
+
+    return String(texto)
+        .replace(/\\/g, "\\\\")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, "\\n")
+        .replace(/\r/g, "\\r");
+
+}
+
+
+
+/* =====================================================
    COPIAR ENLACE
-========================= */
+===================================================== */
 
 function copiarEnlace() {
+
 
     navigator.clipboard.writeText(
         enlaceActual
@@ -751,11 +1333,12 @@ function copiarEnlace() {
 
 
 
-/* =========================
+/* =====================================================
    COPIAR CÓDIGO
-========================= */
+===================================================== */
 
 function copiarCodigo() {
+
 
     navigator.clipboard.writeText(
         codigoActual
