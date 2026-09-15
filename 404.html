@@ -8,6 +8,7 @@
     <title>Mi negocio</title>
 
     <style>
+
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -42,9 +43,11 @@
             border-radius: 10px;
             font-size: 17px;
         }
+
     </style>
+
 </head>
-<script src="/qr-dinamicos/clientes.js"></script>
+
 <body>
 
 <div class="contenedor">
@@ -57,17 +60,32 @@
 
 </div>
 
+
+<!-- Cargar los clientes -->
+
+<script src="/qr-dinamicos/clientes.js"></script>
+
+
 <script>
 
+// Obtener la dirección actual
 
-// Detectar qué código se está utilizando
-
-const partes = window.location.pathname.split("/");
-
-const codigo = partes[partes.length - 1];
+const ruta = window.location.pathname;
 
 
-// Buscar el negocio
+// Separar la dirección en partes
+
+const partes = ruta.split("/");
+
+
+// Buscar el último elemento que tenga contenido
+
+const codigo = partes.filter(function(parte) {
+    return parte !== "";
+}).pop();
+
+
+// Buscar el negocio correspondiente
 
 const negocio = negocios[codigo];
 
@@ -98,7 +116,8 @@ if (negocio) {
 
 } else {
 
-    document.getElementById("nombre").textContent = "Enlace no encontrado";
+    document.getElementById("nombre").textContent =
+        "Enlace no encontrado";
 
     document.querySelector("p").textContent =
         "El código utilizado no está configurado.";
@@ -108,4 +127,5 @@ if (negocio) {
 </script>
 
 </body>
+
 </html>
