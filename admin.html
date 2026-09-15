@@ -83,6 +83,12 @@
         }
 
 
+        button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+
         .boton-editar {
             background: #1976d2;
             margin-top: 12px;
@@ -222,6 +228,33 @@
         }
 
 
+        .estado {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            font-weight: bold;
+        }
+
+
+        .estado-ok {
+            background: #dff5e3;
+            color: #176b2c;
+        }
+
+
+        .estado-error {
+            background: #ffe1e1;
+            color: #9b0000;
+        }
+
+
+        .estado-cargando {
+            background: #e8eef7;
+            color: #24527a;
+        }
+
+
         @media (max-width: 500px) {
 
             .cliente-acciones {
@@ -251,15 +284,36 @@
         <h2>🔐 Acceso restringido</h2>
 
         <p>
-            Ingresá la contraseña para acceder al panel.
+            Ingresá las claves para acceder al panel.
         </p>
 
+
+        <label>
+            Contraseña del panel
+        </label>
 
         <input
             type="password"
             id="password"
             placeholder="Contraseña"
         >
+
+
+        <label>
+            Clave de sincronización
+        </label>
+
+        <input
+            type="password"
+            id="adminSecret"
+            placeholder="Clave de Cloudflare"
+        >
+
+
+        <p class="aviso">
+            La clave de sincronización se utiliza para
+            actualizar automáticamente clientes.js.
+        </p>
 
 
         <button onclick="iniciarSesion()">
@@ -299,6 +353,12 @@
             Administrá los enlaces de los clientes
             de tu sistema QR/NFC.
         </p>
+
+
+        <div
+            id="estado"
+            class="estado"
+        ></div>
 
     </div>
 
@@ -439,7 +499,7 @@
         >
 
             <h3>
-                ✅ Cambios preparados
+                ✅ Cambios guardados
             </h3>
 
 
@@ -466,7 +526,7 @@
 
 
             <h3>
-                Código completo para clientes.js
+                Código actual de clientes.js
             </h3>
 
 
@@ -488,9 +548,8 @@
 
             <p class="aviso">
 
-                ⚠️ Este panel todavía no modifica automáticamente
-                el archivo de GitHub. Copiá el código completo
-                y reemplazá el contenido de clientes.js.
+                El archivo también fue enviado automáticamente
+                a GitHub.
 
             </p>
 
@@ -508,37 +567,98 @@
 
 
 /* =====================================================
-   CONTRASEÑA
+   CONFIGURACIÓN
 ===================================================== */
 
-const CONTRASENA = "Callejeros12";
+
+/*
+    URL DE NUESTRO CLOUDFLARE WORKER
+*/
+
+const WORKER_URL =
+    "https://qr-dinamicos-api.lattucalucas.workers.dev";
 
 
+
+/*
+    CONTRASEÑA DEL PANEL
+
+    Esta sigue funcionando como antes.
+*/
+
+const CONTRASENA =
+    "Callejeros12";
+
+
+
+/*
+    CLAVE DE SINCRONIZACIÓN
+
+    NO está escrita en el código.
+
+    El usuario la introduce al iniciar sesión.
+*/
+
+let claveSincronizacion = "";
+
+
+
+/* =====================================================
+   INICIAR SESIÓN
+===================================================== */
 
 function iniciarSesion() {
 
     const password =
-        document.getElementById("password").value;
+        document.getElementById("password").value.trim();
 
 
-    if (password === CONTRASENA) {
-
-        document.getElementById("login").style.display =
-            "none";
+    const adminSecret =
+        document.getElementById("adminSecret").value.trim();
 
 
-        document.getElementById("panel").style.display =
-            "block";
 
-
-        mostrarClientes();
-
-    } else {
+    if (password !== CONTRASENA) {
 
         document.getElementById("errorLogin").textContent =
             "Contraseña incorrecta.";
 
+        return;
+
     }
+
+
+
+    if (!adminSecret) {
+
+        document.getElementById("errorLogin").textContent =
+            "Ingresá la clave de sincronización.";
+
+        return;
+
+    }
+
+
+
+    /*
+        Guardamos la clave solamente en memoria
+        durante esta sesión de la página.
+    */
+
+    claveSincronizacion =
+        adminSecret;
+
+
+
+    document.getElementById("login").style.display =
+        "none";
+
+
+    document.getElementById("panel").style.display =
+        "block";
+
+
+    mostrarClientes();
 
 }
 
@@ -662,11 +782,48 @@ let clienteEditando = null;
 
 
 /* =====================================================
+   MOSTRAR ESTADO
+===================================================== */
+
+function mostrarEstado(mensaje, tipo) {
+
+    const estado =
+        document.getElementById("estado");
+
+
+    estado.textContent =
+        mensaje;
+
+
+    estado.className =
+        "estado " + tipo;
+
+
+    estado.style.display =
+        "block";
+
+}
+
+
+
+function ocultarEstado() {
+
+    const estado =
+        document.getElementById("estado");
+
+
+    estado.style.display =
+        "none";
+
+}
+
+
+
+/* =====================================================
    MOSTRAR CLIENTES
 ===================================================== */
 
 function mostrarClientes() {
-
 
     const lista =
         document.getElementById(
@@ -1017,7 +1174,7 @@ function editarCliente(codigo) {
    ELIMINAR CLIENTE
 ===================================================== */
 
-function eliminarCliente(codigo) {
+async function eliminarCliente(codigo) {
 
 
     const cliente =
@@ -1071,41 +1228,91 @@ function eliminarCliente(codigo) {
 
 
 
+    /*
+        Guardamos una copia por si la sincronización falla.
+    */
+
+    const clienteEliminado =
+        JSON.parse(
+            JSON.stringify(cliente)
+        );
+
+
+
     delete clientes[codigo];
 
 
+    generarClientesJS();
 
-    /* SI ESTABA EDITANDO ESE CLIENTE */
+    mostrarClientes();
+
+
+
+    mostrarEstado(
+        "⏳ Eliminando cliente y actualizando GitHub...",
+        "estado-cargando"
+    );
+
+
+
+    const resultado =
+        await sincronizarConGitHub();
+
+
+
+    if (!resultado.ok) {
+
+        /*
+            RESTAURAR SI FALLÓ
+        */
+
+        clientes[codigo] =
+            clienteEliminado;
+
+
+        generarClientesJS();
+
+        mostrarClientes();
+
+
+        mostrarEstado(
+            "❌ No se pudo actualizar GitHub. El cliente fue restaurado.",
+            "estado-error"
+        );
+
+
+        alert(
+            "No se pudo actualizar clientes.js.\n\n" +
+            resultado.mensaje
+        );
+
+
+        return;
+
+    }
+
+
+
+    mostrarEstado(
+        "✅ Cliente eliminado y clientes.js actualizado.",
+        "estado-ok"
+    );
+
+
+    alert(
+        "El cliente " +
+        codigo +
+        " fue eliminado correctamente.\n\n" +
+        "clientes.js también fue actualizado automáticamente."
+    );
+
+
 
     if (clienteEditando === codigo) {
 
         cancelarEdicion();
 
     }
-
-
-
-    mostrarClientes();
-
-
-
-    /* GENERAR CLIENTES.JS ACTUALIZADO */
-
-    generarClientesJS();
-
-
-
-    alert(
-
-        "El cliente " +
-
-        codigo +
-
-        " fue eliminado del panel.\n\n" +
-
-        "Recordá reemplazar clientes.js con el código generado."
-
-    );
 
 }
 
@@ -1194,7 +1401,7 @@ function cancelarEdicion() {
    GUARDAR CLIENTE
 ===================================================== */
 
-function guardarCliente() {
+async function guardarCliente() {
 
 
     const codigo =
@@ -1222,7 +1429,9 @@ function guardarCliente() {
 
 
 
-    /* EVITAR CÓDIGOS DUPLICADOS */
+    /*
+        EVITAR CÓDIGOS DUPLICADOS
+    */
 
     if (
         !clienteEditando &&
@@ -1239,7 +1448,9 @@ function guardarCliente() {
 
 
 
-    /* OBTENER BOTONES */
+    /*
+        OBTENER BOTONES
+    */
 
     const nombres =
         document.querySelectorAll(
@@ -1313,7 +1524,38 @@ function guardarCliente() {
 
 
 
-    /* GUARDAR DATOS */
+    /*
+        GUARDAMOS UNA COPIA ANTERIOR
+        POR SI LA SINCRONIZACIÓN FALLA.
+    */
+
+    const estabaEditando =
+        Boolean(clienteEditando);
+
+
+    const codigoAnterior =
+        clienteEditando;
+
+
+    let clienteAnterior = null;
+
+
+    if (estabaEditando) {
+
+        clienteAnterior =
+            JSON.parse(
+                JSON.stringify(
+                    clientes[codigoAnterior]
+                )
+            );
+
+    }
+
+
+
+    /*
+        GUARDAR DATOS LOCALMENTE
+    */
 
     clientes[codigo] = {
 
@@ -1325,19 +1567,15 @@ function guardarCliente() {
 
 
 
-    /* GENERAR CLIENTES.JS */
-
     generarClientesJS();
-
-
-
-    /* MOSTRAR LISTA ACTUALIZADA */
 
     mostrarClientes();
 
 
 
-    /* MOSTRAR ENLACE */
+    /*
+        PREPARAR ENLACE
+    */
 
     enlaceActual =
         "https://qonekta.github.io/qr-dinamicos/r/"
@@ -1352,7 +1590,112 @@ function guardarCliente() {
 
 
 
-    /* RESULTADO */
+    /*
+        MOSTRAR ESTADO
+    */
+
+    mostrarEstado(
+        "⏳ Guardando cambios y actualizando GitHub...",
+        "estado-cargando"
+    );
+
+
+
+    /*
+        DESACTIVAR BOTÓN
+    */
+
+    const botonGuardar =
+        document.getElementById(
+            "botonGuardar"
+        );
+
+
+    botonGuardar.disabled =
+        true;
+
+
+    botonGuardar.textContent =
+        "⏳ Guardando...";
+
+
+
+    /*
+        SINCRONIZAR
+    */
+
+    const resultado =
+        await sincronizarConGitHub();
+
+
+
+    botonGuardar.disabled =
+        false;
+
+
+
+    /*
+        SI FALLÓ
+    */
+
+    if (!resultado.ok) {
+
+        /*
+            RESTAURAR CLIENTE ANTERIOR
+        */
+
+        if (estabaEditando) {
+
+            clientes[codigoAnterior] =
+                clienteAnterior;
+
+        } else {
+
+            delete clientes[codigo];
+
+        }
+
+
+
+        generarClientesJS();
+
+        mostrarClientes();
+
+
+        mostrarEstado(
+            "❌ No se pudo actualizar GitHub. No se aplicaron los cambios.",
+            "estado-error"
+        );
+
+
+        alert(
+            "No se pudo actualizar clientes.js.\n\n" +
+            resultado.mensaje
+        );
+
+
+        botonGuardar.textContent =
+            estabaEditando
+                ? "💾 Guardar cambios"
+                : "Crear cliente";
+
+
+        return;
+
+    }
+
+
+
+    /*
+        SINCRONIZACIÓN CORRECTA
+    */
+
+    mostrarEstado(
+        "✅ Guardado correctamente. clientes.js fue actualizado.",
+        "estado-ok"
+    );
+
+
 
     document.getElementById(
         "resultado"
@@ -1361,25 +1704,38 @@ function guardarCliente() {
 
 
 
-    /* MENSAJE */
+    document.getElementById(
+        "codigoGenerado"
+    ).textContent =
+        codigoActual;
 
-    if (clienteEditando) {
+
+
+    /*
+        MENSAJE
+    */
+
+    if (estabaEditando) {
 
         alert(
-            "Cliente actualizado correctamente."
+            "Cliente actualizado correctamente.\n\n" +
+            "clientes.js fue actualizado automáticamente."
         );
 
     } else {
 
         alert(
-            "Cliente creado correctamente."
+            "Cliente creado correctamente.\n\n" +
+            "clientes.js fue actualizado automáticamente."
         );
 
     }
 
 
 
-    /* SALIR DE EDICIÓN */
+    /*
+        SALIR DE EDICIÓN
+    */
 
     clienteEditando =
         null;
@@ -1420,6 +1776,129 @@ function guardarCliente() {
         "avisoEdicion"
     ).style.display =
         "none";
+
+}
+
+
+
+/* =====================================================
+   SINCRONIZAR CON CLOUDFLARE → GITHUB
+===================================================== */
+
+async function sincronizarConGitHub() {
+
+
+    if (!claveSincronizacion) {
+
+        return {
+
+            ok: false,
+
+            mensaje:
+                "No hay una clave de sincronización."
+
+        };
+
+    }
+
+
+
+    try {
+
+        const respuesta =
+            await fetch(
+                WORKER_URL,
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "X-Admin-Key":
+                            claveSincronizacion
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            content:
+                                codigoActual
+
+                        })
+
+                }
+            );
+
+
+
+        let datos;
+
+
+
+        try {
+
+            datos =
+                await respuesta.json();
+
+        } catch (error) {
+
+            return {
+
+                ok: false,
+
+                mensaje:
+                    "Cloudflare devolvió una respuesta no válida."
+
+            };
+
+        }
+
+
+
+        if (!respuesta.ok || !datos.ok) {
+
+            return {
+
+                ok: false,
+
+                mensaje:
+                    datos.mensaje ||
+                    "Cloudflare rechazó la actualización."
+
+            };
+
+        }
+
+
+
+        return {
+
+            ok: true,
+
+            mensaje:
+                datos.mensaje
+
+        };
+
+
+
+    } catch (error) {
+
+        return {
+
+            ok: false,
+
+            mensaje:
+                "No se pudo conectar con Cloudflare.\n\n" +
+                error.message
+
+        };
+
+    }
 
 }
 
