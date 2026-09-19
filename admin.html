@@ -658,7 +658,7 @@ function iniciarSesion() {
         "block";
 
 
-    mostrarClientes();
+    cargarClientesDesdeGitHub();
 
 }
 
@@ -669,7 +669,77 @@ function iniciarSesion() {
 ===================================================== */
 
 let clientes = {};
+async function cargarClientesDesdeGitHub() {
+    mostrarEstado(
+        "⏳ Cargando clientes actuales desde GitHub...",
+        "estado-cargando"
+    );
 
+    try {
+        const respuestaGitHub = await fetch(
+            WORKER_URL,
+            {
+                method: "GET",
+                headers: {
+                    "X-Admin-Key": claveSincronizacion
+                }
+            }
+        );
+
+        const datos = await respuestaGitHub.json();
+
+        if (!datos.ok) {
+            throw new Error(
+                datos.mensaje || "No se pudieron cargar los clientes."
+            );
+        }
+
+        /*
+            Extraemos el objeto negocios desde clientes.js.
+            El archivo tiene esta estructura:
+
+            const negocios = {
+                ...
+            };
+        */
+
+        const coincidencia = datos.content.match(
+            /const\s+negocios\s*=\s*(\{[\s\S]*\});/
+        );
+
+        if (!coincidencia) {
+            throw new Error(
+                "No se encontró la estructura de clientes.js."
+            );
+        }
+
+        const negociosActuales = Function(
+            `"use strict"; return (${coincidencia[1]});`
+        )();
+
+        clientes = negociosActuales;
+
+        mostrarClientes();
+
+        mostrarEstado(
+            "✅ Clientes cargados correctamente desde GitHub.",
+            "estado-ok"
+        );
+
+    } catch (error) {
+        console.error(error);
+
+        mostrarEstado(
+            "❌ No se pudieron cargar los clientes.",
+            "estado-error"
+        );
+
+        alert(
+            "Error al cargar los clientes desde GitHub:\n\n" +
+            error.message
+        );
+    }
+}
 
     "001": {
 
