@@ -2,27 +2,27 @@ const negocios = {
 
     "001": {
 
-        nombre: "Barbería de prueba",
+        nombre: "BarberÃ­a de prueba",
 
         botones: [
 
             {
-                nombre: "📱 WhatsApp",
+                nombre: "ð± WhatsApp",
                 enlace: "https://wa.me/549260XXXXXXXX"
             },
 
             {
-                nombre: "📸 Instagram",
+                nombre: "ð¸ Instagram",
                 enlace: "https://www.instagram.com/"
             },
 
             {
-                nombre: "⭐ Dejar una reseña",
+                nombre: "â­ Dejar una reseÃ±a",
                 enlace: "https://www.google.com/"
             },
 
             {
-                nombre: "📍 Cómo llegar",
+                nombre: "ð CÃ³mo llegar",
                 enlace: "https://www.google.com/maps/"
             },
 
@@ -37,22 +37,22 @@ const negocios = {
         botones: [
 
             {
-                nombre: "📱 WhatsApp",
+                nombre: "ð± WhatsApp",
                 enlace: "https://wa.me/549260XXXXXXXX"
             },
 
             {
-                nombre: "📸 Instagram",
+                nombre: "ð¸ Instagram",
                 enlace: "https://www.instagram.com/"
             },
 
             {
-                nombre: "📖 Ver menú",
+                nombre: "ð Ver menÃº",
                 enlace: "https://www.google.com/"
             },
 
             {
-                nombre: "📍 Cómo llegar",
+                nombre: "ð CÃ³mo llegar",
                 enlace: "https://www.google.com/maps/"
             },
 
@@ -67,22 +67,22 @@ const negocios = {
         botones: [
 
             {
-                nombre: "📱 WhatsApp",
+                nombre: "ð± WhatsApp",
                 enlace: ""
             },
 
             {
-                nombre: "📸 Instagram",
+                nombre: "ð¸ Instagram",
                 enlace: ""
             },
 
             {
-                nombre: "⭐ Dejar una reseña",
+                nombre: "â­ Dejar una reseÃ±a",
                 enlace: ""
             },
 
             {
-                nombre: "📍 Cómo llegar",
+                nombre: "ð CÃ³mo llegar",
                 enlace: ""
             },
 
@@ -97,7 +97,7 @@ const negocios = {
         botones: [
 
             {
-                nombre: "instagram",
+                nombre: "prueba instagram",
                 enlace: "instagram.com"
             },
 
