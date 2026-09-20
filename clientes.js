@@ -2,27 +2,27 @@ const negocios = {
 
     "001": {
 
-        nombre: "BarberÃ­a de prueba",
+        nombre: "BarberÃÂ­a de prueba",
 
         botones: [
 
             {
-                nombre: "ð± WhatsApp",
+                nombre: "Ã°ÂÂÂ± WhatsApp",
                 enlace: "https://wa.me/5492604800024"
             },
 
             {
-                nombre: "ð¸ Instagram",
+                nombre: "Ã°ÂÂÂ¸ Instagram",
                 enlace: "https://www.instagram.com/"
             },
 
             {
-                nombre: "â­ Dejar una reseÃ±a",
+                nombre: "Ã¢Â­Â Dejar una reseÃÂ±a",
                 enlace: "https://www.google.com/"
             },
 
             {
-                nombre: "ð CÃ³mo llegar",
+                nombre: "Ã°ÂÂÂ CÃÂ³mo llegar",
                 enlace: "https://www.google.com/maps/"
             },
 
@@ -37,22 +37,22 @@ const negocios = {
         botones: [
 
             {
-                nombre: "ð± WhatsApp",
+                nombre: "Ã°ÂÂÂ± WhatsApp",
                 enlace: "https://wa.me/549260XXXXXXXX"
             },
 
             {
-                nombre: "ð¸ Instagram",
+                nombre: "Ã°ÂÂÂ¸ Instagram",
                 enlace: "https://www.instagram.com/"
             },
 
             {
-                nombre: "ð Ver menÃº",
+                nombre: "Ã°ÂÂÂ Ver menÃÂº",
                 enlace: "https://www.google.com/"
             },
 
             {
-                nombre: "ð CÃ³mo llegar",
+                nombre: "Ã°ÂÂÂ CÃÂ³mo llegar",
                 enlace: "https://www.google.com/maps/"
             },
 
@@ -67,22 +67,22 @@ const negocios = {
         botones: [
 
             {
-                nombre: "ð± WhatsApp",
+                nombre: "Ã°ÂÂÂ± WhatsApp",
                 enlace: ""
             },
 
             {
-                nombre: "ð¸ Instagram",
+                nombre: "Ã°ÂÂÂ¸ Instagram",
                 enlace: ""
             },
 
             {
-                nombre: "â­ Dejar una reseÃ±a",
+                nombre: "Ã¢Â­Â Dejar una reseÃÂ±a",
                 enlace: ""
             },
 
             {
-                nombre: "ð CÃ³mo llegar",
+                nombre: "Ã°ÂÂÂ CÃÂ³mo llegar",
                 enlace: ""
             },
 
