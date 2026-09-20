@@ -1,96 +1,1118 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Mi negocio</title>
+    <title>Panel de clientes</title>
 
     <style>
-
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
             background: #f5f5f5;
+            margin: 0;
             padding: 30px 15px;
+            color: #222;
         }
 
         .contenedor {
-            max-width: 400px;
+            max-width: 700px;
             margin: auto;
+        }
+
+        .tarjeta {
             background: white;
-            padding: 30px 20px;
+            padding: 30px;
             border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
         }
 
         h1 {
-            margin-bottom: 10px;
+            text-align: center;
+            margin-top: 0;
         }
 
-        .descripcion {
-            color: #555;
+        h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            background: #222;
+            color: white;
+            border: none;
+            border-radius: 8px;
             font-size: 16px;
-            line-height: 1.5;
-            margin-top: 8px;
-            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .boton-editar {
+            background: #1976d2;
+            margin-top: 12px;
+        }
+
+        .boton-editar:hover {
+            background: #125aa0;
+        }
+
+        .boton-eliminar {
+            background: #b00020;
+            margin-top: 10px;
+        }
+
+        .boton-eliminar:hover {
+            background: #8a0018;
+        }
+
+        .boton-agregar {
+            background: #1976d2;
+        }
+
+        .boton-agregar:hover {
+            background: #125aa0;
+        }
+
+        .boton-quitar {
+            background: #777;
+            width: auto;
+            padding: 8px 12px;
+            margin-top: 10px;
+        }
+
+        .boton-quitar:hover {
+            background: #555;
+        }
+
+        .boton-secundario {
+            background: #555;
+        }
+
+        .boton-cancelar {
+            background: #777;
+        }
+
+        .boton-cancelar:hover {
+            background: #555;
+        }
+
+        .boton-personalizado,
+        .cliente {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+
+        .cliente strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .cliente-url,
+        .aviso {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .resultado {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
             display: none;
         }
 
-        .pregunta {
-            color: #666;
-            margin-bottom: 25px;
+        .url {
+            word-break: break-all;
+            font-weight: bold;
         }
 
-        .boton {
-            display: block;
-            text-decoration: none;
+        .codigo {
             background: #222;
             color: white;
-            padding: 16px;
-            margin: 12px 0;
-            border-radius: 10px;
-            font-size: 17px;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
         }
 
-    </style>
+        .titulo-edicion {
+            color: #1976d2;
+        }
 
+        .cliente-acciones {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cliente-acciones button {
+            margin-top: 12px;
+        }
+
+        .estado {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            font-weight: bold;
+        }
+
+        .estado-ok {
+            background: #dff5e3;
+            color: #176b2c;
+        }
+
+        .estado-error {
+            background: #ffe1e1;
+            color: #9b0000;
+        }
+
+        .estado-cargando {
+            background: #e8eef7;
+            color: #24527a;
+        }
+
+        @media (max-width: 500px) {
+            .cliente-acciones {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="contenedor">
+<div id="login">
+    <div class="tarjeta">
+        <h2>🔐 Acceso restringido</h2>
+        <p>Ingresá las claves para acceder al panel.</p>
 
-    <h1 id="nombre">
-        Cargando...
-    </h1>
+        <label>Contraseña del panel</label>
+        <input type="password" id="password" placeholder="Contraseña">
+
+        <label>Clave de sincronización</label>
+        <input type="password" id="adminSecret" placeholder="Clave de Cloudflare">
+
+        <p class="aviso">
+            La clave de sincronización se utiliza para actualizar automáticamente clientes.js.
+        </p>
+
+        <button onclick="iniciarSesion()">Ingresar</button>
+
+        <p id="errorLogin" style="color:red;"></p>
+    </div>
+</div>
 
 
-    <p
-        id="descripcion"
-        class="descripcion"
-    ></p>
+<div class="contenedor" id="panel" style="display:none;">
+
+    <div class="tarjeta">
+        <h1>Panel de clientes</h1>
+
+        <p>
+            Administrá los enlaces de los clientes de tu sistema QR/NFC.
+        </p>
+
+        <div id="estado" class="estado"></div>
+    </div>
 
 
-    <p
-        id="pregunta"
-        class="pregunta"
-    >
-        ¿Qué querés hacer?
-    </p>
+    <div class="tarjeta">
+        <h2>Clientes actuales</h2>
+
+        <div id="listaClientes"></div>
+    </div>
 
 
-    <div id="botones"></div>
+    <div class="tarjeta" id="formularioCliente">
+
+        <h2 id="tituloFormulario">
+            Crear nuevo cliente
+        </h2>
+
+
+        <p
+            class="aviso"
+            id="avisoEdicion"
+            style="display:none;"
+        >
+            Estás editando un cliente existente.
+            Podés modificar cualquiera de sus datos.
+        </p>
+
+
+        <label>
+            Código del cliente
+        </label>
+
+        <input
+            id="codigo"
+            placeholder="Ejemplo: 005"
+        >
+
+
+        <label>
+            Nombre del negocio
+        </label>
+
+        <input
+            id="nombre"
+            placeholder="Ejemplo: Barbería San Rafael"
+        >
+
+
+        <label>
+            Descripción breve (opcional)
+        </label>
+
+        <input
+            id="descripcion"
+            placeholder="Ejemplo: Turnos por WhatsApp"
+        >
+
+        <p class="aviso">
+            Podés dejar este campo vacío.
+            Si está vacío, no se mostrará en la página del cliente.
+        </p>
+
+
+        <h3 style="margin-top:30px;">
+            Botones del negocio
+        </h3>
+
+        <p class="aviso">
+            Cada botón puede tener un nombre y un enlace diferente.
+        </p>
+
+
+        <div id="botonesPersonalizados"></div>
+
+
+        <button
+            class="boton-agregar"
+            onclick="agregarBoton()"
+        >
+            + Agregar botón
+        </button>
+
+
+        <button
+            id="botonGuardar"
+            onclick="guardarCliente()"
+        >
+            Crear cliente
+        </button>
+
+
+        <button
+            id="botonCancelar"
+            class="boton-cancelar"
+            onclick="cancelarEdicion()"
+            style="display:none;"
+        >
+            Cancelar
+        </button>
+
+
+        <div
+            class="resultado"
+            id="resultado"
+        >
+
+            <h3>
+                ✅ Cambios guardados
+            </h3>
+
+            <p>
+                El enlace permanente del cliente es:
+            </p>
+
+            <p
+                class="url"
+                id="urlCliente"
+            ></p>
+
+
+            <button
+                class="boton-secundario"
+                onclick="copiarEnlace()"
+            >
+                Copiar enlace
+            </button>
+
+
+            <h3>
+                Código actual de clientes.js
+            </h3>
+
+            <pre
+                class="codigo"
+                id="codigoGenerado"
+            ></pre>
+
+
+            <button
+                class="boton-secundario"
+                onclick="copiarCodigo()"
+            >
+                📋 Copiar clientes.js completo
+            </button>
+
+
+            <p class="aviso">
+                El archivo también fue enviado automáticamente a GitHub.
+            </p>
+
+        </div>
+
+    </div>
 
 </div>
 
 
-<!-- Cargar los clientes -->
-
-<script src="/qr-dinamicos/clientes.js"></script>
-
-
 <script>
+
+const WORKER_URL =
+    "https://qr-dinamicos-api.lattucalucas.workers.dev";
+
+const CONTRASENA =
+    "Callejeros12";
+
+
+let claveSincronizacion = "";
+
+let clientes = {};
+
+let contadorBotones = 0;
+
+let enlaceActual = "";
+
+let codigoActual = "";
+
+let clienteEditando = null;
+
+
+
+/* =====================================================
+   INICIAR SESIÓN
+===================================================== */
+
+function iniciarSesion() {
+
+    const password =
+        document.getElementById("password").value.trim();
+
+    const adminSecret =
+        document.getElementById("adminSecret").value.trim();
+
+
+    if (password !== CONTRASENA) {
+
+        document.getElementById("errorLogin").textContent =
+            "Contraseña incorrecta.";
+
+        return;
+    }
+
+
+    if (!adminSecret) {
+
+        document.getElementById("errorLogin").textContent =
+            "Ingresá la clave de sincronización.";
+
+        return;
+    }
+
+
+    claveSincronizacion =
+        adminSecret;
+
+
+    document.getElementById("errorLogin").textContent =
+        "";
+
+    document.getElementById("login").style.display =
+        "none";
+
+    document.getElementById("panel").style.display =
+        "block";
+
+
+    cargarClientesDesdeGitHub();
+}
+
+
+
+/* =====================================================
+   CARGAR CLIENTES DESDE GITHUB
+===================================================== */
+
+async function cargarClientesDesdeGitHub() {
+
+    mostrarEstado(
+        "⏳ Cargando clientes actuales desde GitHub...",
+        "estado-cargando"
+    );
+
+
+    try {
+
+        const respuestaGitHub =
+            await fetch(
+                WORKER_URL,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "X-Admin-Key":
+                            claveSincronizacion
+                    }
+                }
+            );
+
+
+        const datos =
+            await respuestaGitHub.json();
+
+
+        if (
+            !respuestaGitHub.ok ||
+            !datos.ok
+        ) {
+
+            throw new Error(
+                datos.mensaje ||
+                "No se pudieron cargar los clientes."
+            );
+        }
+
+
+        const coincidencia =
+            datos.content.match(
+                /const\s+negocios\s*=\s*(\{[\s\S]*\});/
+            );
+
+
+        if (!coincidencia) {
+
+            throw new Error(
+                "No se encontró la estructura de clientes.js."
+            );
+        }
+
+
+        const negociosActuales =
+            Function(
+                `"use strict"; return (${coincidencia[1]});`
+            )();
+
+
+        clientes =
+            negociosActuales;
+
+
+        mostrarClientes();
+
+
+        mostrarEstado(
+            "✅ Clientes cargados correctamente desde GitHub.",
+            "estado-ok"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        mostrarEstado(
+            "❌ No se pudieron cargar los clientes.",
+            "estado-error"
+        );
+
+
+        alert(
+            "Error al cargar los clientes desde GitHub:\n\n" +
+            error.message
+        );
+    }
+}
+
+
+
+/* =====================================================
+   MOSTRAR ESTADO
+===================================================== */
+
+function mostrarEstado(mensaje, tipo) {
+
+    const estado =
+        document.getElementById("estado");
+
+
+    estado.textContent =
+        mensaje;
+
+
+    estado.className =
+        "estado " + tipo;
+
+
+    estado.style.display =
+        "block";
+}
+
+
+
+/* =====================================================
+   MOSTRAR CLIENTES
+===================================================== */
+
+function mostrarClientes() {
+
+    const lista =
+        document.getElementById("listaClientes");
+
+
+    lista.innerHTML =
+        "";
+
+
+    const codigos =
+        Object.keys(clientes);
+
+
+    if (codigos.length === 0) {
+
+        lista.innerHTML =
+            '<p class="aviso">No hay clientes registrados.</p>';
+
+        return;
+    }
+
+
+    codigos.forEach(function(codigo) {
+
+        const cliente =
+            clientes[codigo];
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "cliente";
+
+
+        div.innerHTML = `
+
+            <strong>
+                ${escaparHTML(codigo)}
+                —
+                ${escaparHTML(cliente.nombre)}
+            </strong>
+
+            <div class="cliente-url">
+                /r/${escaparHTML(codigo)}
+            </div>
+
+            <div class="cliente-acciones">
+
+                <button
+                    class="boton-editar"
+                    onclick="editarCliente('${escaparJS(codigo)}')"
+                >
+                    ✏️ Editar
+                </button>
+
+                <button
+                    class="boton-eliminar"
+                    onclick="eliminarCliente('${escaparJS(codigo)}')"
+                >
+                    🗑️ Eliminar
+                </button>
+
+            </div>
+        `;
+
+
+        lista.appendChild(div);
+    });
+}
+
+
+
+/* =====================================================
+   AGREGAR BOTÓN
+===================================================== */
+
+function agregarBoton(
+    nombreInicial = "",
+    enlaceInicial = ""
+) {
+
+    contadorBotones++;
+
+
+    const contenedor =
+        document.getElementById(
+            "botonesPersonalizados"
+        );
+
+
+    const div =
+        document.createElement("div");
+
+
+    div.className =
+        "boton-personalizado";
+
+
+    div.id =
+        "boton-" + contadorBotones;
+
+
+    div.innerHTML = `
+
+        <label>
+            Nombre del botón
+        </label>
+
+        <input
+            class="nombre-boton"
+            placeholder="Ejemplo: 📱 WhatsApp"
+            value="${escaparHTML(nombreInicial)}"
+        >
+
+
+        <label>
+            Enlace
+        </label>
+
+        <input
+            class="enlace-boton"
+            placeholder="https://..."
+            value="${escaparHTML(enlaceInicial)}"
+        >
+
+
+        <button
+            class="boton-quitar"
+            onclick="quitarBoton(${contadorBotones})"
+        >
+            🗑️ Quitar botón
+        </button>
+    `;
+
+
+    contenedor.appendChild(div);
+}
+
+
+
+/* =====================================================
+   QUITAR BOTÓN
+===================================================== */
+
+function quitarBoton(id) {
+
+    const elemento =
+        document.getElementById(
+            "boton-" + id
+        );
+
+
+    if (!elemento) {
+        return;
+    }
+
+
+    const nombreInput =
+        elemento.querySelector(
+            ".nombre-boton"
+        );
+
+
+    const nombre =
+        nombreInput.value.trim() ||
+        "este botón";
+
+
+    const confirmar =
+        confirm(
+
+            "¿Estás seguro que querés borrar " +
+
+            '"' + nombre + '"' +
+
+            "?\n\nEsta acción quitará este botón del cliente."
+
+        );
+
+
+    if (confirmar) {
+
+        elemento.remove();
+    }
+}
+
+
+
+/* =====================================================
+   EDITAR CLIENTE
+===================================================== */
+
+function editarCliente(codigo) {
+
+    const cliente =
+        clientes[codigo];
+
+
+    if (!cliente) {
+
+        alert(
+            "No se encontró ese cliente."
+        );
+
+        return;
+    }
+
+
+    clienteEditando =
+        codigo;
+
+
+    document.getElementById(
+        "tituloFormulario"
+    ).textContent =
+        "✏️ Editar cliente " + codigo;
+
+
+    document.getElementById(
+        "tituloFormulario"
+    ).classList.add(
+        "titulo-edicion"
+    );
+
+
+    document.getElementById(
+        "avisoEdicion"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "codigo"
+    ).value =
+        codigo;
+
+
+    document.getElementById(
+        "codigo"
+    ).disabled =
+        true;
+
+
+    document.getElementById(
+        "nombre"
+    ).value =
+        cliente.nombre;
+
+
+    /*
+        Si el cliente es antiguo y todavía
+        no tiene descripción, dejamos
+        el campo vacío.
+    */
+
+    document.getElementById(
+        "descripcion"
+    ).value =
+        cliente.descripcion || "";
+
+
+    document.getElementById(
+        "botonesPersonalizados"
+    ).innerHTML =
+        "";
+
+
+    contadorBotones =
+        0;
+
+
+    cliente.botones.forEach(
+        function(boton) {
+
+            agregarBoton(
+                boton.nombre,
+                boton.enlace
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "botonGuardar"
+    ).textContent =
+        "💾 Guardar cambios";
+
+
+    document.getElementById(
+        "botonCancelar"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "resultado"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "formularioCliente"
+    ).scrollIntoView({
+
+        behavior: "smooth"
+
+    });
+}
+
+
+
+/* =====================================================
+   ELIMINAR CLIENTE
+===================================================== */
+
+async function eliminarCliente(codigo) {
+
+    const cliente =
+        clientes[codigo];
+
+
+    if (!cliente) {
+
+        alert(
+            "No se encontró ese cliente."
+        );
+
+        return;
+    }
+
+
+    const confirmar =
+        confirm(
+
+            "⚠️ ATENCIÓN\n\n" +
+
+            "¿Estás seguro que querés borrar al cliente " +
+
+            codigo +
+
+            " — " +
+
+            cliente.nombre +
+
+            "?\n\nSe eliminarán todos sus botones y sus datos del panel.\n\n" +
+
+            "Esta acción no se puede deshacer."
+
+        );
+
+
+    if (!confirmar) {
+        return;
+    }
+
+
+    const clienteEliminado =
+        JSON.parse(
+            JSON.stringify(cliente)
+        );
+
+
+    delete clientes[codigo];
+
+
+    generarClientesJS();
+
+    mostrarClientes();
+
+
+    mostrarEstado(
+        "⏳ Eliminando cliente y actualizando GitHub...",
+        "estado-cargando"
+    );
+
+
+    const resultado =
+        await sincronizarConGitHub();
+
+
+    if (!resultado.ok) {
+
+        clientes[codigo] =
+            clienteEliminado;
+
+
+        generarClientesJS();
+
+        mostrarClientes();
+
+
+        mostrarEstado(
+            "❌ No se pudo actualizar GitHub. El cliente fue restaurado.",
+            "estado-error"
+        );
+
+
+        alert(
+            "No se pudo actualizar clientes.js.\n\n" +
+            resultado.mensaje
+        );
+
+
+        return;
+    }
+
+
+    mostrarEstado(
+        "✅ Cliente eliminado y clientes.js actualizado.",
+        "estado-ok"
+    );
+
+
+    alert(
+        "El cliente " +
+        codigo +
+        " fue eliminado correctamente.\n\n" +
+        "clientes.js también fue actualizado automáticamente."
+    );
+
+
+    if (clienteEditando === codigo) {
+
+        cancelarEdicion();
+    }
+}
+
+
+
+/* =====================================================
+   CANCELAR EDICIÓN
+===================================================== */
+
+function cancelarEdicion() {
+
+    clienteEditando =
+        null;
+
+
+    document.getElementById(
+        "tituloFormulario"
+    ).textContent =
+        "Crear nuevo cliente";
+
+
+    document.getElementById(
+        "tituloFormulario"
+    ).classList.remove(
+        "titulo-edicion"
+    );
+
+
+    document.getElementById(
+        "avisoEdicion"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "codigo"
+    ).disabled =
+        false;
+
+
+    document.getElementById(
+        "codigo"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "nombre"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "descripcion"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "botonesPersonalizados"
+    ).innerHTML =
+        "";
+
+
+    contadorBotones =
+        0;
+
+
+    document.getElementById(
+        "botonGuardar"
+    ).textContent =
+        "Crear cliente";
+
+
+    document.getElementById(
+        "botonCancelar"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "resultado"
+    ).style.display =
+        "none";
+}
+
+
 
 /* =====================================================
    NORMALIZAR ENLACES
@@ -102,30 +1124,15 @@ function normalizarEnlace(enlace) {
         String(enlace || "").trim();
 
 
-    /*
-        Si el enlace está vacío,
-        devolvemos una cadena vacía.
-    */
-
     if (!valor) {
         return "";
     }
 
 
-    /*
-        Si ya comienza con http:// o https://,
-        lo dejamos como está.
-    */
-
     if (/^https?:\/\//i.test(valor)) {
         return valor;
     }
 
-
-    /*
-        Permitimos enlaces telefónicos
-        y enlaces de correo.
-    */
 
     if (
         /^tel:/i.test(valor) ||
@@ -135,202 +1142,637 @@ function normalizarEnlace(enlace) {
     }
 
 
-    /*
-        Si el usuario escribió por ejemplo:
-
-        instagram.com
-        www.instagram.com
-        wa.me/549260...
-
-        agregamos automáticamente https://
-    */
-
     return "https://" +
         valor.replace(/^\/+/, "");
-
 }
 
 
 
 /* =====================================================
-   OBTENER CÓDIGO DEL CLIENTE
+   GUARDAR CLIENTE
 ===================================================== */
 
-const ruta =
-    window.location.pathname;
+async function guardarCliente() {
+
+    const codigo =
+        document.getElementById(
+            "codigo"
+        ).value.trim();
 
 
-const partes =
-    ruta.split("/");
+    const nombre =
+        document.getElementById(
+            "nombre"
+        ).value.trim();
 
 
-const codigo =
-    partes.filter(function(parte) {
-
-        return parte !== "";
-
-    }).pop();
-
-
-
-const negocio =
-    negocios[codigo];
-
-
-
-/* =====================================================
-   MOSTRAR INFORMACIÓN DEL NEGOCIO
-===================================================== */
-
-if (negocio) {
-
-
-    /* =================================================
-       MOSTRAR NOMBRE
-    ================================================= */
-
-    document.getElementById(
-        "nombre"
-    ).textContent =
-        negocio.nombre;
-
-
-
-    /* =================================================
-       MOSTRAR DESCRIPCIÓN SOLO SI EXISTE
-    ================================================= */
+    /*
+        La descripción puede quedar vacía.
+    */
 
     const descripcion =
-        String(
-            negocio.descripcion || ""
-        ).trim();
-
-
-    const elementoDescripcion =
         document.getElementById(
             "descripcion"
+        ).value.trim();
+
+
+    if (
+        !codigo ||
+        !nombre
+    ) {
+
+        alert(
+            "Completá el código y el nombre del negocio."
         );
 
-
-    if (descripcion) {
-
-        elementoDescripcion.textContent =
-            descripcion;
-
-        elementoDescripcion.style.display =
-            "block";
-
-    } else {
-
-        elementoDescripcion.style.display =
-            "none";
-
+        return;
     }
 
 
+    if (
+        !clienteEditando &&
+        clientes[codigo]
+    ) {
 
-    /* =================================================
-       MOSTRAR BOTONES
-    ================================================= */
+        alert(
+            "Ese código ya está utilizado. Probá con otro."
+        );
 
-    const contenedorBotones =
-        document.getElementById(
-            "botones"
+        return;
+    }
+
+
+    const nombres =
+        document.querySelectorAll(
+            ".nombre-boton"
         );
 
 
-    negocio.botones.forEach(
-        function(boton) {
+    const enlaces =
+        document.querySelectorAll(
+            ".enlace-boton"
+        );
 
 
-            /*
-                Corregimos el enlace.
-            */
+    if (nombres.length === 0) {
 
-            const enlaceCorregido =
-                normalizarEnlace(
-                    boton.enlace
-                );
+        alert(
+            "Agregá al menos un botón para el cliente."
+        );
 
-
-            /*
-                Si el enlace está vacío,
-                no mostramos ese botón.
-            */
-
-            if (!enlaceCorregido) {
-                return;
-            }
+        return;
+    }
 
 
-            /*
-                Crear botón.
-            */
-
-            const elemento =
-                document.createElement(
-                    "a"
-                );
+    const botones =
+        [];
 
 
-            elemento.className =
-                "boton";
+    for (
+        let i = 0;
+        i < nombres.length;
+        i++
+    ) {
+
+        const nombreBoton =
+            nombres[i].value.trim();
 
 
-            elemento.textContent =
-                boton.nombre;
-
-
-            elemento.href =
-                enlaceCorregido;
-
-
-            elemento.target =
-                "_blank";
-
-
-            elemento.rel =
-                "noopener noreferrer";
-
-
-            contenedorBotones.appendChild(
-                elemento
+        const enlaceBoton =
+            normalizarEnlace(
+                enlaces[i].value
             );
 
+
+        enlaces[i].value =
+            enlaceBoton;
+
+
+        if (
+            !nombreBoton ||
+            !enlaceBoton
+        ) {
+
+            alert(
+                "Completá el nombre y el enlace de cada botón."
+            );
+
+            return;
         }
+
+
+        botones.push({
+
+            nombre:
+                nombreBoton,
+
+            enlace:
+                enlaceBoton
+
+        });
+    }
+
+
+    const estabaEditando =
+        Boolean(clienteEditando);
+
+
+    const codigoAnterior =
+        clienteEditando;
+
+
+    let clienteAnterior =
+        null;
+
+
+    if (estabaEditando) {
+
+        clienteAnterior =
+            JSON.parse(
+
+                JSON.stringify(
+                    clientes[codigoAnterior]
+                )
+
+            );
+    }
+
+
+    /*
+        Guardamos también la descripción.
+        Puede contener texto o estar vacía.
+    */
+
+    clientes[codigo] = {
+
+        nombre:
+            nombre,
+
+        descripcion:
+            descripcion,
+
+        botones:
+            botones
+
+    };
+
+
+    generarClientesJS();
+
+    mostrarClientes();
+
+
+    enlaceActual =
+        "https://qonekta.github.io/qr-dinamicos/r/" +
+        codigo;
+
+
+    document.getElementById(
+        "urlCliente"
+    ).textContent =
+        enlaceActual;
+
+
+    mostrarEstado(
+        "⏳ Guardando cambios y actualizando GitHub...",
+        "estado-cargando"
     );
 
-}
+
+    const botonGuardar =
+        document.getElementById(
+            "botonGuardar"
+        );
 
 
+    botonGuardar.disabled =
+        true;
 
-/* =====================================================
-   CÓDIGO NO ENCONTRADO
-===================================================== */
 
-else {
+    botonGuardar.textContent =
+        "⏳ Guardando...";
+
+
+    const resultado =
+        await sincronizarConGitHub();
+
+
+    botonGuardar.disabled =
+        false;
+
+
+    if (!resultado.ok) {
+
+        if (estabaEditando) {
+
+            clientes[codigoAnterior] =
+                clienteAnterior;
+
+        } else {
+
+            delete clientes[codigo];
+        }
+
+
+        generarClientesJS();
+
+        mostrarClientes();
+
+
+        mostrarEstado(
+            "❌ No se pudo actualizar GitHub. No se aplicaron los cambios.",
+            "estado-error"
+        );
+
+
+        alert(
+            "No se pudo actualizar clientes.js.\n\n" +
+            resultado.mensaje
+        );
+
+
+        botonGuardar.textContent =
+            estabaEditando
+                ? "💾 Guardar cambios"
+                : "Crear cliente";
+
+
+        return;
+    }
+
+
+    mostrarEstado(
+        "✅ Guardado correctamente. clientes.js fue actualizado.",
+        "estado-ok"
+    );
+
 
     document.getElementById(
-        "nombre"
+        "resultado"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "codigoGenerado"
     ).textContent =
-        "Enlace no encontrado";
+        codigoActual;
+
+
+    if (estabaEditando) {
+
+        alert(
+            "Cliente actualizado correctamente.\n\n" +
+            "clientes.js fue actualizado automáticamente."
+        );
+
+    } else {
+
+        alert(
+            "Cliente creado correctamente.\n\n" +
+            "clientes.js fue actualizado automáticamente."
+        );
+    }
+
+
+    clienteEditando =
+        null;
 
 
     document.getElementById(
-        "descripcion"
+        "codigo"
+    ).disabled =
+        false;
+
+
+    document.getElementById(
+        "botonGuardar"
+    ).textContent =
+        "Crear cliente";
+
+
+    document.getElementById(
+        "botonCancelar"
     ).style.display =
         "none";
 
 
     document.getElementById(
-        "pregunta"
+        "tituloFormulario"
     ).textContent =
-        "El código utilizado no está configurado.";
+        "Crear nuevo cliente";
 
+
+    document.getElementById(
+        "tituloFormulario"
+    ).classList.remove(
+        "titulo-edicion"
+    );
+
+
+    document.getElementById(
+        "avisoEdicion"
+    ).style.display =
+        "none";
+}
+
+
+
+/* =====================================================
+   SINCRONIZAR CON CLOUDFLARE → GITHUB
+===================================================== */
+
+async function sincronizarConGitHub() {
+
+    if (!claveSincronizacion) {
+
+        return {
+
+            ok:
+                false,
+
+            mensaje:
+                "No hay una clave de sincronización."
+
+        };
+    }
+
+
+    try {
+
+        const respuesta =
+            await fetch(
+
+                WORKER_URL,
+
+                {
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "X-Admin-Key":
+                            claveSincronizacion
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            content:
+                                codigoActual
+
+                        })
+                }
+            );
+
+
+        let datos;
+
+
+        try {
+
+            datos =
+                await respuesta.json();
+
+        } catch (error) {
+
+            return {
+
+                ok:
+                    false,
+
+                mensaje:
+                    "Cloudflare devolvió una respuesta no válida."
+
+            };
+        }
+
+
+        if (
+            !respuesta.ok ||
+            !datos.ok
+        ) {
+
+            return {
+
+                ok:
+                    false,
+
+                mensaje:
+                    datos.mensaje ||
+                    "Cloudflare rechazó la actualización."
+
+            };
+        }
+
+
+        return {
+
+            ok:
+                true,
+
+            mensaje:
+                datos.mensaje
+
+        };
+
+
+    } catch (error) {
+
+        return {
+
+            ok:
+                false,
+
+            mensaje:
+                "No se pudo conectar con Cloudflare.\n\n" +
+                error.message
+
+        };
+    }
+}
+
+
+
+/* =====================================================
+   GENERAR CLIENTES.JS COMPLETO
+===================================================== */
+
+function generarClientesJS() {
+
+    let codigo =
+`const negocios = {
+
+`;
+
+
+    const codigos =
+        Object.keys(clientes);
+
+
+    codigos.forEach(
+        function(id) {
+
+            const cliente =
+                clientes[id];
+
+
+            codigo +=
+`    "${escaparJS(id)}": {
+
+        nombre: "${escaparJS(cliente.nombre)}",
+
+        descripcion: "${escaparJS(cliente.descripcion || "")}",
+
+        botones: [
+
+`;
+
+
+            cliente.botones.forEach(
+                function(boton) {
+
+                    codigo +=
+`            {
+                nombre: "${escaparJS(boton.nombre)}",
+                enlace: "${escaparJS(boton.enlace)}"
+            },
+
+`;
+
+                }
+            );
+
+
+            codigo +=
+`        ]
+
+    },
+
+`;
+
+        }
+    );
+
+
+    codigo +=
+`};
+`;
+
+
+    codigoActual =
+        codigo;
+
+
+    document.getElementById(
+        "codigoGenerado"
+    ).textContent =
+        codigo;
+}
+
+
+
+/* =====================================================
+   COPIAR ENLACE
+===================================================== */
+
+function copiarEnlace() {
+
+    navigator.clipboard.writeText(
+        enlaceActual
+    );
+
+
+    alert(
+        "Enlace copiado."
+    );
+}
+
+
+
+/* =====================================================
+   COPIAR CLIENTES.JS
+===================================================== */
+
+function copiarCodigo() {
+
+    navigator.clipboard.writeText(
+        codigoActual
+    );
+
+
+    alert(
+        "clientes.js completo copiado."
+    );
+}
+
+
+
+/* =====================================================
+   ESCAPAR HTML
+===================================================== */
+
+function escaparHTML(texto) {
+
+    return String(texto)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        );
+}
+
+
+
+/* =====================================================
+   ESCAPAR JAVASCRIPT
+===================================================== */
+
+function escaparJS(texto) {
+
+    return String(texto)
+
+        .replace(
+            /\\/g,
+            "\\\\"
+        )
+
+        .replace(
+            /"/g,
+            '\\"'
+        )
+
+        .replace(
+            /\n/g,
+            "\\n"
+        )
+
+        .replace(
+            /\r/g,
+            "\\r"
+        );
 }
 
 </script>
 
 </body>
-
 </html>
