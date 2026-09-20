@@ -68,59 +68,169 @@
 
 <script>
 
+/* =====================================================
+   NORMALIZAR ENLACES
+===================================================== */
+
+function normalizarEnlace(enlace) {
+
+    let valor =
+        String(enlace || "").trim();
+
+
+    /*
+        Si el enlace está vacío,
+        no enviamos al usuario a ninguna página.
+    */
+
+    if (!valor) {
+        return "#";
+    }
+
+
+    /*
+        Si ya comienza con http:// o https://,
+        lo dejamos como está.
+    */
+
+    if (/^https?:\/\//i.test(valor)) {
+        return valor;
+    }
+
+
+    /*
+        Permitimos enlaces telefónicos
+        y enlaces de correo.
+    */
+
+    if (
+        /^tel:/i.test(valor) ||
+        /^mailto:/i.test(valor)
+    ) {
+        return valor;
+    }
+
+
+    /*
+        Si el usuario escribió por ejemplo:
+
+        instagram.com
+        www.instagram.com
+        wa.me/549260...
+
+        agregamos automáticamente https://
+    */
+
+    return "https://" +
+        valor.replace(/^\/+/, "");
+
+}
+
+
+
+/* =====================================================
+   OBTENER CÓDIGO DEL CLIENTE
+===================================================== */
+
 // Obtener la dirección actual
 
-const ruta = window.location.pathname;
+const ruta =
+    window.location.pathname;
 
 
 // Separar la dirección en partes
 
-const partes = ruta.split("/");
+const partes =
+    ruta.split("/");
 
 
 // Buscar el último elemento que tenga contenido
 
-const codigo = partes.filter(function(parte) {
-    return parte !== "";
-}).pop();
+const codigo =
+    partes.filter(function(parte) {
+
+        return parte !== "";
+
+    }).pop();
+
 
 
 // Buscar el negocio correspondiente
 
-const negocio = negocios[codigo];
+const negocio =
+    negocios[codigo];
 
 
-// Mostrar la información
+
+/* =====================================================
+   MOSTRAR INFORMACIÓN DEL NEGOCIO
+===================================================== */
 
 if (negocio) {
 
-    document.getElementById("nombre").textContent = negocio.nombre;
+    document.getElementById("nombre").textContent =
+        negocio.nombre;
 
-    const contenedorBotones = document.getElementById("botones");
+
+    const contenedorBotones =
+        document.getElementById("botones");
+
 
     negocio.botones.forEach(function(boton) {
 
-        const elemento = document.createElement("a");
+        const elemento =
+            document.createElement("a");
 
-        elemento.className = "boton";
 
-        elemento.textContent = boton.nombre;
+        elemento.className =
+            "boton";
+
+
+        elemento.textContent =
+            boton.nombre;
+
+
+        /*
+            Corregimos automáticamente el enlace
+            antes de utilizarlo.
+        */
 
         elemento.href =
-    normalizarEnlace(
-        boton.enlace
-    );
+            normalizarEnlace(
+                boton.enlace
+            );
 
-        elemento.target = "_blank";
 
-        contenedorBotones.appendChild(elemento);
+        /*
+            Abrimos el enlace en una pestaña nueva.
+        */
+
+        elemento.target =
+            "_blank";
+
+
+        elemento.rel =
+            "noopener noreferrer";
+
+
+        contenedorBotones.appendChild(
+            elemento
+        );
 
     });
 
-} else {
+}
+
+
+/* =====================================================
+   CÓDIGO NO ENCONTRADO
+===================================================== */
+
+else {
 
     document.getElementById("nombre").textContent =
         "Enlace no encontrado";
+
 
     document.querySelector("p").textContent =
         "El código utilizado no está configurado.";
