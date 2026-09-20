@@ -106,7 +106,10 @@ if (negocio) {
 
         elemento.textContent = boton.nombre;
 
-        elemento.href = boton.enlace;
+        elemento.href =
+    normalizarEnlace(
+        boton.enlace
+    );
 
         elemento.target = "_blank";
 
