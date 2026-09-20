@@ -4,6 +4,8 @@ const negocios = {
 
         nombre: "Barbería de prueba",
 
+        descripcion: "",
+
         botones: [
 
             {
@@ -33,6 +35,8 @@ const negocios = {
     "002": {
 
         nombre: "Restaurante de prueba",
+
+        descripcion: "",
 
         botones: [
 
@@ -64,6 +68,8 @@ const negocios = {
 
         nombre: "cafe san rafael",
 
+        descripcion: "",
+
         botones: [
 
             {
@@ -92,7 +98,9 @@ const negocios = {
 
     "004": {
 
-        nombre: "barbensa",
+        nombre: "barberíasanra",
+
+        descripcion: "turnos por wasap",
 
         botones: [
 
@@ -106,4 +114,3 @@ const negocios = {
     },
 
 };
-
