@@ -8,7 +8,7 @@ const negocios = {
 
             {
                 nombre: "ð± WhatsApp",
-                enlace: "https://wa.me/549260XXXXXXXX"
+                enlace: "https://wa.me/5492604800024"
             },
 
             {
