@@ -80,11 +80,11 @@ function normalizarEnlace(enlace) {
 
     /*
         Si el enlace está vacío,
-        no enviamos al usuario a ninguna página.
+        devolvemos una cadena vacía.
     */
 
     if (!valor) {
-        return "#";
+        return "";
     }
 
 
@@ -132,19 +132,13 @@ function normalizarEnlace(enlace) {
    OBTENER CÓDIGO DEL CLIENTE
 ===================================================== */
 
-// Obtener la dirección actual
-
 const ruta =
     window.location.pathname;
 
 
-// Separar la dirección en partes
-
 const partes =
     ruta.split("/");
 
-
-// Buscar el último elemento que tenga contenido
 
 const codigo =
     partes.filter(function(parte) {
@@ -154,8 +148,6 @@ const codigo =
     }).pop();
 
 
-
-// Buscar el negocio correspondiente
 
 const negocio =
     negocios[codigo];
@@ -178,6 +170,33 @@ if (negocio) {
 
     negocio.botones.forEach(function(boton) {
 
+
+        /*
+            Primero comprobamos si el botón
+            tiene un enlace válido.
+        */
+
+        const enlaceCorregido =
+            normalizarEnlace(
+                boton.enlace
+            );
+
+
+        /*
+            Si el enlace está vacío,
+            no mostramos ese botón.
+        */
+
+        if (!enlaceCorregido) {
+            return;
+        }
+
+
+        /*
+            Crear botón solamente
+            si tiene un enlace.
+        */
+
         const elemento =
             document.createElement("a");
 
@@ -190,20 +209,9 @@ if (negocio) {
             boton.nombre;
 
 
-        /*
-            Corregimos automáticamente el enlace
-            antes de utilizarlo.
-        */
-
         elemento.href =
-            normalizarEnlace(
-                boton.enlace
-            );
+            enlaceCorregido;
 
-
-        /*
-            Abrimos el enlace en una pestaña nueva.
-        */
 
         elemento.target =
             "_blank";
