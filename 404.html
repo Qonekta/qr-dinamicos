@@ -28,7 +28,16 @@
             margin-bottom: 10px;
         }
 
-        p {
+        .descripcion {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-top: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .pregunta {
             color: #666;
             margin-bottom: 25px;
         }
@@ -52,9 +61,24 @@
 
 <div class="contenedor">
 
-    <h1 id="nombre">Cargando...</h1>
+    <h1 id="nombre">
+        Cargando...
+    </h1>
 
-    <p>¿Qué querés hacer?</p>
+
+    <p
+        id="descripcion"
+        class="descripcion"
+    ></p>
+
+
+    <p
+        id="pregunta"
+        class="pregunta"
+    >
+        ¿Qué querés hacer?
+    </p>
+
 
     <div id="botones"></div>
 
@@ -160,74 +184,124 @@ const negocio =
 
 if (negocio) {
 
-    document.getElementById("nombre").textContent =
+
+    /* =================================================
+       MOSTRAR NOMBRE
+    ================================================= */
+
+    document.getElementById(
+        "nombre"
+    ).textContent =
         negocio.nombre;
 
 
-    const contenedorBotones =
-        document.getElementById("botones");
+
+    /* =================================================
+       MOSTRAR DESCRIPCIÓN SOLO SI EXISTE
+    ================================================= */
+
+    const descripcion =
+        String(
+            negocio.descripcion || ""
+        ).trim();
 
 
-    negocio.botones.forEach(function(boton) {
-
-
-        /*
-            Primero comprobamos si el botón
-            tiene un enlace válido.
-        */
-
-        const enlaceCorregido =
-            normalizarEnlace(
-                boton.enlace
-            );
-
-
-        /*
-            Si el enlace está vacío,
-            no mostramos ese botón.
-        */
-
-        if (!enlaceCorregido) {
-            return;
-        }
-
-
-        /*
-            Crear botón solamente
-            si tiene un enlace.
-        */
-
-        const elemento =
-            document.createElement("a");
-
-
-        elemento.className =
-            "boton";
-
-
-        elemento.textContent =
-            boton.nombre;
-
-
-        elemento.href =
-            enlaceCorregido;
-
-
-        elemento.target =
-            "_blank";
-
-
-        elemento.rel =
-            "noopener noreferrer";
-
-
-        contenedorBotones.appendChild(
-            elemento
+    const elementoDescripcion =
+        document.getElementById(
+            "descripcion"
         );
 
-    });
+
+    if (descripcion) {
+
+        elementoDescripcion.textContent =
+            descripcion;
+
+        elementoDescripcion.style.display =
+            "block";
+
+    } else {
+
+        elementoDescripcion.style.display =
+            "none";
+
+    }
+
+
+
+    /* =================================================
+       MOSTRAR BOTONES
+    ================================================= */
+
+    const contenedorBotones =
+        document.getElementById(
+            "botones"
+        );
+
+
+    negocio.botones.forEach(
+        function(boton) {
+
+
+            /*
+                Corregimos el enlace.
+            */
+
+            const enlaceCorregido =
+                normalizarEnlace(
+                    boton.enlace
+                );
+
+
+            /*
+                Si el enlace está vacío,
+                no mostramos ese botón.
+            */
+
+            if (!enlaceCorregido) {
+                return;
+            }
+
+
+            /*
+                Crear botón.
+            */
+
+            const elemento =
+                document.createElement(
+                    "a"
+                );
+
+
+            elemento.className =
+                "boton";
+
+
+            elemento.textContent =
+                boton.nombre;
+
+
+            elemento.href =
+                enlaceCorregido;
+
+
+            elemento.target =
+                "_blank";
+
+
+            elemento.rel =
+                "noopener noreferrer";
+
+
+            contenedorBotones.appendChild(
+                elemento
+            );
+
+        }
+    );
 
 }
+
 
 
 /* =====================================================
@@ -236,11 +310,21 @@ if (negocio) {
 
 else {
 
-    document.getElementById("nombre").textContent =
+    document.getElementById(
+        "nombre"
+    ).textContent =
         "Enlace no encontrado";
 
 
-    document.querySelector("p").textContent =
+    document.getElementById(
+        "descripcion"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "pregunta"
+    ).textContent =
         "El código utilizado no está configurado.";
 
 }
