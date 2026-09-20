@@ -98,7 +98,7 @@ const negocios = {
 
             {
                 nombre: "prueba instagram",
-                enlace: "instagram.com"
+                enlace: "https//www.instagram.com"
             },
 
         ]
