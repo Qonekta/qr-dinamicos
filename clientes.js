@@ -105,20 +105,5 @@ const negocios = {
 
     },
 
-    "005": {
-
-        nombre: "negocio de prueba 005",
-
-        botones: [
-
-            {
-                nombre: "🌐 Google",
-                enlace: "https://google.com"
-            },
-
-        ]
-
-    },
-
 };
 
