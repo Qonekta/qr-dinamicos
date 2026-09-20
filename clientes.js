@@ -24,7 +24,7 @@ const negocios = {
             {
                 nombre: "📍 Cómo llegar",
                 enlace: "https://www.google.com/maps/"
-            }
+            },
 
         ]
 
@@ -54,7 +54,7 @@ const negocios = {
             {
                 nombre: "📍 Cómo llegar",
                 enlace: "https://www.google.com/maps/"
-            }
+            },
 
         ]
 
@@ -84,7 +84,7 @@ const negocios = {
             {
                 nombre: "📍 Cómo llegar",
                 enlace: ""
-            }
+            },
 
         ]
 
@@ -92,17 +92,18 @@ const negocios = {
 
     "004": {
 
-        nombre: "barberia san ra",
+        nombre: "barbensa",
 
         botones: [
 
             {
-                nombre: "prueba instagram",
+                nombre: "📸 Instagram",
                 enlace: "https://www.instagram.com/"
-            }
+            },
 
         ]
 
-    }
+    },
 
 };
+
