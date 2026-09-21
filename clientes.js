@@ -181,4 +181,23 @@ const negocios = {
 
     },
 
+    "010": {
+
+        nombre: "negocio 10",
+
+        descripcion: "",
+
+        fondo: "",
+
+        botones: [
+
+            {
+                nombre: "⭐ Dejar una reseña",
+                enlace: "https://google.com"
+            },
+
+        ]
+
+    },
+
 };
