@@ -6,6 +6,8 @@ const negocios = {
 
         descripcion: "",
 
+        fondo: "",
+
         botones: [
 
             {
@@ -37,6 +39,8 @@ const negocios = {
         nombre: "Restaurante de prueba",
 
         descripcion: "",
+
+        fondo: "",
 
         botones: [
 
@@ -70,6 +74,8 @@ const negocios = {
 
         descripcion: "",
 
+        fondo: "",
+
         botones: [
 
             {
@@ -101,6 +107,8 @@ const negocios = {
         nombre: "barberíasanra",
 
         descripcion: "turnos por wasap",
+
+        fondo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx48ENXLd7fmj3XfnuQwJlURyWxQw_l_akp4ugah9PNCEj25mo-i_lmMU&s=10",
 
         botones: [
 
