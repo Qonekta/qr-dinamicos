@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Panel de clientes</title>
 
+
     <style>
+
         body {
             font-family: Arial, sans-serif;
             background: #f5f5f5;
@@ -14,33 +20,39 @@
             color: #222;
         }
 
+
         .contenedor {
             max-width: 700px;
             margin: auto;
         }
+
 
         .tarjeta {
             background: white;
             padding: 30px;
             border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
         }
+
 
         h1 {
             text-align: center;
             margin-top: 0;
         }
 
+
         h2 {
             margin-top: 0;
         }
+
 
         label {
             display: block;
             margin-top: 15px;
             font-weight: bold;
         }
+
 
         input {
             width: 100%;
@@ -51,6 +63,7 @@
             border-radius: 8px;
             font-size: 15px;
         }
+
 
         button {
             width: 100%;
@@ -64,40 +77,49 @@
             cursor: pointer;
         }
 
+
         button:hover {
             background: #444;
         }
+
 
         button:disabled {
             opacity: 0.6;
             cursor: wait;
         }
 
+
         .boton-editar {
             background: #1976d2;
             margin-top: 12px;
         }
 
+
         .boton-editar:hover {
             background: #125aa0;
         }
+
 
         .boton-eliminar {
             background: #b00020;
             margin-top: 10px;
         }
 
+
         .boton-eliminar:hover {
             background: #8a0018;
         }
+
 
         .boton-agregar {
             background: #1976d2;
         }
 
+
         .boton-agregar:hover {
             background: #125aa0;
         }
+
 
         .boton-quitar {
             background: #777;
@@ -106,24 +128,28 @@
             margin-top: 10px;
         }
 
+
         .boton-quitar:hover {
             background: #555;
         }
+
 
         .boton-secundario {
             background: #555;
         }
 
+
         .boton-cancelar {
             background: #777;
         }
+
 
         .boton-cancelar:hover {
             background: #555;
         }
 
-        .boton-personalizado,
-        .cliente {
+
+        .boton-personalizado {
             border: 1px solid #ddd;
             padding: 15px;
             margin-top: 15px;
@@ -131,16 +157,34 @@
             background: #fafafa;
         }
 
+
+        .cliente {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            background: #fafafa;
+        }
+
+
         .cliente strong {
             display: block;
             margin-bottom: 5px;
         }
 
-        .cliente-url,
+
+        .cliente-url {
+            color: #777;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+
         .aviso {
             color: #777;
             font-size: 14px;
         }
+
 
         .resultado {
             margin-top: 25px;
@@ -150,10 +194,12 @@
             display: none;
         }
 
+
         .url {
             word-break: break-all;
             font-weight: bold;
         }
+
 
         .codigo {
             background: #222;
@@ -165,18 +211,22 @@
             word-break: break-word;
         }
 
+
         .titulo-edicion {
             color: #1976d2;
         }
+
 
         .cliente-acciones {
             display: flex;
             gap: 10px;
         }
 
+
         .cliente-acciones button {
             margin-top: 12px;
         }
+
 
         .estado {
             margin-top: 15px;
@@ -186,78 +236,177 @@
             font-weight: bold;
         }
 
+
         .estado-ok {
             background: #dff5e3;
             color: #176b2c;
         }
+
 
         .estado-error {
             background: #ffe1e1;
             color: #9b0000;
         }
 
+
         .estado-cargando {
             background: #e8eef7;
             color: #24527a;
         }
 
+
         @media (max-width: 500px) {
+
             .cliente-acciones {
                 flex-direction: column;
                 gap: 0;
             }
+
         }
+
     </style>
+
 </head>
+
+
 
 <body>
 
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
 <div id="login">
+
     <div class="tarjeta">
-        <h2>🔐 Acceso restringido</h2>
-        <p>Ingresá las claves para acceder al panel.</p>
 
-        <label>Contraseña del panel</label>
-        <input type="password" id="password" placeholder="Contraseña">
+        <h2>
+            🔐 Acceso restringido
+        </h2>
 
-        <label>Clave de sincronización</label>
-        <input type="password" id="adminSecret" placeholder="Clave de Cloudflare">
 
-        <p class="aviso">
-            La clave de sincronización se utiliza para actualizar automáticamente clientes.js.
+        <p>
+            Ingresá las claves para acceder al panel.
         </p>
 
-        <button onclick="iniciarSesion()">Ingresar</button>
 
-        <p id="errorLogin" style="color:red;"></p>
+        <label>
+            Contraseña del panel
+        </label>
+
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Contraseña"
+        >
+
+
+        <label>
+            Clave de sincronización
+        </label>
+
+
+        <input
+            type="password"
+            id="adminSecret"
+            placeholder="Clave de Cloudflare"
+        >
+
+
+        <p class="aviso">
+
+            La clave de sincronización se utiliza para
+            actualizar automáticamente clientes.js.
+
+        </p>
+
+
+        <button onclick="iniciarSesion()">
+
+            Ingresar
+
+        </button>
+
+
+        <p
+            id="errorLogin"
+            style="color:red;"
+        ></p>
+
     </div>
+
 </div>
 
 
-<div class="contenedor" id="panel" style="display:none;">
+
+<!-- =====================================================
+     PANEL
+===================================================== -->
+
+<div
+    class="contenedor"
+    id="panel"
+    style="display:none;"
+>
+
 
     <div class="tarjeta">
-        <h1>Panel de clientes</h1>
+
+        <h1>
+            Panel de clientes
+        </h1>
+
 
         <p>
-            Administrá los enlaces de los clientes de tu sistema QR/NFC.
+
+            Administrá los enlaces de los clientes
+            de tu sistema QR/NFC.
+
         </p>
 
-        <div id="estado" class="estado"></div>
+
+        <div
+            id="estado"
+            class="estado"
+        ></div>
+
     </div>
 
+
+
+    <!-- =================================================
+         CLIENTES ACTUALES
+    ================================================== -->
 
     <div class="tarjeta">
-        <h2>Clientes actuales</h2>
+
+        <h2>
+            Clientes actuales
+        </h2>
+
 
         <div id="listaClientes"></div>
+
     </div>
 
 
-    <div class="tarjeta" id="formularioCliente">
+
+    <!-- =================================================
+         CREAR / EDITAR CLIENTE
+    ================================================== -->
+
+    <div
+        class="tarjeta"
+        id="formularioCliente"
+    >
+
 
         <h2 id="tituloFormulario">
+
             Crear nuevo cliente
+
         </h2>
 
 
@@ -266,14 +415,20 @@
             id="avisoEdicion"
             style="display:none;"
         >
+
             Estás editando un cliente existente.
             Podés modificar cualquiera de sus datos.
+
         </p>
 
+
+
+        <!-- CÓDIGO -->
 
         <label>
             Código del cliente
         </label>
+
 
         <input
             id="codigo"
@@ -281,9 +436,13 @@
         >
 
 
+
+        <!-- NOMBRE -->
+
         <label>
             Nombre del negocio
         </label>
+
 
         <input
             id="nombre"
@@ -291,27 +450,64 @@
         >
 
 
+
+        <!-- DESCRIPCIÓN -->
+
         <label>
             Descripción breve (opcional)
         </label>
+
 
         <input
             id="descripcion"
             placeholder="Ejemplo: Turnos por WhatsApp"
         >
 
+
         <p class="aviso">
+
             Podés dejar este campo vacío.
-            Si está vacío, no se mostrará en la página del cliente.
+
         </p>
 
 
-        <h3 style="margin-top:30px;">
-            Botones del negocio
-        </h3>
+
+        <!-- IMAGEN DE FONDO -->
+
+        <label>
+            Imagen de fondo (opcional)
+        </label>
+
+
+        <input
+            id="fondo"
+            placeholder="https://..."
+        >
+
 
         <p class="aviso">
-            Cada botón puede tener un nombre y un enlace diferente.
+
+            Pegá la dirección de una imagen.
+            Si lo dejás vacío, se usará el fondo normal.
+
+        </p>
+
+
+
+        <!-- BOTONES -->
+
+        <h3 style="margin-top:30px;">
+
+            Botones del negocio
+
+        </h3>
+
+
+        <p class="aviso">
+
+            Cada botón puede tener un nombre
+            y un enlace diferente.
+
         </p>
 
 
@@ -322,17 +518,27 @@
             class="boton-agregar"
             onclick="agregarBoton()"
         >
+
             + Agregar botón
+
         </button>
 
+
+
+        <!-- GUARDAR -->
 
         <button
             id="botonGuardar"
             onclick="guardarCliente()"
         >
+
             Crear cliente
+
         </button>
 
+
+
+        <!-- CANCELAR -->
 
         <button
             id="botonCancelar"
@@ -340,22 +546,30 @@
             onclick="cancelarEdicion()"
             style="display:none;"
         >
+
             Cancelar
+
         </button>
 
+
+
+        <!-- RESULTADO -->
 
         <div
             class="resultado"
             id="resultado"
         >
 
+
             <h3>
                 ✅ Cambios guardados
             </h3>
 
+
             <p>
                 El enlace permanente del cliente es:
             </p>
+
 
             <p
                 class="url"
@@ -367,13 +581,17 @@
                 class="boton-secundario"
                 onclick="copiarEnlace()"
             >
+
                 Copiar enlace
+
             </button>
+
 
 
             <h3>
                 Código actual de clientes.js
             </h3>
+
 
             <pre
                 class="codigo"
@@ -385,41 +603,66 @@
                 class="boton-secundario"
                 onclick="copiarCodigo()"
             >
+
                 📋 Copiar clientes.js completo
+
             </button>
 
 
             <p class="aviso">
-                El archivo también fue enviado automáticamente a GitHub.
+
+                El archivo también fue enviado
+                automáticamente a GitHub.
+
             </p>
 
         </div>
 
+
     </div>
+
 
 </div>
 
 
+
 <script>
+
+
+/* =====================================================
+   CONFIGURACIÓN
+===================================================== */
 
 const WORKER_URL =
     "https://qr-dinamicos-api.lattucalucas.workers.dev";
+
 
 const CONTRASENA =
     "Callejeros12";
 
 
-let claveSincronizacion = "";
+let claveSincronizacion =
+    "";
 
-let clientes = {};
 
-let contadorBotones = 0;
+let clientes =
+    {};
 
-let enlaceActual = "";
 
-let codigoActual = "";
+let contadorBotones =
+    0;
 
-let clienteEditando = null;
+
+let enlaceActual =
+    "";
+
+
+let codigoActual =
+    "";
+
+
+let clienteEditando =
+    null;
 
 
 
@@ -429,46 +672,74 @@ let clienteEditando = null;
 
 function iniciarSesion() {
 
+
     const password =
-        document.getElementById("password").value.trim();
+        document.getElementById(
+            "password"
+        ).value.trim();
+
 
     const adminSecret =
-        document.getElementById("adminSecret").value.trim();
+        document.getElementById(
+            "adminSecret"
+        ).value.trim();
 
 
-    if (password !== CONTRASENA) {
 
-        document.getElementById("errorLogin").textContent =
+    if (
+        password !== CONTRASENA
+    ) {
+
+        document.getElementById(
+            "errorLogin"
+        ).textContent =
             "Contraseña incorrecta.";
 
         return;
+
     }
 
 
-    if (!adminSecret) {
 
-        document.getElementById("errorLogin").textContent =
+    if (
+        !adminSecret
+    ) {
+
+        document.getElementById(
+            "errorLogin"
+        ).textContent =
             "Ingresá la clave de sincronización.";
 
         return;
+
     }
+
 
 
     claveSincronizacion =
         adminSecret;
 
 
-    document.getElementById("errorLogin").textContent =
+    document.getElementById(
+        "errorLogin"
+    ).textContent =
         "";
 
-    document.getElementById("login").style.display =
+
+    document.getElementById(
+        "login"
+    ).style.display =
         "none";
 
-    document.getElementById("panel").style.display =
+
+    document.getElementById(
+        "panel"
+    ).style.display =
         "block";
 
 
     cargarClientesDesdeGitHub();
+
 }
 
 
@@ -479,6 +750,7 @@ function iniciarSesion() {
 
 async function cargarClientesDesdeGitHub() {
 
+
     mostrarEstado(
         "⏳ Cargando clientes actuales desde GitHub...",
         "estado-cargando"
@@ -487,22 +759,30 @@ async function cargarClientesDesdeGitHub() {
 
     try {
 
+
         const respuestaGitHub =
             await fetch(
                 WORKER_URL,
                 {
-                    method: "GET",
+
+                    method:
+                        "GET",
 
                     headers: {
+
                         "X-Admin-Key":
                             claveSincronizacion
+
                     }
+
                 }
             );
 
 
+
         const datos =
             await respuestaGitHub.json();
+
 
 
         if (
@@ -511,37 +791,56 @@ async function cargarClientesDesdeGitHub() {
         ) {
 
             throw new Error(
+
                 datos.mensaje ||
+
                 "No se pudieron cargar los clientes."
+
             );
+
         }
+
 
 
         const coincidencia =
             datos.content.match(
+
                 /const\s+negocios\s*=\s*(\{[\s\S]*\});/
+
             );
 
 
-        if (!coincidencia) {
+
+        if (
+            !coincidencia
+        ) {
 
             throw new Error(
+
                 "No se encontró la estructura de clientes.js."
+
             );
+
         }
+
 
 
         const negociosActuales =
             Function(
+
                 `"use strict"; return (${coincidencia[1]});`
+
             )();
+
 
 
         clientes =
             negociosActuales;
 
 
+
         mostrarClientes();
+
 
 
         mostrarEstado(
@@ -552,7 +851,10 @@ async function cargarClientesDesdeGitHub() {
 
     } catch (error) {
 
-        console.error(error);
+
+        console.error(
+            error
+        );
 
 
         mostrarEstado(
@@ -562,10 +864,15 @@ async function cargarClientesDesdeGitHub() {
 
 
         alert(
+
             "Error al cargar los clientes desde GitHub:\n\n" +
+
             error.message
+
         );
+
     }
+
 }
 
 
@@ -574,10 +881,16 @@ async function cargarClientesDesdeGitHub() {
    MOSTRAR ESTADO
 ===================================================== */
 
-function mostrarEstado(mensaje, tipo) {
+function mostrarEstado(
+    mensaje,
+    tipo
+) {
+
 
     const estado =
-        document.getElementById("estado");
+        document.getElementById(
+            "estado"
+        );
 
 
     estado.textContent =
@@ -590,6 +903,7 @@ function mostrarEstado(mensaje, tipo) {
 
     estado.style.display =
         "block";
+
 }
 
 
@@ -600,75 +914,120 @@ function mostrarEstado(mensaje, tipo) {
 
 function mostrarClientes() {
 
+
     const lista =
-        document.getElementById("listaClientes");
+        document.getElementById(
+            "listaClientes"
+        );
 
 
     lista.innerHTML =
         "";
 
 
+
     const codigos =
-        Object.keys(clientes);
+        Object.keys(
+            clientes
+        );
 
 
-    if (codigos.length === 0) {
 
-        lista.innerHTML =
-            '<p class="aviso">No hay clientes registrados.</p>';
-
-        return;
-    }
+    if (
+        codigos.length === 0
+    ) {
 
 
-    codigos.forEach(function(codigo) {
+        lista.innerHTML = `
 
-        const cliente =
-            clientes[codigo];
+            <p class="aviso">
 
+                No hay clientes registrados.
 
-        const div =
-            document.createElement("div");
+            </p>
 
-
-        div.className =
-            "cliente";
-
-
-        div.innerHTML = `
-
-            <strong>
-                ${escaparHTML(codigo)}
-                —
-                ${escaparHTML(cliente.nombre)}
-            </strong>
-
-            <div class="cliente-url">
-                /r/${escaparHTML(codigo)}
-            </div>
-
-            <div class="cliente-acciones">
-
-                <button
-                    class="boton-editar"
-                    onclick="editarCliente('${escaparJS(codigo)}')"
-                >
-                    ✏️ Editar
-                </button>
-
-                <button
-                    class="boton-eliminar"
-                    onclick="eliminarCliente('${escaparJS(codigo)}')"
-                >
-                    🗑️ Eliminar
-                </button>
-
-            </div>
         `;
 
 
-        lista.appendChild(div);
-    });
+        return;
+
+    }
+
+
+
+    codigos.forEach(
+        function(codigo) {
+
+
+            const cliente =
+                clientes[codigo];
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "cliente";
+
+
+            div.innerHTML = `
+
+                <strong>
+
+                    ${escaparHTML(codigo)}
+
+                    —
+
+                    ${escaparHTML(cliente.nombre)}
+
+                </strong>
+
+
+                <div class="cliente-url">
+
+                    /r/${escaparHTML(codigo)}
+
+                </div>
+
+
+                <div class="cliente-acciones">
+
+
+                    <button
+                        class="boton-editar"
+                        onclick="editarCliente('${escaparJS(codigo)}')"
+                    >
+
+                        ✏️ Editar
+
+                    </button>
+
+
+                    <button
+                        class="boton-eliminar"
+                        onclick="eliminarCliente('${escaparJS(codigo)}')"
+                    >
+
+                        🗑️ Eliminar
+
+                    </button>
+
+
+                </div>
+
+            `;
+
+
+            lista.appendChild(
+                div
+            );
+
+        }
+    );
+
 }
 
 
@@ -682,7 +1041,9 @@ function agregarBoton(
     enlaceInicial = ""
 ) {
 
+
     contadorBotones++;
+
 
 
     const contenedor =
@@ -692,7 +1053,9 @@ function agregarBoton(
 
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     div.className =
@@ -700,14 +1063,19 @@ function agregarBoton(
 
 
     div.id =
-        "boton-" + contadorBotones;
+        "boton-" +
+        contadorBotones;
+
 
 
     div.innerHTML = `
 
         <label>
+
             Nombre del botón
+
         </label>
+
 
         <input
             class="nombre-boton"
@@ -717,8 +1085,11 @@ function agregarBoton(
 
 
         <label>
+
             Enlace
+
         </label>
+
 
         <input
             class="enlace-boton"
@@ -731,12 +1102,18 @@ function agregarBoton(
             class="boton-quitar"
             onclick="quitarBoton(${contadorBotones})"
         >
+
             🗑️ Quitar botón
+
         </button>
+
     `;
 
 
-    contenedor.appendChild(div);
+    contenedor.appendChild(
+        div
+    );
+
 }
 
 
@@ -747,15 +1124,21 @@ function agregarBoton(
 
 function quitarBoton(id) {
 
+
     const elemento =
         document.getElementById(
             "boton-" + id
         );
 
 
-    if (!elemento) {
+    if (
+        !elemento
+    ) {
+
         return;
+
     }
+
 
 
     const nombreInput =
@@ -765,8 +1148,10 @@ function quitarBoton(id) {
 
 
     const nombre =
-        nombreInput.value.trim() ||
+        nombreInput.value.trim()
+        ||
         "este botón";
+
 
 
     const confirmar =
@@ -781,10 +1166,15 @@ function quitarBoton(id) {
         );
 
 
-    if (confirmar) {
+
+    if (
+        confirmar
+    ) {
 
         elemento.remove();
+
     }
+
 }
 
 
@@ -795,28 +1185,37 @@ function quitarBoton(id) {
 
 function editarCliente(codigo) {
 
+
     const cliente =
         clientes[codigo];
 
 
-    if (!cliente) {
+
+    if (
+        !cliente
+    ) {
 
         alert(
             "No se encontró ese cliente."
         );
 
         return;
+
     }
+
 
 
     clienteEditando =
         codigo;
 
 
+
     document.getElementById(
         "tituloFormulario"
     ).textContent =
-        "✏️ Editar cliente " + codigo;
+        "✏️ Editar cliente " +
+        codigo;
+
 
 
     document.getElementById(
@@ -826,10 +1225,12 @@ function editarCliente(codigo) {
     );
 
 
+
     document.getElementById(
         "avisoEdicion"
     ).style.display =
         "block";
+
 
 
     document.getElementById(
@@ -838,10 +1239,12 @@ function editarCliente(codigo) {
         codigo;
 
 
+
     document.getElementById(
         "codigo"
     ).disabled =
         true;
+
 
 
     document.getElementById(
@@ -850,16 +1253,19 @@ function editarCliente(codigo) {
         cliente.nombre;
 
 
-    /*
-        Si el cliente es antiguo y todavía
-        no tiene descripción, dejamos
-        el campo vacío.
-    */
 
     document.getElementById(
         "descripcion"
     ).value =
         cliente.descripcion || "";
+
+
+
+    document.getElementById(
+        "fondo"
+    ).value =
+        cliente.fondo || "";
+
 
 
     document.getElementById(
@@ -868,20 +1274,27 @@ function editarCliente(codigo) {
         "";
 
 
+
     contadorBotones =
         0;
+
 
 
     cliente.botones.forEach(
         function(boton) {
 
+
             agregarBoton(
+
                 boton.nombre,
+
                 boton.enlace
+
             );
 
         }
     );
+
 
 
     document.getElementById(
@@ -890,10 +1303,12 @@ function editarCliente(codigo) {
         "💾 Guardar cambios";
 
 
+
     document.getElementById(
         "botonCancelar"
     ).style.display =
         "block";
+
 
 
     document.getElementById(
@@ -902,13 +1317,16 @@ function editarCliente(codigo) {
         "none";
 
 
+
     document.getElementById(
         "formularioCliente"
     ).scrollIntoView({
 
-        behavior: "smooth"
+        behavior:
+            "smooth"
 
     });
+
 }
 
 
@@ -919,18 +1337,24 @@ function editarCliente(codigo) {
 
 async function eliminarCliente(codigo) {
 
+
     const cliente =
         clientes[codigo];
 
 
-    if (!cliente) {
+
+    if (
+        !cliente
+    ) {
 
         alert(
             "No se encontró ese cliente."
         );
 
         return;
+
     }
+
 
 
     const confirmar =
@@ -946,30 +1370,45 @@ async function eliminarCliente(codigo) {
 
             cliente.nombre +
 
-            "?\n\nSe eliminarán todos sus botones y sus datos del panel.\n\n" +
+            "?\n\n" +
+
+            "Se eliminarán todos sus botones y sus datos del panel.\n\n" +
 
             "Esta acción no se puede deshacer."
 
         );
 
 
-    if (!confirmar) {
+
+    if (
+        !confirmar
+    ) {
+
         return;
+
     }
+
 
 
     const clienteEliminado =
         JSON.parse(
-            JSON.stringify(cliente)
+
+            JSON.stringify(
+                cliente
+            )
+
         );
+
 
 
     delete clientes[codigo];
 
 
+
     generarClientesJS();
 
     mostrarClientes();
+
 
 
     mostrarEstado(
@@ -978,11 +1417,16 @@ async function eliminarCliente(codigo) {
     );
 
 
+
     const resultado =
         await sincronizarConGitHub();
 
 
-    if (!resultado.ok) {
+
+    if (
+        !resultado.ok
+    ) {
+
 
         clientes[codigo] =
             clienteEliminado;
@@ -993,20 +1437,27 @@ async function eliminarCliente(codigo) {
         mostrarClientes();
 
 
+
         mostrarEstado(
             "❌ No se pudo actualizar GitHub. El cliente fue restaurado.",
             "estado-error"
         );
 
 
+
         alert(
+
             "No se pudo actualizar clientes.js.\n\n" +
+
             resultado.mensaje
+
         );
 
 
         return;
+
     }
+
 
 
     mostrarEstado(
@@ -1015,18 +1466,29 @@ async function eliminarCliente(codigo) {
     );
 
 
+
     alert(
+
         "El cliente " +
+
         codigo +
+
         " fue eliminado correctamente.\n\n" +
+
         "clientes.js también fue actualizado automáticamente."
+
     );
 
 
-    if (clienteEditando === codigo) {
+
+    if (
+        clienteEditando === codigo
+    ) {
 
         cancelarEdicion();
+
     }
+
 }
 
 
@@ -1037,14 +1499,17 @@ async function eliminarCliente(codigo) {
 
 function cancelarEdicion() {
 
+
     clienteEditando =
         null;
+
 
 
     document.getElementById(
         "tituloFormulario"
     ).textContent =
         "Crear nuevo cliente";
+
 
 
     document.getElementById(
@@ -1054,10 +1519,12 @@ function cancelarEdicion() {
     );
 
 
+
     document.getElementById(
         "avisoEdicion"
     ).style.display =
         "none";
+
 
 
     document.getElementById(
@@ -1066,10 +1533,12 @@ function cancelarEdicion() {
         false;
 
 
+
     document.getElementById(
         "codigo"
     ).value =
         "";
+
 
 
     document.getElementById(
@@ -1078,10 +1547,19 @@ function cancelarEdicion() {
         "";
 
 
+
     document.getElementById(
         "descripcion"
     ).value =
         "";
+
+
+
+    document.getElementById(
+        "fondo"
+    ).value =
+        "";
+
 
 
     document.getElementById(
@@ -1090,8 +1568,10 @@ function cancelarEdicion() {
         "";
 
 
+
     contadorBotones =
         0;
+
 
 
     document.getElementById(
@@ -1100,16 +1580,19 @@ function cancelarEdicion() {
         "Crear cliente";
 
 
+
     document.getElementById(
         "botonCancelar"
     ).style.display =
         "none";
 
 
+
     document.getElementById(
         "resultado"
     ).style.display =
         "none";
+
 }
 
 
@@ -1120,30 +1603,52 @@ function cancelarEdicion() {
 
 function normalizarEnlace(enlace) {
 
+
     let valor =
-        String(enlace || "").trim();
+        String(
+            enlace || ""
+        ).trim();
 
-
-    if (!valor) {
-        return "";
-    }
-
-
-    if (/^https?:\/\//i.test(valor)) {
-        return valor;
-    }
 
 
     if (
-        /^tel:/i.test(valor) ||
-        /^mailto:/i.test(valor)
+        !valor
     ) {
-        return valor;
+
+        return "";
+
     }
 
 
+
+    if (
+        /^https?:\/\//i.test(valor)
+    ) {
+
+        return valor;
+
+    }
+
+
+
+    if (
+        /^tel:/i.test(valor)
+        ||
+        /^mailto:/i.test(valor)
+    ) {
+
+        return valor;
+
+    }
+
+
+
     return "https://" +
-        valor.replace(/^\/+/, "");
+        valor.replace(
+            /^\/+/,
+            ""
+        );
+
 }
 
 
@@ -1154,10 +1659,12 @@ function normalizarEnlace(enlace) {
 
 async function guardarCliente() {
 
+
     const codigo =
         document.getElementById(
             "codigo"
         ).value.trim();
+
 
 
     const nombre =
@@ -1166,14 +1673,30 @@ async function guardarCliente() {
         ).value.trim();
 
 
-    /*
-        La descripción puede quedar vacía.
-    */
 
     const descripcion =
         document.getElementById(
             "descripcion"
         ).value.trim();
+
+
+
+    const fondo =
+        normalizarEnlace(
+
+            document.getElementById(
+                "fondo"
+            ).value
+
+        );
+
+
+
+    document.getElementById(
+        "fondo"
+    ).value =
+        fondo;
+
 
 
     if (
@@ -1182,11 +1705,15 @@ async function guardarCliente() {
     ) {
 
         alert(
+
             "Completá el código y el nombre del negocio."
+
         );
 
         return;
+
     }
+
 
 
     if (
@@ -1195,11 +1722,15 @@ async function guardarCliente() {
     ) {
 
         alert(
+
             "Ese código ya está utilizado. Probá con otro."
+
         );
 
         return;
+
     }
+
 
 
     const nombres =
@@ -1208,24 +1739,33 @@ async function guardarCliente() {
         );
 
 
+
     const enlaces =
         document.querySelectorAll(
             ".enlace-boton"
         );
 
 
-    if (nombres.length === 0) {
+
+    if (
+        nombres.length === 0
+    ) {
 
         alert(
+
             "Agregá al menos un botón para el cliente."
+
         );
 
         return;
+
     }
+
 
 
     const botones =
         [];
+
 
 
     for (
@@ -1234,18 +1774,24 @@ async function guardarCliente() {
         i++
     ) {
 
+
         const nombreBoton =
             nombres[i].value.trim();
 
 
+
         const enlaceBoton =
             normalizarEnlace(
+
                 enlaces[i].value
+
             );
+
 
 
         enlaces[i].value =
             enlaceBoton;
+
 
 
         if (
@@ -1254,11 +1800,15 @@ async function guardarCliente() {
         ) {
 
             alert(
+
                 "Completá el nombre y el enlace de cada botón."
+
             );
 
             return;
+
         }
+
 
 
         botones.push({
@@ -1270,38 +1820,48 @@ async function guardarCliente() {
                 enlaceBoton
 
         });
+
     }
 
 
+
     const estabaEditando =
-        Boolean(clienteEditando);
+        Boolean(
+            clienteEditando
+        );
+
 
 
     const codigoAnterior =
         clienteEditando;
 
 
+
     let clienteAnterior =
         null;
 
 
-    if (estabaEditando) {
+
+    if (
+        estabaEditando
+    ) {
 
         clienteAnterior =
             JSON.parse(
 
                 JSON.stringify(
-                    clientes[codigoAnterior]
+
+                    clientes[
+                        codigoAnterior
+                    ]
+
                 )
 
             );
+
     }
 
 
-    /*
-        Guardamos también la descripción.
-        Puede contener texto o estar vacía.
-    */
 
     clientes[codigo] = {
 
@@ -1311,10 +1871,14 @@ async function guardarCliente() {
         descripcion:
             descripcion,
 
+        fondo:
+            fondo,
+
         botones:
             botones
 
     };
+
 
 
     generarClientesJS();
@@ -1322,9 +1886,11 @@ async function guardarCliente() {
     mostrarClientes();
 
 
+
     enlaceActual =
         "https://qonekta.github.io/qr-dinamicos/r/" +
         codigo;
+
 
 
     document.getElementById(
@@ -1333,10 +1899,12 @@ async function guardarCliente() {
         enlaceActual;
 
 
+
     mostrarEstado(
         "⏳ Guardando cambios y actualizando GitHub...",
         "estado-cargando"
     );
+
 
 
     const botonGuardar =
@@ -1345,38 +1913,55 @@ async function guardarCliente() {
         );
 
 
+
     botonGuardar.disabled =
         true;
+
 
 
     botonGuardar.textContent =
         "⏳ Guardando...";
 
 
+
     const resultado =
         await sincronizarConGitHub();
+
 
 
     botonGuardar.disabled =
         false;
 
 
-    if (!resultado.ok) {
 
-        if (estabaEditando) {
+    if (
+        !resultado.ok
+    ) {
 
-            clientes[codigoAnterior] =
+
+        if (
+            estabaEditando
+        ) {
+
+            clientes[
+                codigoAnterior
+            ] =
                 clienteAnterior;
 
-        } else {
+        }
+
+        else {
 
             delete clientes[codigo];
+
         }
+
 
 
         generarClientesJS();
 
         mostrarClientes();
+
 
 
         mostrarEstado(
@@ -1385,20 +1970,30 @@ async function guardarCliente() {
         );
 
 
+
         alert(
+
             "No se pudo actualizar clientes.js.\n\n" +
+
             resultado.mensaje
+
         );
 
 
+
         botonGuardar.textContent =
+
             estabaEditando
+
                 ? "💾 Guardar cambios"
+
                 : "Crear cliente";
 
 
         return;
+
     }
+
 
 
     mostrarEstado(
@@ -1407,10 +2002,12 @@ async function guardarCliente() {
     );
 
 
+
     document.getElementById(
         "resultado"
     ).style.display =
         "block";
+
 
 
     document.getElementById(
@@ -1419,24 +2016,38 @@ async function guardarCliente() {
         codigoActual;
 
 
-    if (estabaEditando) {
+
+    if (
+        estabaEditando
+    ) {
 
         alert(
+
             "Cliente actualizado correctamente.\n\n" +
+
             "clientes.js fue actualizado automáticamente."
+
         );
 
-    } else {
+    }
+
+    else {
 
         alert(
+
             "Cliente creado correctamente.\n\n" +
+
             "clientes.js fue actualizado automáticamente."
+
         );
+
     }
+
 
 
     clienteEditando =
         null;
+
 
 
     document.getElementById(
@@ -1445,10 +2056,12 @@ async function guardarCliente() {
         false;
 
 
+
     document.getElementById(
         "botonGuardar"
     ).textContent =
         "Crear cliente";
+
 
 
     document.getElementById(
@@ -1457,10 +2070,12 @@ async function guardarCliente() {
         "none";
 
 
+
     document.getElementById(
         "tituloFormulario"
     ).textContent =
         "Crear nuevo cliente";
+
 
 
     document.getElementById(
@@ -1470,10 +2085,12 @@ async function guardarCliente() {
     );
 
 
+
     document.getElementById(
         "avisoEdicion"
     ).style.display =
         "none";
+
 }
 
 
@@ -1484,7 +2101,10 @@ async function guardarCliente() {
 
 async function sincronizarConGitHub() {
 
-    if (!claveSincronizacion) {
+
+    if (
+        !claveSincronizacion
+    ) {
 
         return {
 
@@ -1495,17 +2115,19 @@ async function sincronizarConGitHub() {
                 "No hay una clave de sincronización."
 
         };
+
     }
+
 
 
     try {
 
+
         const respuesta =
             await fetch(
-
                 WORKER_URL,
-
                 {
+
                     method:
                         "POST",
 
@@ -1526,11 +2148,14 @@ async function sincronizarConGitHub() {
                                 codigoActual
 
                         })
+
                 }
             );
 
 
+
         let datos;
+
 
 
         try {
@@ -1538,7 +2163,10 @@ async function sincronizarConGitHub() {
             datos =
                 await respuesta.json();
 
-        } catch (error) {
+        }
+
+        catch (error) {
+
 
             return {
 
@@ -1549,7 +2177,9 @@ async function sincronizarConGitHub() {
                     "Cloudflare devolvió una respuesta no válida."
 
             };
+
         }
+
 
 
         if (
@@ -1557,17 +2187,22 @@ async function sincronizarConGitHub() {
             !datos.ok
         ) {
 
+
             return {
 
                 ok:
                     false,
 
                 mensaje:
+
                     datos.mensaje ||
+
                     "Cloudflare rechazó la actualización."
 
             };
+
         }
+
 
 
         return {
@@ -1581,7 +2216,10 @@ async function sincronizarConGitHub() {
         };
 
 
-    } catch (error) {
+    }
+
+    catch (error) {
+
 
         return {
 
@@ -1589,11 +2227,15 @@ async function sincronizarConGitHub() {
                 false,
 
             mensaje:
+
                 "No se pudo conectar con Cloudflare.\n\n" +
+
                 error.message
 
         };
+
     }
+
 }
 
 
@@ -1604,39 +2246,53 @@ async function sincronizarConGitHub() {
 
 function generarClientesJS() {
 
+
     let codigo =
+
 `const negocios = {
 
 `;
 
 
+
     const codigos =
-        Object.keys(clientes);
+        Object.keys(
+            clientes
+        );
+
 
 
     codigos.forEach(
         function(id) {
 
+
             const cliente =
                 clientes[id];
 
 
+
             codigo +=
+
 `    "${escaparJS(id)}": {
 
         nombre: "${escaparJS(cliente.nombre)}",
 
         descripcion: "${escaparJS(cliente.descripcion || "")}",
 
+        fondo: "${escaparJS(cliente.fondo || "")}",
+
         botones: [
 
 `;
 
 
+
             cliente.botones.forEach(
                 function(boton) {
 
+
                     codigo +=
+
 `            {
                 nombre: "${escaparJS(boton.nombre)}",
                 enlace: "${escaparJS(boton.enlace)}"
@@ -1648,7 +2304,9 @@ function generarClientesJS() {
             );
 
 
+
             codigo +=
+
 `        ]
 
     },
@@ -1659,19 +2317,24 @@ function generarClientesJS() {
     );
 
 
+
     codigo +=
+
 `};
 `;
+
 
 
     codigoActual =
         codigo;
 
 
+
     document.getElementById(
         "codigoGenerado"
     ).textContent =
         codigo;
+
 }
 
 
@@ -1682,6 +2345,7 @@ function generarClientesJS() {
 
 function copiarEnlace() {
 
+
     navigator.clipboard.writeText(
         enlaceActual
     );
@@ -1690,6 +2354,7 @@ function copiarEnlace() {
     alert(
         "Enlace copiado."
     );
+
 }
 
 
@@ -1700,14 +2365,18 @@ function copiarEnlace() {
 
 function copiarCodigo() {
 
+
     navigator.clipboard.writeText(
         codigoActual
     );
 
 
     alert(
+
         "clientes.js completo copiado."
+
     );
+
 }
 
 
@@ -1717,6 +2386,7 @@ function copiarCodigo() {
 ===================================================== */
 
 function escaparHTML(texto) {
+
 
     return String(texto)
 
@@ -1739,6 +2409,7 @@ function escaparHTML(texto) {
             />/g,
             "&gt;"
         );
+
 }
 
 
@@ -1748,6 +2419,7 @@ function escaparHTML(texto) {
 ===================================================== */
 
 function escaparJS(texto) {
+
 
     return String(texto)
 
@@ -1770,9 +2442,13 @@ function escaparJS(texto) {
             /\r/g,
             "\\r"
         );
+
 }
+
 
 </script>
 
+
 </body>
+
 </html>
