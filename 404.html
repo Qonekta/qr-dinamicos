@@ -4,53 +4,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Mi negocio</title>
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
+            margin: 0;
+            min-height: 100vh;
             font-family: Arial, sans-serif;
-            text-align: center;
             background: #f5f5f5;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 30px 15px;
         }
 
+        .fondo-oscuro {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.20);
+        }
+
         .contenedor {
-            max-width: 400px;
-            margin: auto;
-            background: white;
-            padding: 30px 20px;
-            border-radius: 15px;
+            width: 100%;
+            max-width: 430px;
+            background: rgba(0, 183, 255, 0.28);
+            border-radius: 28px;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        .cabecera {
+            background: rgba(0, 0, 0, 0.65);
+            border-radius: 18px;
+            padding: 22px 18px;
+            text-align: center;
+            margin-bottom: 18px;
         }
 
         h1 {
-            margin-bottom: 10px;
+            margin: 0;
+            color: white;
+            font-size: 28px;
+            line-height: 1.2;
         }
 
         .descripcion {
-            color: #555;
-            font-size: 16px;
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 15px;
             line-height: 1.5;
-            margin-top: 8px;
-            margin-bottom: 20px;
+            margin-top: 10px;
             display: none;
         }
 
+        .panel-botones {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 20px;
+            padding: 22px 16px;
+        }
+
         .pregunta {
-            color: #666;
-            margin-bottom: 25px;
+            color: #555;
+            margin-top: 0;
+            margin-bottom: 18px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .botones {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .boton {
             display: block;
+            width: 100%;
             text-decoration: none;
             background: #222;
             color: white;
             padding: 16px;
-            margin: 12px 0;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 17px;
+            text-align: center;
+            transition: transform 0.15s ease, background 0.15s ease;
+        }
+
+        .boton:hover {
+            background: #333;
+            transform: translateY(-1px);
+        }
+
+        .mensaje-error {
+            text-align: center;
+            color: #444;
+            font-size: 16px;
+            line-height: 1.5;
         }
 
     </style>
@@ -59,34 +122,46 @@
 
 <body>
 
-<div class="contenedor">
+<div class="fondo-oscuro">
 
-    <h1 id="nombre">
-        Cargando...
-    </h1>
+    <div class="contenedor">
 
+        <div class="cabecera">
 
-    <p
-        id="descripcion"
-        class="descripcion"
-    ></p>
+            <h1 id="nombre">
+                Cargando...
+            </h1>
 
+            <p
+                id="descripcion"
+                class="descripcion"
+            ></p>
 
-    <p
-        id="pregunta"
-        class="pregunta"
-    >
-        ¿Qué querés hacer?
-    </p>
+        </div>
 
 
-    <div id="botones"></div>
+        <div class="panel-botones">
+
+            <p
+                id="pregunta"
+                class="pregunta"
+            >
+                ¿Qué querés hacer?
+            </p>
+
+            <div
+                id="botones"
+                class="botones"
+            ></div>
+
+        </div>
+
+    </div>
 
 </div>
 
 
 <!-- Cargar los clientes -->
-
 <script src="/qr-dinamicos/clientes.js"></script>
 
 
@@ -101,31 +176,13 @@ function normalizarEnlace(enlace) {
     let valor =
         String(enlace || "").trim();
 
-
-    /*
-        Si el enlace está vacío,
-        devolvemos una cadena vacía.
-    */
-
     if (!valor) {
         return "";
     }
 
-
-    /*
-        Si ya comienza con http:// o https://,
-        lo dejamos como está.
-    */
-
     if (/^https?:\/\//i.test(valor)) {
         return valor;
     }
-
-
-    /*
-        Permitimos enlaces telefónicos
-        y enlaces de correo.
-    */
 
     if (
         /^tel:/i.test(valor) ||
@@ -133,17 +190,6 @@ function normalizarEnlace(enlace) {
     ) {
         return valor;
     }
-
-
-    /*
-        Si el usuario escribió por ejemplo:
-
-        instagram.com
-        www.instagram.com
-        wa.me/549260...
-
-        agregamos automáticamente https://
-    */
 
     return "https://" +
         valor.replace(/^\/+/, "");
@@ -159,23 +205,16 @@ function normalizarEnlace(enlace) {
 const ruta =
     window.location.pathname;
 
-
 const partes =
     ruta.split("/");
 
-
 const codigo =
     partes.filter(function(parte) {
-
         return parte !== "";
-
     }).pop();
-
-
 
 const negocio =
     negocios[codigo];
-
 
 
 /* =====================================================
@@ -184,124 +223,88 @@ const negocio =
 
 if (negocio) {
 
-
     /* =================================================
-       MOSTRAR NOMBRE
+       FONDO OPCIONAL
     ================================================= */
 
-    document.getElementById(
-        "nombre"
-    ).textContent =
+    const fondo =
+        String(negocio.fondo || "").trim();
+
+    if (fondo) {
+        document.body.style.backgroundImage =
+            'url("' + fondo + '")';
+    }
+
+
+    /* =================================================
+       NOMBRE
+    ================================================= */
+
+    document.getElementById("nombre").textContent =
         negocio.nombre;
 
 
-
     /* =================================================
-       MOSTRAR DESCRIPCIÓN SOLO SI EXISTE
+       DESCRIPCIÓN OPCIONAL
     ================================================= */
 
     const descripcion =
-        String(
-            negocio.descripcion || ""
-        ).trim();
-
+        String(negocio.descripcion || "").trim();
 
     const elementoDescripcion =
-        document.getElementById(
-            "descripcion"
-        );
-
+        document.getElementById("descripcion");
 
     if (descripcion) {
-
         elementoDescripcion.textContent =
             descripcion;
 
         elementoDescripcion.style.display =
             "block";
-
     } else {
-
         elementoDescripcion.style.display =
             "none";
-
     }
 
 
-
     /* =================================================
-       MOSTRAR BOTONES
+       BOTONES
     ================================================= */
 
     const contenedorBotones =
-        document.getElementById(
-            "botones"
-        );
+        document.getElementById("botones");
 
+    negocio.botones.forEach(function(boton) {
 
-    negocio.botones.forEach(
-        function(boton) {
+        const enlaceCorregido =
+            normalizarEnlace(boton.enlace);
 
-
-            /*
-                Corregimos el enlace.
-            */
-
-            const enlaceCorregido =
-                normalizarEnlace(
-                    boton.enlace
-                );
-
-
-            /*
-                Si el enlace está vacío,
-                no mostramos ese botón.
-            */
-
-            if (!enlaceCorregido) {
-                return;
-            }
-
-
-            /*
-                Crear botón.
-            */
-
-            const elemento =
-                document.createElement(
-                    "a"
-                );
-
-
-            elemento.className =
-                "boton";
-
-
-            elemento.textContent =
-                boton.nombre;
-
-
-            elemento.href =
-                enlaceCorregido;
-
-
-            elemento.target =
-                "_blank";
-
-
-            elemento.rel =
-                "noopener noreferrer";
-
-
-            contenedorBotones.appendChild(
-                elemento
-            );
-
+        if (!enlaceCorregido) {
+            return;
         }
-    );
+
+        const elemento =
+            document.createElement("a");
+
+        elemento.className =
+            "boton";
+
+        elemento.textContent =
+            boton.nombre;
+
+        elemento.href =
+            enlaceCorregido;
+
+        elemento.target =
+            "_blank";
+
+        elemento.rel =
+            "noopener noreferrer";
+
+        contenedorBotones.appendChild(elemento);
+
+    });
 
 }
-
 
 
 /* =====================================================
@@ -310,22 +313,17 @@ if (negocio) {
 
 else {
 
-    document.getElementById(
-        "nombre"
-    ).textContent =
+    document.getElementById("nombre").textContent =
         "Enlace no encontrado";
 
-
-    document.getElementById(
-        "descripcion"
-    ).style.display =
+    document.getElementById("descripcion").style.display =
         "none";
 
-
-    document.getElementById(
-        "pregunta"
-    ).textContent =
+    document.getElementById("pregunta").textContent =
         "El código utilizado no está configurado.";
+
+    document.getElementById("botones").innerHTML =
+        '<p class="mensaje-error">Verificá el código o volvé a intentarlo.</p>';
 
 }
 
