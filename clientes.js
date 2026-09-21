@@ -108,7 +108,7 @@ const negocios = {
 
         descripcion: "turnos por wasap",
 
-        fondo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx48ENXLd7fmj3XfnuQwJlURyWxQw_l_akp4ugah9PNCEj25mo-i_lmMU&s=10",
+        fondo: "https://scontent.fafa1-1.fna.fbcdn.net/v/t39.30808-6/480697795_1045258917620148_9048933921163147286_n.jpg?stp=dst-jpg_tt6&cstp=mx1200x1500&ctp=s1200x1500&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_ohc=VkNMSUSdgMgQ7kNvwGfdpdE&_nc_oc=Adrxzz_nhw28csYilpxUObXKNWuM2JOF05qS_MfP2EcGvPPYdP6JTKSDBxcxES4So8c&_nc_zt=23&_nc_ht=scontent.fafa1-1.fna&_nc_gid=wU20K6pEzomILCoxqQhlsw&_nc_ss=7f2a8&oh=00_AQKNwNACPgrCTnSHF58QOC7U6d6V9pkYkica5CUx59-zQg&oe=6AB65DD9",
 
         botones: [
 
