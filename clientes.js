@@ -169,4 +169,23 @@ const negocios = {
 
     },
 
+    "007": {
+
+        nombre: "negocio 7",
+
+        descripcion: "",
+
+        fondo: "",
+
+        botones: [
+
+            {
+                nombre: "a",
+                enlace: "https://a"
+            },
+
+        ]
+
+    },
+
 };
