@@ -2,7 +2,7 @@ const negocios = {
 
     "001": {
 
-        nombre: "Barbería de prueba",
+        nombre: "negocio 1",
 
         descripcion: "",
 
@@ -11,23 +11,8 @@ const negocios = {
         botones: [
 
             {
-                nombre: "📱 WhatsApp",
-                enlace: "https://wa.me/5492604800024"
-            },
-
-            {
-                nombre: "📸 Instagram",
-                enlace: "https://www.instagram.com/"
-            },
-
-            {
                 nombre: "⭐ Dejar una reseña",
                 enlace: "https://www.google.com/"
-            },
-
-            {
-                nombre: "📍 Cómo llegar",
-                enlace: "https://www.google.com/maps/"
             },
 
         ]
