@@ -21,7 +21,7 @@ const negocios = {
 
     "002": {
 
-        nombre: "Restaurante de prueba",
+        nombre: "negocio 2",
 
         descripcion: "",
 
@@ -30,23 +30,8 @@ const negocios = {
         botones: [
 
             {
-                nombre: "📱 WhatsApp",
-                enlace: "https://wa.me/549260XXXXXXXX"
-            },
-
-            {
-                nombre: "📸 Instagram",
-                enlace: "https://www.instagram.com/"
-            },
-
-            {
                 nombre: "📖 Ver menú",
                 enlace: "https://www.google.com/"
-            },
-
-            {
-                nombre: "📍 Cómo llegar",
-                enlace: "https://www.google.com/maps/"
             },
 
         ]
