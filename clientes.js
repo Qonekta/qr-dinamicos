@@ -40,7 +40,7 @@ const negocios = {
 
     "003": {
 
-        nombre: "cafe san rafael",
+        nombre: "negocio 3",
 
         descripcion: "",
 
@@ -49,23 +49,8 @@ const negocios = {
         botones: [
 
             {
-                nombre: "📱 WhatsApp",
-                enlace: ""
-            },
-
-            {
-                nombre: "📸 Instagram",
-                enlace: ""
-            },
-
-            {
                 nombre: "⭐ Dejar una reseña",
-                enlace: ""
-            },
-
-            {
-                nombre: "📍 Cómo llegar",
-                enlace: ""
+                enlace: "https://google.com"
             },
 
         ]
