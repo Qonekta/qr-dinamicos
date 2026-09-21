@@ -150,4 +150,23 @@ const negocios = {
 
     },
 
+    "006": {
+
+        nombre: "negocio 6",
+
+        descripcion: "",
+
+        fondo: "",
+
+        botones: [
+
+            {
+                nombre: "a",
+                enlace: "https://a"
+            },
+
+        ]
+
+    },
+
 };
