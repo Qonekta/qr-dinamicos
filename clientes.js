@@ -131,4 +131,23 @@ const negocios = {
 
     },
 
+    "005": {
+
+        nombre: "Negocio 5",
+
+        descripcion: "",
+
+        fondo: "",
+
+        botones: [
+
+            {
+                nombre: "a",
+                enlace: "https://a"
+            },
+
+        ]
+
+    },
+
 };
