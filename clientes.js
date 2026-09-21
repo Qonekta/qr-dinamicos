@@ -104,17 +104,27 @@ const negocios = {
 
     "004": {
 
-        nombre: "barberíasanra",
+        nombre: "Cotillón Arco",
 
-        descripcion: "turnos por wasap",
+        descripcion: "✨Todo para tu fiesta 🧁Repostería. 🌰Dietética. 🔝Productos de calidad premium  📩 Ingresa a nuestro chat desde \"Contacto\" 📍ALMAFUERTE 140",
 
-        fondo: "https://scontent.fafa1-1.fna.fbcdn.net/v/t39.30808-6/480697795_1045258917620148_9048933921163147286_n.jpg?stp=dst-jpg_tt6&cstp=mx1200x1500&ctp=s1200x1500&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_ohc=VkNMSUSdgMgQ7kNvwGfdpdE&_nc_oc=Adrxzz_nhw28csYilpxUObXKNWuM2JOF05qS_MfP2EcGvPPYdP6JTKSDBxcxES4So8c&_nc_zt=23&_nc_ht=scontent.fafa1-1.fna&_nc_gid=wU20K6pEzomILCoxqQhlsw&_nc_ss=7f2a8&oh=00_AQKNwNACPgrCTnSHF58QOC7U6d6V9pkYkica5CUx59-zQg&oe=6AB65DD9",
+        fondo: "https://qonekta.github.io/qr-dinamicos/imagenes/004/Fondo.jpg",
 
         botones: [
 
             {
-                nombre: "📸 Instagram",
-                enlace: "https://google.com"
+                nombre: "📩 Contacto",
+                enlace: "https://wa.me/5492604058439"
+            },
+
+            {
+                nombre: "📷 Instagram",
+                enlace: "https://www.instagram.com/cotillonarco.sanrafael/"
+            },
+
+            {
+                nombre: "📍Como Llegar",
+                enlace: "https://www.google.com/maps/place/Cotillon+Arco/@-34.6171169,-68.3350265,17.59z/data=!4m14!1m7!3m6!1s0x967907fde48a16bb:0x314e63f47391a68f!2sAlmafuerte+140,+M5602+San+Rafael,+Mendoza!3b1!8m2!3d-34.6171347!4d-68.3333254!3m5!1s0x967907c0b9685b8d:0x49e2a92e0842af6e!8m2!3d-34.6171759!4d-68.3336967!16s%2Fg%2F11qywc93fz?entry=ttu&g_ep=EgoyMDI2MDkxNi4wIKXMDSoASAFQAw%3D%3D"
             },
 
         ]
