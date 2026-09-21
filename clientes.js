@@ -188,4 +188,23 @@ const negocios = {
 
     },
 
+    "008": {
+
+        nombre: "negocio 8",
+
+        descripcion: "",
+
+        fondo: "",
+
+        botones: [
+
+            {
+                nombre: "a",
+                enlace: "https://a"
+            },
+
+        ]
+
+    },
+
 };
