@@ -149,6 +149,17 @@
         }
 
 
+        .boton-cerrar-sesion {
+            background: #555;
+            margin-top: 15px;
+        }
+
+
+        .boton-cerrar-sesion:hover {
+            background: #333;
+        }
+
+
         .boton-personalizado {
             border: 1px solid #ddd;
             padding: 15px;
@@ -269,7 +280,6 @@
 </head>
 
 
-
 <body>
 
 
@@ -317,8 +327,8 @@
 
         <p class="aviso">
 
-            La clave de sincronización se utiliza para
-            actualizar automáticamente clientes.js.
+            La sesión permanecerá activa mientras
+            mantengas abierta esta pestaña.
 
         </p>
 
@@ -360,10 +370,7 @@
 
 
         <p>
-
-            Administrá los enlaces de los clientes
-            de tu sistema QR/NFC.
-
+            Administrá los clientes de tu sistema QR/NFC.
         </p>
 
 
@@ -372,13 +379,19 @@
             class="estado"
         ></div>
 
+
+        <button
+            class="boton-cerrar-sesion"
+            onclick="cerrarSesion()"
+        >
+            🔒 Cerrar sesión
+        </button>
+
     </div>
 
 
 
-    <!-- =================================================
-         CLIENTES ACTUALES
-    ================================================== -->
+    <!-- CLIENTES -->
 
     <div class="tarjeta">
 
@@ -393,9 +406,7 @@
 
 
 
-    <!-- =================================================
-         CREAR / EDITAR CLIENTE
-    ================================================== -->
+    <!-- CREAR / EDITAR -->
 
     <div
         class="tarjeta"
@@ -417,13 +428,10 @@
         >
 
             Estás editando un cliente existente.
-            Podés modificar cualquiera de sus datos.
 
         </p>
 
 
-
-        <!-- CÓDIGO -->
 
         <label>
             Código del cliente
@@ -437,8 +445,6 @@
 
 
 
-        <!-- NOMBRE -->
-
         <label>
             Nombre del negocio
         </label>
@@ -451,8 +457,6 @@
 
 
 
-        <!-- DESCRIPCIÓN -->
-
         <label>
             Descripción breve (opcional)
         </label>
@@ -464,15 +468,6 @@
         >
 
 
-        <p class="aviso">
-
-            Podés dejar este campo vacío.
-
-        </p>
-
-
-
-        <!-- IMAGEN DE FONDO -->
 
         <label>
             Imagen de fondo (opcional)
@@ -487,26 +482,23 @@
 
         <p class="aviso">
 
-            Pegá la dirección de una imagen.
-            Si lo dejás vacío, se usará el fondo normal.
+            Pegá la dirección de la imagen almacenada
+            en GitHub. Si queda vacío, se utilizará
+            el fondo normal.
 
         </p>
 
 
 
-        <!-- BOTONES -->
-
         <h3 style="margin-top:30px;">
-
             Botones del negocio
-
         </h3>
 
 
         <p class="aviso">
 
-            Cada botón puede tener un nombre
-            y un enlace diferente.
+            Cada botón puede tener un nombre y
+            un enlace diferente.
 
         </p>
 
@@ -524,9 +516,6 @@
         </button>
 
 
-
-        <!-- GUARDAR -->
-
         <button
             id="botonGuardar"
             onclick="guardarCliente()"
@@ -536,9 +525,6 @@
 
         </button>
 
-
-
-        <!-- CANCELAR -->
 
         <button
             id="botonCancelar"
@@ -552,8 +538,6 @@
         </button>
 
 
-
-        <!-- RESULTADO -->
 
         <div
             class="resultado"
@@ -587,7 +571,6 @@
             </button>
 
 
-
             <h3>
                 Código actual de clientes.js
             </h3>
@@ -609,18 +592,9 @@
             </button>
 
 
-            <p class="aviso">
-
-                El archivo también fue enviado
-                automáticamente a GitHub.
-
-            </p>
-
         </div>
 
-
     </div>
-
 
 </div>
 
@@ -639,6 +613,14 @@ const WORKER_URL =
 
 const CONTRASENA =
     "Callejeros12";
+
+
+const CLAVE_SESION =
+    "qonekta_sesion_activa";
+
+
+const CLAVE_SECRET =
+    "qonekta_admin_secret";
 
 
 let claveSincronizacion =
@@ -667,10 +649,58 @@ let clienteEditando =
 
 
 /* =====================================================
+   RESTAURAR SESIÓN AL ACTUALIZAR
+===================================================== */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    restaurarSesion
+);
+
+
+
+async function restaurarSesion() {
+
+
+    const sesionActiva =
+        sessionStorage.getItem(
+            CLAVE_SESION
+        );
+
+
+    const secretGuardado =
+        sessionStorage.getItem(
+            CLAVE_SECRET
+        );
+
+
+
+    if (
+        sesionActiva === "si" &&
+        secretGuardado
+    ) {
+
+
+        claveSincronizacion =
+            secretGuardado;
+
+
+        mostrarPanel();
+
+
+        await cargarClientesDesdeGitHub();
+
+    }
+
+}
+
+
+
+/* =====================================================
    INICIAR SESIÓN
 ===================================================== */
 
-function iniciarSesion() {
+async function iniciarSesion() {
 
 
     const password =
@@ -690,10 +720,12 @@ function iniciarSesion() {
         password !== CONTRASENA
     ) {
 
+
         document.getElementById(
             "errorLogin"
         ).textContent =
             "Contraseña incorrecta.";
+
 
         return;
 
@@ -705,10 +737,12 @@ function iniciarSesion() {
         !adminSecret
     ) {
 
+
         document.getElementById(
             "errorLogin"
         ).textContent =
             "Ingresá la clave de sincronización.";
+
 
         return;
 
@@ -720,10 +754,42 @@ function iniciarSesion() {
         adminSecret;
 
 
+
+    sessionStorage.setItem(
+        CLAVE_SESION,
+        "si"
+    );
+
+
+    sessionStorage.setItem(
+        CLAVE_SECRET,
+        adminSecret
+    );
+
+
+
     document.getElementById(
         "errorLogin"
     ).textContent =
         "";
+
+
+
+    mostrarPanel();
+
+
+
+    await cargarClientesDesdeGitHub();
+
+}
+
+
+
+/* =====================================================
+   MOSTRAR PANEL
+===================================================== */
+
+function mostrarPanel() {
 
 
     document.getElementById(
@@ -737,8 +803,67 @@ function iniciarSesion() {
     ).style.display =
         "block";
 
+}
 
-    cargarClientesDesdeGitHub();
+
+
+/* =====================================================
+   CERRAR SESIÓN
+===================================================== */
+
+function cerrarSesion() {
+
+
+    sessionStorage.removeItem(
+        CLAVE_SESION
+    );
+
+
+    sessionStorage.removeItem(
+        CLAVE_SECRET
+    );
+
+
+    claveSincronizacion =
+        "";
+
+
+    clientes =
+        {};
+
+
+    clienteEditando =
+        null;
+
+
+    document.getElementById(
+        "panel"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "login"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "password"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "adminSecret"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "errorLogin"
+    ).textContent =
+        "";
 
 }
 
@@ -786,9 +911,53 @@ async function cargarClientesDesdeGitHub() {
 
 
         if (
+            respuestaGitHub.status === 401
+        ) {
+
+
+            sessionStorage.removeItem(
+                CLAVE_SESION
+            );
+
+
+            sessionStorage.removeItem(
+                CLAVE_SECRET
+            );
+
+
+            claveSincronizacion =
+                "";
+
+
+            document.getElementById(
+                "panel"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "login"
+            ).style.display =
+                "block";
+
+
+            document.getElementById(
+                "errorLogin"
+            ).textContent =
+                "Clave de sincronización incorrecta.";
+
+
+            return false;
+
+        }
+
+
+
+        if (
             !respuestaGitHub.ok ||
             !datos.ok
         ) {
+
 
             throw new Error(
 
@@ -814,6 +983,7 @@ async function cargarClientesDesdeGitHub() {
         if (
             !coincidencia
         ) {
+
 
             throw new Error(
 
@@ -844,12 +1014,17 @@ async function cargarClientesDesdeGitHub() {
 
 
         mostrarEstado(
-            "✅ Clientes cargados correctamente desde GitHub.",
+            "✅ Clientes cargados correctamente.",
             "estado-ok"
         );
 
 
-    } catch (error) {
+        return true;
+
+
+    }
+
+    catch (error) {
 
 
         console.error(
@@ -865,11 +1040,14 @@ async function cargarClientesDesdeGitHub() {
 
         alert(
 
-            "Error al cargar los clientes desde GitHub:\n\n" +
+            "Error al cargar los clientes:\n\n" +
 
             error.message
 
         );
+
+
+        return false;
 
     }
 
@@ -938,15 +1116,8 @@ function mostrarClientes() {
     ) {
 
 
-        lista.innerHTML = `
-
-            <p class="aviso">
-
-                No hay clientes registrados.
-
-            </p>
-
-        `;
+        lista.innerHTML =
+            '<p class="aviso">No hay clientes registrados.</p>';
 
 
         return;
@@ -1071,11 +1242,8 @@ function agregarBoton(
     div.innerHTML = `
 
         <label>
-
             Nombre del botón
-
         </label>
-
 
         <input
             class="nombre-boton"
@@ -1085,11 +1253,8 @@ function agregarBoton(
 
 
         <label>
-
             Enlace
-
         </label>
-
 
         <input
             class="enlace-boton"
@@ -1372,8 +1537,6 @@ async function eliminarCliente(codigo) {
 
             "?\n\n" +
 
-            "Se eliminarán todos sus botones y sus datos del panel.\n\n" +
-
             "Esta acción no se puede deshacer."
 
         );
@@ -1412,7 +1575,7 @@ async function eliminarCliente(codigo) {
 
 
     mostrarEstado(
-        "⏳ Eliminando cliente y actualizando GitHub...",
+        "⏳ Eliminando cliente...",
         "estado-cargando"
     );
 
@@ -1439,10 +1602,9 @@ async function eliminarCliente(codigo) {
 
 
         mostrarEstado(
-            "❌ No se pudo actualizar GitHub. El cliente fue restaurado.",
+            "❌ No se pudo eliminar el cliente.",
             "estado-error"
         );
-
 
 
         alert(
@@ -1461,22 +1623,8 @@ async function eliminarCliente(codigo) {
 
 
     mostrarEstado(
-        "✅ Cliente eliminado y clientes.js actualizado.",
+        "✅ Cliente eliminado correctamente.",
         "estado-ok"
-    );
-
-
-
-    alert(
-
-        "El cliente " +
-
-        codigo +
-
-        " fue eliminado correctamente.\n\n" +
-
-        "clientes.js también fue actualizado automáticamente."
-
     );
 
 
@@ -1586,13 +1734,6 @@ function cancelarEdicion() {
     ).style.display =
         "none";
 
-
-
-    document.getElementById(
-        "resultado"
-    ).style.display =
-        "none";
-
 }
 
 
@@ -1632,8 +1773,7 @@ function normalizarEnlace(enlace) {
 
 
     if (
-        /^tel:/i.test(valor)
-        ||
+        /^tel:/i.test(valor) ||
         /^mailto:/i.test(valor)
     ) {
 
@@ -1692,23 +1832,16 @@ async function guardarCliente() {
 
 
 
-    document.getElementById(
-        "fondo"
-    ).value =
-        fondo;
-
-
-
     if (
         !codigo ||
         !nombre
     ) {
 
+
         alert(
-
             "Completá el código y el nombre del negocio."
-
         );
+
 
         return;
 
@@ -1721,11 +1854,11 @@ async function guardarCliente() {
         clientes[codigo]
     ) {
 
+
         alert(
-
-            "Ese código ya está utilizado. Probá con otro."
-
+            "Ese código ya está utilizado."
         );
+
 
         return;
 
@@ -1751,11 +1884,11 @@ async function guardarCliente() {
         nombres.length === 0
     ) {
 
+
         alert(
-
-            "Agregá al menos un botón para el cliente."
-
+            "Agregá al menos un botón."
         );
+
 
         return;
 
@@ -1782,15 +1915,8 @@ async function guardarCliente() {
 
         const enlaceBoton =
             normalizarEnlace(
-
                 enlaces[i].value
-
             );
-
-
-
-        enlaces[i].value =
-            enlaceBoton;
 
 
 
@@ -1799,11 +1925,11 @@ async function guardarCliente() {
             !enlaceBoton
         ) {
 
+
             alert(
-
                 "Completá el nombre y el enlace de cada botón."
-
             );
+
 
             return;
 
@@ -1845,6 +1971,7 @@ async function guardarCliente() {
     if (
         estabaEditando
     ) {
+
 
         clienteAnterior =
             JSON.parse(
@@ -1901,7 +2028,7 @@ async function guardarCliente() {
 
 
     mostrarEstado(
-        "⏳ Guardando cambios y actualizando GitHub...",
+        "⏳ Guardando cambios...",
         "estado-cargando"
     );
 
@@ -1943,6 +2070,7 @@ async function guardarCliente() {
             estabaEditando
         ) {
 
+
             clientes[
                 codigoAnterior
             ] =
@@ -1951,6 +2079,7 @@ async function guardarCliente() {
         }
 
         else {
+
 
             delete clientes[codigo];
 
@@ -1965,7 +2094,7 @@ async function guardarCliente() {
 
 
         mostrarEstado(
-            "❌ No se pudo actualizar GitHub. No se aplicaron los cambios.",
+            "❌ No se pudo guardar.",
             "estado-error"
         );
 
@@ -1997,7 +2126,7 @@ async function guardarCliente() {
 
 
     mostrarEstado(
-        "✅ Guardado correctamente. clientes.js fue actualizado.",
+        "✅ Cambios guardados correctamente.",
         "estado-ok"
     );
 
@@ -2017,32 +2146,27 @@ async function guardarCliente() {
 
 
 
-    if (
+    alert(
+
         estabaEditando
-    ) {
 
-        alert(
+            ? "Cliente actualizado correctamente."
 
-            "Cliente actualizado correctamente.\n\n" +
+            : "Cliente creado correctamente."
 
-            "clientes.js fue actualizado automáticamente."
+    );
 
-        );
 
-    }
 
-    else {
+    /*
+        IMPORTANTE:
 
-        alert(
+        No cerramos sesión.
+        No recargamos la página.
 
-            "Cliente creado correctamente.\n\n" +
-
-            "clientes.js fue actualizado automáticamente."
-
-        );
-
-    }
-
+        Dejamos el panel preparado
+        para seguir trabajando.
+    */
 
 
     clienteEditando =
@@ -2091,6 +2215,28 @@ async function guardarCliente() {
     ).style.display =
         "none";
 
+
+
+    /*
+        Volvemos automáticamente
+        a la lista de clientes.
+
+        Desde ahí podés tocar EDITAR
+        sobre cualquier otro cliente.
+    */
+
+    document.getElementById(
+        "listaClientes"
+    ).scrollIntoView({
+
+        behavior:
+            "smooth",
+
+        block:
+            "start"
+
+    });
+
 }
 
 
@@ -2105,6 +2251,7 @@ async function sincronizarConGitHub() {
     if (
         !claveSincronizacion
     ) {
+
 
         return {
 
@@ -2159,6 +2306,7 @@ async function sincronizarConGitHub() {
 
 
         try {
+
 
             datos =
                 await respuesta.json();
@@ -2241,7 +2389,7 @@ async function sincronizarConGitHub() {
 
 
 /* =====================================================
-   GENERAR CLIENTES.JS COMPLETO
+   GENERAR CLIENTES.JS
 ===================================================== */
 
 function generarClientesJS() {
@@ -2372,9 +2520,7 @@ function copiarCodigo() {
 
 
     alert(
-
         "clientes.js completo copiado."
-
     );
 
 }
