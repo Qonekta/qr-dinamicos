@@ -12,7 +12,7 @@ const negocios = {
 
             {
                 nombre: "⭐ Dejar una reseña",
-                enlace: "https://www.google.com/"
+                enlace: "https://search.google.com/local/writereview?placeid="
             },
 
         ]
