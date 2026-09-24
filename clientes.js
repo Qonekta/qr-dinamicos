@@ -82,6 +82,11 @@ const negocios = {
                 enlace: "https://www.google.com/maps/place/Cotillon+Arco/@-34.6171169,-68.3350265,17.59z/data=!4m14!1m7!3m6!1s0x967907fde48a16bb:0x314e63f47391a68f!2sAlmafuerte+140,+M5602+San+Rafael,+Mendoza!3b1!8m2!3d-34.6171347!4d-68.3333254!3m5!1s0x967907c0b9685b8d:0x49e2a92e0842af6e!8m2!3d-34.6171759!4d-68.3336967!16s%2Fg%2F11qywc93fz?entry=ttu&g_ep=EgoyMDI2MDkxNi4wIKXMDSoASAFQAw%3D%3D"
             },
 
+            {
+                nombre: "🌟 Dejar una reseña",
+                enlace: "https://search.google.com/local/writereview?placeid=ChIJjVtoucAHeZYRbq9CCC6p4kk&utm_source=chatgpt.com"
+            },
+
         ]
 
     },
