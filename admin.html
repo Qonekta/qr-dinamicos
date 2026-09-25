@@ -65,6 +65,13 @@
         }
 
 
+        input[type="color"] {
+            height: 52px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+
         button {
             width: 100%;
             padding: 14px;
@@ -194,6 +201,20 @@
         .aviso {
             color: #777;
             font-size: 14px;
+        }
+
+
+        .seccion-personalizacion {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f7f9fc;
+            border: 1px solid #e0e4ea;
+            border-radius: 12px;
+        }
+
+
+        .seccion-personalizacion h3 {
+            margin-top: 0;
         }
 
 
@@ -469,26 +490,115 @@
 
 
 
-        <label>
-            Imagen de fondo (opcional)
-        </label>
+        <!-- =================================================
+             PERSONALIZACIÓN VISUAL
+        ================================================== -->
+
+        <div class="seccion-personalizacion">
+
+            <h3>
+                🎨 Personalización visual
+            </h3>
 
 
-        <input
-            id="fondo"
-            placeholder="https://..."
-        >
+            <p class="aviso">
+
+                Todos estos campos son opcionales.
+
+            </p>
 
 
-        <p class="aviso">
 
-            Pegá la dirección de la imagen almacenada
-            en GitHub. Si queda vacío, se utilizará
-            el fondo normal.
-
-        </p>
+            <label>
+                Imagen de fondo
+            </label>
 
 
+            <input
+                id="fondo"
+                placeholder="https://..."
+            >
+
+
+            <p class="aviso">
+
+                Pegá la dirección de la imagen almacenada
+                en GitHub.
+
+            </p>
+
+
+
+            <label>
+                Logo del negocio
+            </label>
+
+
+            <input
+                id="logo"
+                placeholder="https://..."
+            >
+
+
+            <p class="aviso">
+
+                Podés usar una imagen PNG, JPG o WEBP.
+                Si queda vacío, no aparecerá ningún logo.
+
+            </p>
+
+
+
+            <label>
+                Color de la tarjeta translúcida
+            </label>
+
+
+            <input
+                type="color"
+                id="colorTarjeta"
+                value="#00b7ff"
+            >
+
+
+
+            <label>
+                Color de la cabecera
+            </label>
+
+
+            <input
+                type="color"
+                id="colorCabecera"
+                value="#222222"
+            >
+
+
+
+            <label>
+                Color de los botones
+            </label>
+
+
+            <input
+                type="color"
+                id="colorBotones"
+                value="#222222"
+            >
+
+
+            <p class="aviso">
+
+                Más adelante estos colores se aplicarán
+                automáticamente a la página del cliente.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- BOTONES -->
 
         <h3 style="margin-top:30px;">
             Botones del negocio
@@ -649,7 +759,7 @@ let clienteEditando =
 
 
 /* =====================================================
-   RESTAURAR SESIÓN AL ACTUALIZAR
+   RESTAURAR SESIÓN
 ===================================================== */
 
 window.addEventListener(
@@ -870,7 +980,7 @@ function cerrarSesion() {
 
 
 /* =====================================================
-   CARGAR CLIENTES DESDE GITHUB
+   CARGAR CLIENTES
 ===================================================== */
 
 async function cargarClientesDesdeGitHub() {
@@ -995,17 +1105,12 @@ async function cargarClientesDesdeGitHub() {
 
 
 
-        const negociosActuales =
+        clientes =
             Function(
 
                 `"use strict"; return (${coincidencia[1]});`
 
             )();
-
-
-
-        clientes =
-            negociosActuales;
 
 
 
@@ -1306,14 +1411,10 @@ function quitarBoton(id) {
 
 
 
-    const nombreInput =
+    const nombre =
         elemento.querySelector(
             ".nombre-boton"
-        );
-
-
-    const nombre =
-        nombreInput.value.trim()
+        ).value.trim()
         ||
         "este botón";
 
@@ -1326,7 +1427,7 @@ function quitarBoton(id) {
 
             '"' + nombre + '"' +
 
-            "?\n\nEsta acción quitará este botón del cliente."
+            "?"
 
         );
 
@@ -1415,7 +1516,7 @@ function editarCliente(codigo) {
     document.getElementById(
         "nombre"
     ).value =
-        cliente.nombre;
+        cliente.nombre || "";
 
 
 
@@ -1430,6 +1531,34 @@ function editarCliente(codigo) {
         "fondo"
     ).value =
         cliente.fondo || "";
+
+
+
+    document.getElementById(
+        "logo"
+    ).value =
+        cliente.logo || "";
+
+
+
+    document.getElementById(
+        "colorTarjeta"
+    ).value =
+        cliente.colorTarjeta || "#00b7ff";
+
+
+
+    document.getElementById(
+        "colorCabecera"
+    ).value =
+        cliente.colorCabecera || "#222222";
+
+
+
+    document.getElementById(
+        "colorBotones"
+    ).value =
+        cliente.colorBotones || "#222222";
 
 
 
@@ -1535,9 +1664,7 @@ async function eliminarCliente(codigo) {
 
             cliente.nombre +
 
-            "?\n\n" +
-
-            "Esta acción no se puede deshacer."
+            "?\n\nEsta acción no se puede deshacer."
 
         );
 
@@ -1711,6 +1838,34 @@ function cancelarEdicion() {
 
 
     document.getElementById(
+        "logo"
+    ).value =
+        "";
+
+
+
+    document.getElementById(
+        "colorTarjeta"
+    ).value =
+        "#00b7ff";
+
+
+
+    document.getElementById(
+        "colorCabecera"
+    ).value =
+        "#222222";
+
+
+
+    document.getElementById(
+        "colorBotones"
+    ).value =
+        "#222222";
+
+
+
+    document.getElementById(
         "botonesPersonalizados"
     ).innerHTML =
         "";
@@ -1829,6 +1984,38 @@ async function guardarCliente() {
             ).value
 
         );
+
+
+
+    const logo =
+        normalizarEnlace(
+
+            document.getElementById(
+                "logo"
+            ).value
+
+        );
+
+
+
+    const colorTarjeta =
+        document.getElementById(
+            "colorTarjeta"
+        ).value;
+
+
+
+    const colorCabecera =
+        document.getElementById(
+            "colorCabecera"
+        ).value;
+
+
+
+    const colorBotones =
+        document.getElementById(
+            "colorBotones"
+        ).value;
 
 
 
@@ -2001,6 +2188,18 @@ async function guardarCliente() {
         fondo:
             fondo,
 
+        logo:
+            logo,
+
+        colorTarjeta:
+            colorTarjeta,
+
+        colorCabecera:
+            colorCabecera,
+
+        colorBotones:
+            colorBotones,
+
         botones:
             botones
 
@@ -2158,17 +2357,6 @@ async function guardarCliente() {
 
 
 
-    /*
-        IMPORTANTE:
-
-        No cerramos sesión.
-        No recargamos la página.
-
-        Dejamos el panel preparado
-        para seguir trabajando.
-    */
-
-
     clienteEditando =
         null;
 
@@ -2217,14 +2405,6 @@ async function guardarCliente() {
 
 
 
-    /*
-        Volvemos automáticamente
-        a la lista de clientes.
-
-        Desde ahí podés tocar EDITAR
-        sobre cualquier otro cliente.
-    */
-
     document.getElementById(
         "listaClientes"
     ).scrollIntoView({
@@ -2242,7 +2422,7 @@ async function guardarCliente() {
 
 
 /* =====================================================
-   SINCRONIZAR CON CLOUDFLARE → GITHUB
+   SINCRONIZAR
 ===================================================== */
 
 async function sincronizarConGitHub() {
@@ -2423,11 +2603,19 @@ function generarClientesJS() {
 
 `    "${escaparJS(id)}": {
 
-        nombre: "${escaparJS(cliente.nombre)}",
+        nombre: "${escaparJS(cliente.nombre || "")}",
 
         descripcion: "${escaparJS(cliente.descripcion || "")}",
 
         fondo: "${escaparJS(cliente.fondo || "")}",
+
+        logo: "${escaparJS(cliente.logo || "")}",
+
+        colorTarjeta: "${escaparJS(cliente.colorTarjeta || "#00b7ff")}",
+
+        colorCabecera: "${escaparJS(cliente.colorCabecera || "#222222")}",
+
+        colorBotones: "${escaparJS(cliente.colorBotones || "#222222")}",
 
         botones: [
 
