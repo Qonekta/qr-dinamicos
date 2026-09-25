@@ -5,293 +5,568 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Panel de clientes</title>
 
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
+
         body {
+
             font-family: Arial, sans-serif;
+
             background: #f5f5f5;
+
             margin: 0;
+
             padding: 30px 15px;
+
             color: #222;
+
         }
 
 
         .contenedor {
-            max-width: 700px;
+
+            max-width: 750px;
+
             margin: auto;
+
         }
 
 
         .tarjeta {
+
             background: white;
+
             padding: 30px;
+
             border-radius: 15px;
+
             margin-bottom: 20px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+
+            box-shadow:
+                0 3px 12px
+                rgba(0,0,0,0.08);
+
         }
 
 
         h1 {
+
             text-align: center;
+
             margin-top: 0;
+
         }
 
 
         h2 {
+
             margin-top: 0;
+
+        }
+
+
+        h3 {
+
+            margin-top: 25px;
+
         }
 
 
         label {
+
             display: block;
+
             margin-top: 15px;
+
             font-weight: bold;
+
         }
 
 
-        input {
+        input,
+        select {
+
             width: 100%;
-            box-sizing: border-box;
+
             padding: 12px;
+
             margin-top: 6px;
+
             border: 1px solid #ccc;
+
             border-radius: 8px;
+
             font-size: 15px;
+
+            background: white;
+
         }
 
 
         input[type="color"] {
+
             height: 52px;
+
             padding: 5px;
+
             cursor: pointer;
+
         }
 
 
         button {
+
             width: 100%;
+
             padding: 14px;
+
             margin-top: 20px;
+
             background: #222;
+
             color: white;
+
             border: none;
+
             border-radius: 8px;
+
             font-size: 16px;
+
             cursor: pointer;
+
         }
 
 
         button:hover {
-            background: #444;
+
+            filter: brightness(1.10);
+
         }
 
 
         button:disabled {
+
             opacity: 0.6;
+
             cursor: wait;
-        }
 
-
-        .boton-editar {
-            background: #1976d2;
-            margin-top: 12px;
-        }
-
-
-        .boton-editar:hover {
-            background: #125aa0;
-        }
-
-
-        .boton-eliminar {
-            background: #b00020;
-            margin-top: 10px;
-        }
-
-
-        .boton-eliminar:hover {
-            background: #8a0018;
-        }
-
-
-        .boton-agregar {
-            background: #1976d2;
-        }
-
-
-        .boton-agregar:hover {
-            background: #125aa0;
-        }
-
-
-        .boton-quitar {
-            background: #777;
-            width: auto;
-            padding: 8px 12px;
-            margin-top: 10px;
-        }
-
-
-        .boton-quitar:hover {
-            background: #555;
-        }
-
-
-        .boton-secundario {
-            background: #555;
-        }
-
-
-        .boton-cancelar {
-            background: #777;
-        }
-
-
-        .boton-cancelar:hover {
-            background: #555;
-        }
-
-
-        .boton-cerrar-sesion {
-            background: #555;
-            margin-top: 15px;
-        }
-
-
-        .boton-cerrar-sesion:hover {
-            background: #333;
-        }
-
-
-        .boton-personalizado {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 10px;
-            background: #fafafa;
-        }
-
-
-        .cliente {
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 10px;
-            background: #fafafa;
-        }
-
-
-        .cliente strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-
-        .cliente-url {
-            color: #777;
-            font-size: 14px;
-            margin-top: 5px;
         }
 
 
         .aviso {
+
             color: #777;
+
             font-size: 14px;
+
+            line-height: 1.5;
+
         }
 
 
-        .seccion-personalizacion {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f7f9fc;
-            border: 1px solid #e0e4ea;
-            border-radius: 12px;
+        .separador {
+
+            border: none;
+
+            border-top: 1px solid #ddd;
+
+            margin: 30px 0;
+
         }
 
 
-        .seccion-personalizacion h3 {
-            margin-top: 0;
+
+        /* =================================================
+           ALTA RÁPIDA
+        ================================================= */
+
+        .alta-rapida {
+
+            border:
+                2px solid #dbeafe;
+
+            background:
+                #f8fbff;
+
         }
 
 
-        .resultado {
-            margin-top: 25px;
-            padding: 20px;
-            background: #f0f0f0;
-            border-radius: 10px;
-            display: none;
+        .titulo-rapido {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
         }
 
 
-        .url {
-            word-break: break-all;
-            font-weight: bold;
-        }
+        .insignia {
 
+            display: inline-block;
 
-        .codigo {
-            background: #222;
+            background: #1976d2;
+
             color: white;
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-break: break-word;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
         }
 
 
-        .titulo-edicion {
-            color: #1976d2;
+        .resumen-tarjeta {
+
+            margin-top: 15px;
+
+            padding: 14px;
+
+            background: #eef5ff;
+
+            border-radius: 10px;
+
+            color: #345;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .bloque-datos {
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            background: white;
+
+            border: 1px solid #e2e8f0;
+
+        }
+
+
+        .boton-rapido {
+
+            background: #1976d2;
+
+        }
+
+
+        .boton-avanzado {
+
+            background: #555;
+
+        }
+
+
+        .boton-abrir {
+
+            background: #16803b;
+
+        }
+
+
+
+        /* =================================================
+           CLIENTES
+        ================================================= */
+
+        .cliente {
+
+            border: 1px solid #ddd;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-top: 10px;
+
+            background: #fafafa;
+
+        }
+
+
+        .cliente strong {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .cliente-url {
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-top: 5px;
+
+        }
+
+
+        .cliente-info {
+
+            color: #555;
+
+            font-size: 13px;
+
+            margin-top: 7px;
+
         }
 
 
         .cliente-acciones {
+
             display: flex;
+
             gap: 10px;
+
         }
 
 
         .cliente-acciones button {
+
             margin-top: 12px;
+
         }
 
 
-        .estado {
+        .boton-editar {
+
+            background: #1976d2;
+
+        }
+
+
+        .boton-eliminar {
+
+            background: #b00020;
+
+        }
+
+
+
+        /* =================================================
+           FORMULARIO AVANZADO
+        ================================================= */
+
+        .boton-personalizado {
+
+            border: 1px solid #ddd;
+
+            padding: 15px;
+
             margin-top: 15px;
-            padding: 12px;
-            border-radius: 8px;
+
+            border-radius: 10px;
+
+            background: #fafafa;
+
+        }
+
+
+        .boton-agregar {
+
+            background: #1976d2;
+
+        }
+
+
+        .boton-quitar {
+
+            background: #777;
+
+            width: auto;
+
+            padding: 8px 12px;
+
+            margin-top: 10px;
+
+        }
+
+
+        .boton-cancelar {
+
+            background: #777;
+
+        }
+
+
+        .boton-cerrar-sesion {
+
+            background: #555;
+
+            margin-top: 15px;
+
+        }
+
+
+        .seccion-personalizacion {
+
+            margin-top: 30px;
+
+            padding: 20px;
+
+            background: #f7f9fc;
+
+            border: 1px solid #e0e4ea;
+
+            border-radius: 12px;
+
+        }
+
+
+        .seccion-personalizacion h3 {
+
+            margin-top: 0;
+
+        }
+
+
+        .resultado {
+
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #f0f0f0;
+
+            border-radius: 10px;
+
             display: none;
+
+        }
+
+
+        .url {
+
+            word-break: break-all;
+
             font-weight: bold;
+
+        }
+
+
+        .codigo {
+
+            background: #222;
+
+            color: white;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            overflow-x: auto;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+
+        }
+
+
+        .titulo-edicion {
+
+            color: #1976d2;
+
+        }
+
+
+
+        /* =================================================
+           ESTADO
+        ================================================= */
+
+        .estado {
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            display: none;
+
+            font-weight: bold;
+
         }
 
 
         .estado-ok {
+
             background: #dff5e3;
+
             color: #176b2c;
+
         }
 
 
         .estado-error {
+
             background: #ffe1e1;
+
             color: #9b0000;
+
         }
 
 
         .estado-cargando {
+
             background: #e8eef7;
+
             color: #24527a;
+
         }
 
 
-        @media (max-width: 500px) {
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (
+            max-width: 550px
+        ) {
+
+
+            .tarjeta {
+
+                padding: 22px 17px;
+
+            }
+
 
             .cliente-acciones {
+
                 flex-direction: column;
+
                 gap: 0;
+
             }
 
         }
@@ -310,7 +585,9 @@
 
 <div id="login">
 
+
     <div class="tarjeta">
+
 
         <h2>
             🔐 Acceso restringido
@@ -366,7 +643,9 @@
             style="color:red;"
         ></p>
 
+
     </div>
+
 
 </div>
 
@@ -383,7 +662,10 @@
 >
 
 
+    <!-- CABECERA -->
+
     <div class="tarjeta">
+
 
         <h1>
             Panel de clientes
@@ -391,7 +673,7 @@
 
 
         <p>
-            Administrá los clientes de tu sistema QR/NFC.
+            Administrá tus tarjetas QR/NFC.
         </p>
 
 
@@ -405,29 +687,365 @@
             class="boton-cerrar-sesion"
             onclick="cerrarSesion()"
         >
+
             🔒 Cerrar sesión
+
         </button>
+
 
     </div>
 
 
 
-    <!-- CLIENTES -->
+    <!-- =================================================
+         ALTA RÁPIDA
+    ================================================== -->
+
+    <div class="tarjeta alta-rapida">
+
+
+        <div class="titulo-rapido">
+
+
+            <h2 style="margin:0;">
+
+                ⚡ Alta rápida
+
+            </h2>
+
+
+            <span class="insignia">
+
+                RECOMENDADO
+
+            </span>
+
+
+        </div>
+
+
+        <p>
+
+            Elegí una de tus tarjetas ya creadas y
+            cargá los datos básicos del cliente.
+
+        </p>
+
+
+        <p class="aviso">
+
+            Este modo NO cambia el código del QR ni del NFC.
+            Solamente configura la información asociada
+            al código seleccionado.
+
+        </p>
+
+
+
+        <label>
+
+            Tarjeta a configurar
+
+        </label>
+
+
+        <select
+            id="rapidoCodigo"
+            onchange="cargarClienteRapido()"
+        >
+
+            <option value="">
+
+                Seleccioná una tarjeta
+
+            </option>
+
+        </select>
+
+
+
+        <div
+            id="rapidoResumen"
+            class="resumen-tarjeta"
+            style="display:none;"
+        ></div>
+
+
+
+        <div class="bloque-datos">
+
+
+            <h3 style="margin-top:0;">
+
+                Datos del negocio
+
+            </h3>
+
+
+
+            <label>
+
+                Nombre del negocio
+
+            </label>
+
+
+            <input
+                id="rapidoNombre"
+                placeholder="Ejemplo: Café San Rafael"
+            >
+
+
+
+            <label>
+
+                Descripción breve
+
+            </label>
+
+
+            <input
+                id="rapidoDescripcion"
+                placeholder="Ejemplo: Café, desayunos y pastelería"
+            >
+
+
+
+        </div>
+
+
+
+        <div class="bloque-datos">
+
+
+            <h3 style="margin-top:0;">
+
+                Contacto y redes
+
+            </h3>
+
+
+
+            <label>
+
+                WhatsApp
+
+            </label>
+
+
+            <input
+                id="rapidoWhatsapp"
+                placeholder="Ejemplo: 2604123456"
+            >
+
+
+            <p class="aviso">
+
+                Podés escribir solamente el número.
+                Para Argentina usá código de área + número,
+                sin 0 ni 15.
+
+                Ejemplo: 2604123456.
+
+            </p>
+
+
+
+            <label>
+
+                Instagram
+
+            </label>
+
+
+            <input
+                id="rapidoInstagram"
+                placeholder="@cafesanrafael"
+            >
+
+
+            <p class="aviso">
+
+                Podés escribir @usuario,
+                usuario o pegar el enlace completo.
+
+            </p>
+
+
+
+            <label>
+
+                Place ID de Google
+
+            </label>
+
+
+            <input
+                id="rapidoPlaceId"
+                placeholder="Ejemplo: ChIJ..."
+            >
+
+
+            <p class="aviso">
+
+                Pegá el Place ID obtenido desde
+                Place ID Finder.
+
+            </p>
+
+
+        </div>
+
+
+
+        <div class="bloque-datos">
+
+
+            <h3 style="margin-top:0;">
+
+                Personalización
+
+            </h3>
+
+
+
+            <label>
+
+                Fondo (opcional)
+
+            </label>
+
+
+            <input
+                id="rapidoFondo"
+                placeholder="https://..."
+            >
+
+
+
+            <label>
+
+                Logo (opcional)
+
+            </label>
+
+
+            <input
+                id="rapidoLogo"
+                placeholder="https://..."
+            >
+
+
+
+            <label>
+
+                Color de tarjeta
+
+            </label>
+
+
+            <input
+                type="color"
+                id="rapidoColorTarjeta"
+                value="#00b7ff"
+            >
+
+
+
+            <label>
+
+                Color de cabecera
+
+            </label>
+
+
+            <input
+                type="color"
+                id="rapidoColorCabecera"
+                value="#222222"
+            >
+
+
+
+            <label>
+
+                Color de botones
+
+            </label>
+
+
+            <input
+                type="color"
+                id="rapidoColorBotones"
+                value="#222222"
+            >
+
+
+        </div>
+
+
+
+        <button
+            class="boton-rapido"
+            id="botonGuardarRapido"
+            onclick="guardarClienteRapido()"
+        >
+
+            ⚡ Guardar configuración rápida
+
+        </button>
+
+
+
+        <button
+            class="boton-abrir"
+            onclick="abrirTarjetaRapida()"
+        >
+
+            🔗 Abrir página de la tarjeta
+
+        </button>
+
+
+
+        <button
+            class="boton-avanzado"
+            onclick="abrirEdicionAvanzadaDesdeRapido()"
+        >
+
+            ⚙️ Abrir edición avanzada
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         CLIENTES
+    ================================================== -->
 
     <div class="tarjeta">
 
+
         <h2>
+
             Clientes actuales
+
         </h2>
 
 
         <div id="listaClientes"></div>
 
+
     </div>
 
 
 
-    <!-- CREAR / EDITAR -->
+    <!-- =================================================
+         EDICIÓN AVANZADA
+    ================================================== -->
 
     <div
         class="tarjeta"
@@ -440,6 +1058,15 @@
             Crear nuevo cliente
 
         </h2>
+
+
+        <p class="aviso">
+
+            Esta sección sigue permitiendo configurar
+            cualquier cantidad de botones y modificar
+            todos los datos manualmente.
+
+        </p>
 
 
         <p
@@ -455,19 +1082,23 @@
 
 
         <label>
+
             Código del cliente
+
         </label>
 
 
         <input
             id="codigo"
-            placeholder="Ejemplo: 005"
+            placeholder="Ejemplo: 019"
         >
 
 
 
         <label>
+
             Nombre del negocio
+
         </label>
 
 
@@ -479,7 +1110,9 @@
 
 
         <label>
+
             Descripción breve (opcional)
+
         </label>
 
 
@@ -490,27 +1123,23 @@
 
 
 
-        <!-- =================================================
-             PERSONALIZACIÓN VISUAL
-        ================================================== -->
+        <!-- PERSONALIZACIÓN -->
 
         <div class="seccion-personalizacion">
 
+
             <h3>
+
                 🎨 Personalización visual
+
             </h3>
-
-
-            <p class="aviso">
-
-                Todos estos campos son opcionales.
-
-            </p>
 
 
 
             <label>
+
                 Imagen de fondo
+
             </label>
 
 
@@ -520,17 +1149,11 @@
             >
 
 
-            <p class="aviso">
-
-                Pegá la dirección de la imagen almacenada
-                en GitHub.
-
-            </p>
-
-
 
             <label>
+
                 Logo del negocio
+
             </label>
 
 
@@ -540,17 +1163,11 @@
             >
 
 
-            <p class="aviso">
-
-                Podés usar una imagen PNG, JPG o WEBP.
-                Si queda vacío, no aparecerá ningún logo.
-
-            </p>
-
-
 
             <label>
+
                 Color de la tarjeta translúcida
+
             </label>
 
 
@@ -563,7 +1180,9 @@
 
 
             <label>
+
                 Color de la cabecera
+
             </label>
 
 
@@ -576,7 +1195,9 @@
 
 
             <label>
+
                 Color de los botones
+
             </label>
 
 
@@ -587,30 +1208,17 @@
             >
 
 
-            <p class="aviso">
-
-                Más adelante estos colores se aplicarán
-                automáticamente a la página del cliente.
-
-            </p>
-
         </div>
 
 
 
         <!-- BOTONES -->
 
-        <h3 style="margin-top:30px;">
+        <h3>
+
             Botones del negocio
+
         </h3>
-
-
-        <p class="aviso">
-
-            Cada botón puede tener un nombre y
-            un enlace diferente.
-
-        </p>
 
 
         <div id="botonesPersonalizados"></div>
@@ -656,12 +1264,16 @@
 
 
             <h3>
+
                 ✅ Cambios guardados
+
             </h3>
 
 
             <p>
-                El enlace permanente del cliente es:
+
+                Enlace permanente:
+
             </p>
 
 
@@ -671,10 +1283,7 @@
             ></p>
 
 
-            <button
-                class="boton-secundario"
-                onclick="copiarEnlace()"
-            >
+            <button onclick="copiarEnlace()">
 
                 Copiar enlace
 
@@ -682,7 +1291,9 @@
 
 
             <h3>
+
                 Código actual de clientes.js
+
             </h3>
 
 
@@ -692,10 +1303,7 @@
             ></pre>
 
 
-            <button
-                class="boton-secundario"
-                onclick="copiarCodigo()"
-            >
+            <button onclick="copiarCodigo()">
 
                 📋 Copiar clientes.js completo
 
@@ -704,7 +1312,9 @@
 
         </div>
 
+
     </div>
+
 
 </div>
 
@@ -759,7 +1369,7 @@ let clienteEditando =
 
 
 /* =====================================================
-   RESTAURAR SESIÓN
+   INICIO
 ===================================================== */
 
 window.addEventListener(
@@ -807,7 +1417,7 @@ async function restaurarSesion() {
 
 
 /* =====================================================
-   INICIAR SESIÓN
+   LOGIN
 ===================================================== */
 
 async function iniciarSesion() {
@@ -969,25 +1579,19 @@ function cerrarSesion() {
     ).value =
         "";
 
-
-    document.getElementById(
-        "errorLogin"
-    ).textContent =
-        "";
-
 }
 
 
 
 /* =====================================================
-   CARGAR CLIENTES
+   CARGAR CLIENTES DESDE GITHUB
 ===================================================== */
 
 async function cargarClientesDesdeGitHub() {
 
 
     mostrarEstado(
-        "⏳ Cargando clientes actuales desde GitHub...",
+        "⏳ Cargando clientes actuales...",
         "estado-cargando"
     );
 
@@ -995,7 +1599,7 @@ async function cargarClientesDesdeGitHub() {
     try {
 
 
-        const respuestaGitHub =
+        const respuesta =
             await fetch(
                 WORKER_URL,
                 {
@@ -1016,39 +1620,16 @@ async function cargarClientesDesdeGitHub() {
 
 
         const datos =
-            await respuestaGitHub.json();
+            await respuesta.json();
 
 
 
         if (
-            respuestaGitHub.status === 401
+            respuesta.status === 401
         ) {
 
 
-            sessionStorage.removeItem(
-                CLAVE_SESION
-            );
-
-
-            sessionStorage.removeItem(
-                CLAVE_SECRET
-            );
-
-
-            claveSincronizacion =
-                "";
-
-
-            document.getElementById(
-                "panel"
-            ).style.display =
-                "none";
-
-
-            document.getElementById(
-                "login"
-            ).style.display =
-                "block";
+            cerrarSesion();
 
 
             document.getElementById(
@@ -1064,7 +1645,7 @@ async function cargarClientesDesdeGitHub() {
 
 
         if (
-            !respuestaGitHub.ok ||
+            !respuesta.ok ||
             !datos.ok
         ) {
 
@@ -1072,7 +1653,6 @@ async function cargarClientesDesdeGitHub() {
             throw new Error(
 
                 datos.mensaje ||
-
                 "No se pudieron cargar los clientes."
 
             );
@@ -1117,6 +1697,12 @@ async function cargarClientesDesdeGitHub() {
         mostrarClientes();
 
 
+        actualizarSelectorRapido();
+
+
+        generarClientesJS();
+
+
 
         mostrarEstado(
             "✅ Clientes cargados correctamente.",
@@ -1145,7 +1731,7 @@ async function cargarClientesDesdeGitHub() {
 
         alert(
 
-            "Error al cargar los clientes:\n\n" +
+            "Error al cargar clientes:\n\n" +
 
             error.message
 
@@ -1161,7 +1747,7 @@ async function cargarClientesDesdeGitHub() {
 
 
 /* =====================================================
-   MOSTRAR ESTADO
+   ESTADO
 ===================================================== */
 
 function mostrarEstado(
@@ -1181,11 +1767,1606 @@ function mostrarEstado(
 
 
     estado.className =
-        "estado " + tipo;
+        "estado " +
+        tipo;
 
 
     estado.style.display =
         "block";
+
+}
+
+
+
+/* =====================================================
+   ORDENAR CÓDIGOS
+===================================================== */
+
+function obtenerCodigosOrdenados() {
+
+
+    return Object.keys(
+        clientes
+    ).sort(
+        function(a, b) {
+
+
+            const numeroA =
+                parseInt(
+                    a,
+                    10
+                );
+
+
+            const numeroB =
+                parseInt(
+                    b,
+                    10
+                );
+
+
+
+            if (
+                !isNaN(numeroA) &&
+                !isNaN(numeroB)
+            ) {
+
+
+                return numeroA -
+                    numeroB;
+
+            }
+
+
+
+            return a.localeCompare(
+                b
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   SELECTOR ALTA RÁPIDA
+===================================================== */
+
+function actualizarSelectorRapido() {
+
+
+    const selector =
+        document.getElementById(
+            "rapidoCodigo"
+        );
+
+
+    const seleccionadoAntes =
+        selector.value;
+
+
+    selector.innerHTML =
+
+        '<option value="">' +
+
+        'Seleccioná una tarjeta' +
+
+        '</option>';
+
+
+
+    const codigos =
+        obtenerCodigosOrdenados();
+
+
+
+    codigos.forEach(
+        function(codigo) {
+
+
+            const cliente =
+                clientes[codigo] || {};
+
+
+            const nombre =
+                String(
+                    cliente.nombre || ""
+                ).trim();
+
+
+            const cantidadBotones =
+                Array.isArray(
+                    cliente.botones
+                )
+                ? cliente.botones.length
+                : 0;
+
+
+
+            const opcion =
+                document.createElement(
+                    "option"
+                );
+
+
+            opcion.value =
+                codigo;
+
+
+
+            opcion.textContent =
+
+                codigo +
+
+                " — " +
+
+                (
+                    nombre ||
+                    "Sin nombre"
+                ) +
+
+                " — " +
+
+                cantidadBotones +
+
+                " botón/es";
+
+
+
+            selector.appendChild(
+                opcion
+            );
+
+        }
+    );
+
+
+
+    if (
+        clientes[
+            seleccionadoAntes
+        ]
+    ) {
+
+
+        selector.value =
+            seleccionadoAntes;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   IDENTIFICAR TIPO DE BOTÓN
+===================================================== */
+
+function identificarTipoBoton(
+    boton
+) {
+
+
+    const nombre =
+        String(
+            boton.nombre || ""
+        ).toLowerCase();
+
+
+    const enlace =
+        String(
+            boton.enlace || ""
+        ).toLowerCase();
+
+
+
+    if (
+        enlace.includes(
+            "wa.me/"
+        )
+        ||
+        enlace.includes(
+            "whatsapp.com"
+        )
+        ||
+        nombre.includes(
+            "whatsapp"
+        )
+    ) {
+
+
+        return "whatsapp";
+
+    }
+
+
+
+    if (
+        enlace.includes(
+            "instagram.com"
+        )
+        ||
+        nombre.includes(
+            "instagram"
+        )
+    ) {
+
+
+        return "instagram";
+
+    }
+
+
+
+    if (
+        enlace.includes(
+            "search.google.com/local/writereview"
+        )
+        ||
+        (
+            enlace.includes(
+                "google"
+            )
+            &&
+            (
+                nombre.includes(
+                    "reseña"
+                )
+                ||
+                nombre.includes(
+                    "opini"
+                )
+            )
+        )
+    ) {
+
+
+        return "resena";
+
+    }
+
+
+
+    return "otro";
+
+}
+
+
+
+/* =====================================================
+   EXTRAER WHATSAPP EXISTENTE
+===================================================== */
+
+function extraerWhatsapp(
+    cliente
+) {
+
+
+    const botones =
+        Array.isArray(
+            cliente.botones
+        )
+        ? cliente.botones
+        : [];
+
+
+
+    const boton =
+        botones.find(
+            function(b) {
+
+
+                return identificarTipoBoton(
+                    b
+                ) === "whatsapp";
+
+            }
+        );
+
+
+
+    if (
+        !boton
+    ) {
+
+        return "";
+
+    }
+
+
+
+    const enlace =
+        String(
+            boton.enlace || ""
+        );
+
+
+
+    let coincidencia =
+        enlace.match(
+            /wa\.me\/(\d+)/i
+        );
+
+
+
+    if (
+        coincidencia
+    ) {
+
+
+        return "+" +
+            coincidencia[1];
+
+    }
+
+
+
+    coincidencia =
+        enlace.match(
+            /[?&]phone=(\d+)/i
+        );
+
+
+
+    if (
+        coincidencia
+    ) {
+
+
+        return "+" +
+            coincidencia[1];
+
+    }
+
+
+
+    return "";
+
+}
+
+
+
+/* =====================================================
+   EXTRAER INSTAGRAM EXISTENTE
+===================================================== */
+
+function extraerInstagram(
+    cliente
+) {
+
+
+    const botones =
+        Array.isArray(
+            cliente.botones
+        )
+        ? cliente.botones
+        : [];
+
+
+
+    const boton =
+        botones.find(
+            function(b) {
+
+
+                return identificarTipoBoton(
+                    b
+                ) === "instagram";
+
+            }
+        );
+
+
+
+    if (
+        !boton
+    ) {
+
+        return "";
+
+    }
+
+
+
+    const enlace =
+        String(
+            boton.enlace || ""
+        );
+
+
+
+    const coincidencia =
+        enlace.match(
+            /instagram\.com\/([^/?#]+)/i
+        );
+
+
+
+    if (
+        coincidencia
+    ) {
+
+
+        return "@" +
+            coincidencia[1];
+
+    }
+
+
+
+    return "";
+
+}
+
+
+
+/* =====================================================
+   EXTRAER PLACE ID EXISTENTE
+===================================================== */
+
+function extraerPlaceId(
+    cliente
+) {
+
+
+    const botones =
+        Array.isArray(
+            cliente.botones
+        )
+        ? cliente.botones
+        : [];
+
+
+
+    const boton =
+        botones.find(
+            function(b) {
+
+
+                return identificarTipoBoton(
+                    b
+                ) === "resena";
+
+            }
+        );
+
+
+
+    if (
+        !boton
+    ) {
+
+        return "";
+
+    }
+
+
+
+    const enlace =
+        String(
+            boton.enlace || ""
+        );
+
+
+
+    const coincidencia =
+        enlace.match(
+            /[?&]placeid=([^&#]+)/i
+        );
+
+
+
+    if (
+        coincidencia
+    ) {
+
+
+        return decodeURIComponent(
+            coincidencia[1]
+        );
+
+    }
+
+
+
+    return "";
+
+}
+
+
+
+/* =====================================================
+   BOTONES EXTRA
+===================================================== */
+
+function obtenerBotonesExtra(
+    cliente
+) {
+
+
+    const botones =
+        Array.isArray(
+            cliente.botones
+        )
+        ? cliente.botones
+        : [];
+
+
+
+    return botones.filter(
+        function(boton) {
+
+
+            return identificarTipoBoton(
+                boton
+            ) === "otro";
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   CARGAR CLIENTE EN ALTA RÁPIDA
+===================================================== */
+
+function cargarClienteRapido() {
+
+
+    const codigo =
+        document.getElementById(
+            "rapidoCodigo"
+        ).value;
+
+
+
+    const resumen =
+        document.getElementById(
+            "rapidoResumen"
+        );
+
+
+
+    if (
+        !codigo ||
+        !clientes[codigo]
+    ) {
+
+
+        limpiarFormularioRapido();
+
+
+        resumen.style.display =
+            "none";
+
+
+        return;
+
+    }
+
+
+
+    const cliente =
+        clientes[codigo];
+
+
+
+    document.getElementById(
+        "rapidoNombre"
+    ).value =
+        cliente.nombre || "";
+
+
+
+    document.getElementById(
+        "rapidoDescripcion"
+    ).value =
+        cliente.descripcion || "";
+
+
+
+    document.getElementById(
+        "rapidoFondo"
+    ).value =
+        cliente.fondo || "";
+
+
+
+    document.getElementById(
+        "rapidoLogo"
+    ).value =
+        cliente.logo || "";
+
+
+
+    document.getElementById(
+        "rapidoColorTarjeta"
+    ).value =
+        cliente.colorTarjeta ||
+        "#00b7ff";
+
+
+
+    document.getElementById(
+        "rapidoColorCabecera"
+    ).value =
+        cliente.colorCabecera ||
+        "#222222";
+
+
+
+    document.getElementById(
+        "rapidoColorBotones"
+    ).value =
+        cliente.colorBotones ||
+        "#222222";
+
+
+
+    document.getElementById(
+        "rapidoWhatsapp"
+    ).value =
+        extraerWhatsapp(
+            cliente
+        );
+
+
+
+    document.getElementById(
+        "rapidoInstagram"
+    ).value =
+        extraerInstagram(
+            cliente
+        );
+
+
+
+    document.getElementById(
+        "rapidoPlaceId"
+    ).value =
+        extraerPlaceId(
+            cliente
+        );
+
+
+
+    const cantidadBotones =
+        Array.isArray(
+            cliente.botones
+        )
+        ? cliente.botones.length
+        : 0;
+
+
+
+    const extras =
+        obtenerBotonesExtra(
+            cliente
+        );
+
+
+
+    let mensaje =
+
+        "Tarjeta " +
+        codigo +
+        ". Actualmente tiene " +
+        cantidadBotones +
+        " botón/es.";
+
+
+
+    if (
+        extras.length > 0
+    ) {
+
+
+        mensaje +=
+
+            " Hay " +
+
+            extras.length +
+
+            " botón/es adicional/es que el modo rápido conservará.";
+
+    }
+
+
+
+    resumen.textContent =
+        mensaje;
+
+
+    resumen.style.display =
+        "block";
+
+}
+
+
+
+/* =====================================================
+   LIMPIAR FORMULARIO RÁPIDO
+===================================================== */
+
+function limpiarFormularioRapido() {
+
+
+    document.getElementById(
+        "rapidoNombre"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "rapidoDescripcion"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "rapidoWhatsapp"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "rapidoInstagram"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "rapidoPlaceId"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "rapidoFondo"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "rapidoLogo"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "rapidoColorTarjeta"
+    ).value =
+        "#00b7ff";
+
+
+    document.getElementById(
+        "rapidoColorCabecera"
+    ).value =
+        "#222222";
+
+
+    document.getElementById(
+        "rapidoColorBotones"
+    ).value =
+        "#222222";
+
+}
+
+
+
+/* =====================================================
+   GENERAR WHATSAPP
+===================================================== */
+
+function generarEnlaceWhatsapp(
+    valor
+) {
+
+
+    let numero =
+        String(
+            valor || ""
+        ).replace(
+            /\D/g,
+            ""
+        );
+
+
+
+    if (
+        !numero
+    ) {
+
+        return "";
+
+    }
+
+
+
+    /*
+        Si ya viene:
+        +54 9 ...
+    */
+
+    if (
+        numero.startsWith(
+            "549"
+        )
+    ) {
+
+
+        return "https://wa.me/" +
+            numero;
+
+    }
+
+
+
+    /*
+        Si viene:
+        +54 ...
+        agregamos el 9.
+    */
+
+    if (
+        numero.startsWith(
+            "54"
+        )
+    ) {
+
+
+        numero =
+            numero.substring(
+                2
+            );
+
+
+        return "https://wa.me/549" +
+            numero;
+
+    }
+
+
+
+    /*
+        Quitamos un 0 inicial:
+        0260...
+    */
+
+    if (
+        numero.startsWith(
+            "0"
+        )
+    ) {
+
+
+        numero =
+            numero.substring(
+                1
+            );
+
+    }
+
+
+
+    return "https://wa.me/549" +
+        numero;
+
+}
+
+
+
+/* =====================================================
+   GENERAR INSTAGRAM
+===================================================== */
+
+function generarEnlaceInstagram(
+    valor
+) {
+
+
+    let texto =
+        String(
+            valor || ""
+        ).trim();
+
+
+
+    if (
+        !texto
+    ) {
+
+        return "";
+
+    }
+
+
+
+    if (
+        /^https?:\/\//i.test(
+            texto
+        )
+    ) {
+
+
+        return texto;
+
+    }
+
+
+
+    if (
+        /^www\./i.test(
+            texto
+        )
+    ) {
+
+
+        return "https://" +
+            texto;
+
+    }
+
+
+
+    if (
+        /^instagram\.com\//i.test(
+            texto
+        )
+    ) {
+
+
+        return "https://" +
+            texto;
+
+    }
+
+
+
+    texto =
+        texto.replace(
+            /^@/,
+            ""
+        );
+
+
+    texto =
+        texto.replace(
+            /^\/+/,
+            ""
+        );
+
+
+    texto =
+        texto.replace(
+            /\/+$/,
+            ""
+        );
+
+
+
+    return "https://instagram.com/" +
+        texto;
+
+}
+
+
+
+/* =====================================================
+   GENERAR RESEÑA GOOGLE
+===================================================== */
+
+function generarEnlaceResena(
+    placeId
+) {
+
+
+    const valor =
+        String(
+            placeId || ""
+        ).trim();
+
+
+
+    if (
+        !valor
+    ) {
+
+        return "";
+
+    }
+
+
+
+    /*
+        Si ya pegó el enlace completo,
+        también lo aceptamos.
+    */
+
+    if (
+        /^https?:\/\//i.test(
+            valor
+        )
+    ) {
+
+
+        return valor;
+
+    }
+
+
+
+    return (
+
+        "https://search.google.com/local/writereview?placeid=" +
+
+        encodeURIComponent(
+            valor
+        )
+
+    );
+
+}
+
+
+
+/* =====================================================
+   GUARDAR ALTA RÁPIDA
+===================================================== */
+
+async function guardarClienteRapido() {
+
+
+    const codigo =
+        document.getElementById(
+            "rapidoCodigo"
+        ).value;
+
+
+
+    if (
+        !codigo ||
+        !clientes[codigo]
+    ) {
+
+
+        alert(
+
+            "Primero seleccioná una tarjeta."
+
+        );
+
+
+        return;
+
+    }
+
+
+
+    const nombre =
+        document.getElementById(
+            "rapidoNombre"
+        ).value.trim();
+
+
+
+    const descripcion =
+        document.getElementById(
+            "rapidoDescripcion"
+        ).value.trim();
+
+
+
+    const whatsapp =
+        document.getElementById(
+            "rapidoWhatsapp"
+        ).value.trim();
+
+
+
+    const instagram =
+        document.getElementById(
+            "rapidoInstagram"
+        ).value.trim();
+
+
+
+    const placeId =
+        document.getElementById(
+            "rapidoPlaceId"
+        ).value.trim();
+
+
+
+    const fondo =
+        normalizarEnlace(
+
+            document.getElementById(
+                "rapidoFondo"
+            ).value
+
+        );
+
+
+
+    const logo =
+        normalizarEnlace(
+
+            document.getElementById(
+                "rapidoLogo"
+            ).value
+
+        );
+
+
+
+    const colorTarjeta =
+        document.getElementById(
+            "rapidoColorTarjeta"
+        ).value;
+
+
+
+    const colorCabecera =
+        document.getElementById(
+            "rapidoColorCabecera"
+        ).value;
+
+
+
+    const colorBotones =
+        document.getElementById(
+            "rapidoColorBotones"
+        ).value;
+
+
+
+    if (
+        !nombre
+    ) {
+
+
+        alert(
+
+            "Ingresá el nombre del negocio."
+
+        );
+
+
+        return;
+
+    }
+
+
+
+    if (
+        !whatsapp
+    ) {
+
+
+        alert(
+
+            "Ingresá el número de WhatsApp."
+
+        );
+
+
+        return;
+
+    }
+
+
+
+    if (
+        !instagram
+    ) {
+
+
+        alert(
+
+            "Ingresá el Instagram."
+
+        );
+
+
+        return;
+
+    }
+
+
+
+    if (
+        !placeId
+    ) {
+
+
+        alert(
+
+            "Ingresá el Place ID de Google."
+
+        );
+
+
+        return;
+
+    }
+
+
+
+    const enlaceWhatsapp =
+        generarEnlaceWhatsapp(
+            whatsapp
+        );
+
+
+
+    const enlaceInstagram =
+        generarEnlaceInstagram(
+            instagram
+        );
+
+
+
+    const enlaceResena =
+        generarEnlaceResena(
+            placeId
+        );
+
+
+
+    const clienteAnterior =
+        JSON.parse(
+
+            JSON.stringify(
+                clientes[codigo]
+            )
+
+        );
+
+
+
+    /*
+        IMPORTANTÍSIMO:
+
+        Conservamos todos los botones
+        que NO sean WhatsApp,
+        Instagram ni reseñas.
+
+        De esta manera, un cliente como 004
+        que tiene un cuarto botón
+        no lo pierde.
+    */
+
+    const botonesExtra =
+        obtenerBotonesExtra(
+            clienteAnterior
+        );
+
+
+
+    const botonesNuevos = [
+
+        {
+
+            nombre:
+                "📱 WhatsApp",
+
+            enlace:
+                enlaceWhatsapp
+
+        },
+
+        {
+
+            nombre:
+                "📸 Instagram",
+
+            enlace:
+                enlaceInstagram
+
+        },
+
+        {
+
+            nombre:
+                "⭐ Dejanos tu opinión",
+
+            enlace:
+                enlaceResena
+
+        }
+
+    ];
+
+
+
+    botonesExtra.forEach(
+        function(boton) {
+
+
+            botonesNuevos.push(
+
+                JSON.parse(
+                    JSON.stringify(
+                        boton
+                    )
+                )
+
+            );
+
+        }
+    );
+
+
+
+    clientes[codigo] = {
+
+        nombre:
+            nombre,
+
+        descripcion:
+            descripcion,
+
+        fondo:
+            fondo,
+
+        logo:
+            logo,
+
+        colorTarjeta:
+            colorTarjeta,
+
+        colorCabecera:
+            colorCabecera,
+
+        colorBotones:
+            colorBotones,
+
+        botones:
+            botonesNuevos
+
+    };
+
+
+
+    generarClientesJS();
+
+
+    mostrarClientes();
+
+
+    actualizarSelectorRapido();
+
+
+
+    document.getElementById(
+        "rapidoCodigo"
+    ).value =
+        codigo;
+
+
+
+    mostrarEstado(
+        "⏳ Guardando configuración rápida...",
+        "estado-cargando"
+    );
+
+
+
+    const botonGuardar =
+        document.getElementById(
+            "botonGuardarRapido"
+        );
+
+
+
+    botonGuardar.disabled =
+        true;
+
+
+    botonGuardar.textContent =
+        "⏳ Guardando...";
+
+
+
+    const resultado =
+        await sincronizarConGitHub();
+
+
+
+    botonGuardar.disabled =
+        false;
+
+
+    botonGuardar.textContent =
+        "⚡ Guardar configuración rápida";
+
+
+
+    if (
+        !resultado.ok
+    ) {
+
+
+        clientes[codigo] =
+            clienteAnterior;
+
+
+
+        generarClientesJS();
+
+
+        mostrarClientes();
+
+
+        actualizarSelectorRapido();
+
+
+
+        document.getElementById(
+            "rapidoCodigo"
+        ).value =
+            codigo;
+
+
+        cargarClienteRapido();
+
+
+
+        mostrarEstado(
+            "❌ No se pudieron guardar los cambios.",
+            "estado-error"
+        );
+
+
+
+        alert(
+
+            "No se pudo actualizar clientes.js.\n\n" +
+
+            resultado.mensaje
+
+        );
+
+
+        return;
+
+    }
+
+
+
+    enlaceActual =
+
+        "https://qonekta.github.io/qr-dinamicos/r/" +
+
+        codigo;
+
+
+
+    cargarClienteRapido();
+
+
+
+    mostrarEstado(
+        "✅ Tarjeta " +
+        codigo +
+        " configurada correctamente.",
+        "estado-ok"
+    );
+
+
+
+    alert(
+
+        "✅ Cliente configurado correctamente.\n\n" +
+
+        "Tarjeta: " +
+        codigo +
+        "\n\n" +
+
+        "Se generaron automáticamente:\n" +
+
+        "📱 WhatsApp\n" +
+
+        "📸 Instagram\n" +
+
+        "⭐ Opinión en Google"
+
+    );
+
+}
+
+
+
+/* =====================================================
+   ABRIR TARJETA RÁPIDA
+===================================================== */
+
+function abrirTarjetaRapida() {
+
+
+    const codigo =
+        document.getElementById(
+            "rapidoCodigo"
+        ).value;
+
+
+
+    if (
+        !codigo
+    ) {
+
+
+        alert(
+
+            "Seleccioná una tarjeta."
+
+        );
+
+
+        return;
+
+    }
+
+
+
+    const enlace =
+
+        "https://qonekta.github.io/qr-dinamicos/r/" +
+
+        codigo;
+
+
+
+    window.open(
+        enlace,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+
+/* =====================================================
+   IR DE ALTA RÁPIDA A EDICIÓN AVANZADA
+===================================================== */
+
+function abrirEdicionAvanzadaDesdeRapido() {
+
+
+    const codigo =
+        document.getElementById(
+            "rapidoCodigo"
+        ).value;
+
+
+
+    if (
+        !codigo
+    ) {
+
+
+        alert(
+
+            "Seleccioná una tarjeta."
+
+        );
+
+
+        return;
+
+    }
+
+
+
+    editarCliente(
+        codigo
+    );
 
 }
 
@@ -1210,9 +3391,7 @@ function mostrarClientes() {
 
 
     const codigos =
-        Object.keys(
-            clientes
-        );
+        obtenerCodigosOrdenados();
 
 
 
@@ -1222,7 +3401,12 @@ function mostrarClientes() {
 
 
         lista.innerHTML =
-            '<p class="aviso">No hay clientes registrados.</p>';
+
+            '<p class="aviso">' +
+
+            'No hay clientes registrados.' +
+
+            '</p>';
 
 
         return;
@@ -1236,7 +3420,16 @@ function mostrarClientes() {
 
 
             const cliente =
-                clientes[codigo];
+                clientes[codigo] || {};
+
+
+            const botones =
+                Array.isArray(
+                    cliente.botones
+                )
+                ? cliente.botones
+                : [];
+
 
 
             const div =
@@ -1249,6 +3442,7 @@ function mostrarClientes() {
                 "cliente";
 
 
+
             div.innerHTML = `
 
                 <strong>
@@ -1257,7 +3451,7 @@ function mostrarClientes() {
 
                     —
 
-                    ${escaparHTML(cliente.nombre)}
+                    ${escaparHTML(cliente.nombre || "Sin nombre")}
 
                 </strong>
 
@@ -1265,6 +3459,13 @@ function mostrarClientes() {
                 <div class="cliente-url">
 
                     /r/${escaparHTML(codigo)}
+
+                </div>
+
+
+                <div class="cliente-info">
+
+                    ${botones.length} botón/es configurado/s
 
                 </div>
 
@@ -1297,6 +3498,7 @@ function mostrarClientes() {
             `;
 
 
+
             lista.appendChild(
                 div
             );
@@ -1309,7 +3511,7 @@ function mostrarClientes() {
 
 
 /* =====================================================
-   AGREGAR BOTÓN
+   AGREGAR BOTÓN AVANZADO
 ===================================================== */
 
 function agregarBoton(
@@ -1326,6 +3528,7 @@ function agregarBoton(
         document.getElementById(
             "botonesPersonalizados"
         );
+
 
 
     const div =
@@ -1350,6 +3553,7 @@ function agregarBoton(
             Nombre del botón
         </label>
 
+
         <input
             class="nombre-boton"
             placeholder="Ejemplo: 📱 WhatsApp"
@@ -1360,6 +3564,7 @@ function agregarBoton(
         <label>
             Enlace
         </label>
+
 
         <input
             class="enlace-boton"
@@ -1380,6 +3585,7 @@ function agregarBoton(
     `;
 
 
+
     contenedor.appendChild(
         div
     );
@@ -1397,8 +3603,10 @@ function quitarBoton(id) {
 
     const elemento =
         document.getElementById(
-            "boton-" + id
+            "boton-" +
+            id
         );
+
 
 
     if (
@@ -1420,22 +3628,16 @@ function quitarBoton(id) {
 
 
 
-    const confirmar =
+    if (
         confirm(
 
-            "¿Estás seguro que querés borrar " +
+            '¿Eliminar "' +
+            nombre +
+            '"?'
 
-            '"' + nombre + '"' +
-
-            "?"
-
-        );
-
-
-
-    if (
-        confirmar
+        )
     ) {
+
 
         elemento.remove();
 
@@ -1461,9 +3663,13 @@ function editarCliente(codigo) {
         !cliente
     ) {
 
+
         alert(
+
             "No se encontró ese cliente."
+
         );
+
 
         return;
 
@@ -1544,21 +3750,24 @@ function editarCliente(codigo) {
     document.getElementById(
         "colorTarjeta"
     ).value =
-        cliente.colorTarjeta || "#00b7ff";
+        cliente.colorTarjeta ||
+        "#00b7ff";
 
 
 
     document.getElementById(
         "colorCabecera"
     ).value =
-        cliente.colorCabecera || "#222222";
+        cliente.colorCabecera ||
+        "#222222";
 
 
 
     document.getElementById(
         "colorBotones"
     ).value =
-        cliente.colorBotones || "#222222";
+        cliente.colorBotones ||
+        "#222222";
 
 
 
@@ -1574,7 +3783,16 @@ function editarCliente(codigo) {
 
 
 
-    cliente.botones.forEach(
+    const botones =
+        Array.isArray(
+            cliente.botones
+        )
+        ? cliente.botones
+        : [];
+
+
+
+    botones.forEach(
         function(boton) {
 
 
@@ -1641,10 +3859,6 @@ async function eliminarCliente(codigo) {
         !cliente
     ) {
 
-        alert(
-            "No se encontró ese cliente."
-        );
-
         return;
 
     }
@@ -1654,17 +3868,20 @@ async function eliminarCliente(codigo) {
     const confirmar =
         confirm(
 
-            "⚠️ ATENCIÓN\n\n" +
-
-            "¿Estás seguro que querés borrar al cliente " +
+            "⚠️ ¿Seguro que querés borrar " +
 
             codigo +
 
             " — " +
 
-            cliente.nombre +
+            (
+                cliente.nombre ||
+                "Sin nombre"
+            ) +
 
-            "?\n\nEsta acción no se puede deshacer."
+            "?\n\n" +
+
+            "Recordá que puede existir un QR físico con este código."
 
         );
 
@@ -1680,7 +3897,7 @@ async function eliminarCliente(codigo) {
 
 
 
-    const clienteEliminado =
+    const respaldo =
         JSON.parse(
 
             JSON.stringify(
@@ -1697,7 +3914,11 @@ async function eliminarCliente(codigo) {
 
     generarClientesJS();
 
+
     mostrarClientes();
+
+
+    actualizarSelectorRapido();
 
 
 
@@ -1719,27 +3940,28 @@ async function eliminarCliente(codigo) {
 
 
         clientes[codigo] =
-            clienteEliminado;
+            respaldo;
+
 
 
         generarClientesJS();
 
+
         mostrarClientes();
+
+
+        actualizarSelectorRapido();
 
 
 
         mostrarEstado(
-            "❌ No se pudo eliminar el cliente.",
+            "❌ No se pudo eliminar.",
             "estado-error"
         );
 
 
         alert(
-
-            "No se pudo actualizar clientes.js.\n\n" +
-
             resultado.mensaje
-
         );
 
 
@@ -1750,7 +3972,7 @@ async function eliminarCliente(codigo) {
 
 
     mostrarEstado(
-        "✅ Cliente eliminado correctamente.",
+        "✅ Cliente eliminado.",
         "estado-ok"
     );
 
@@ -1759,6 +3981,7 @@ async function eliminarCliente(codigo) {
     if (
         clienteEditando === codigo
     ) {
+
 
         cancelarEdicion();
 
@@ -1894,7 +4117,7 @@ function cancelarEdicion() {
 
 
 /* =====================================================
-   NORMALIZAR ENLACES
+   NORMALIZAR ENLACE
 ===================================================== */
 
 function normalizarEnlace(enlace) {
@@ -1918,7 +4141,9 @@ function normalizarEnlace(enlace) {
 
 
     if (
-        /^https?:\/\//i.test(valor)
+        /^https?:\/\//i.test(
+            valor
+        )
     ) {
 
         return valor;
@@ -1928,7 +4153,8 @@ function normalizarEnlace(enlace) {
 
 
     if (
-        /^tel:/i.test(valor) ||
+        /^tel:/i.test(valor)
+        ||
         /^mailto:/i.test(valor)
     ) {
 
@@ -1949,7 +4175,7 @@ function normalizarEnlace(enlace) {
 
 
 /* =====================================================
-   GUARDAR CLIENTE
+   GUARDAR CLIENTE AVANZADO
 ===================================================== */
 
 async function guardarCliente() {
@@ -2026,7 +4252,9 @@ async function guardarCliente() {
 
 
         alert(
-            "Completá el código y el nombre del negocio."
+
+            "Completá código y nombre."
+
         );
 
 
@@ -2043,7 +4271,9 @@ async function guardarCliente() {
 
 
         alert(
-            "Ese código ya está utilizado."
+
+            "Ese código ya existe."
+
         );
 
 
@@ -2073,7 +4303,9 @@ async function guardarCliente() {
 
 
         alert(
+
             "Agregá al menos un botón."
+
         );
 
 
@@ -2114,7 +4346,9 @@ async function guardarCliente() {
 
 
             alert(
-                "Completá el nombre y el enlace de cada botón."
+
+                "Completá nombre y enlace de cada botón."
+
             );
 
 
@@ -2145,35 +4379,21 @@ async function guardarCliente() {
 
 
 
-    const codigoAnterior =
-        clienteEditando;
+    const respaldo =
 
-
-
-    let clienteAnterior =
-        null;
-
-
-
-    if (
         estabaEditando
-    ) {
 
-
-        clienteAnterior =
-            JSON.parse(
+            ? JSON.parse(
 
                 JSON.stringify(
-
                     clientes[
-                        codigoAnterior
+                        clienteEditando
                     ]
-
                 )
 
-            );
+            )
 
-    }
+            : null;
 
 
 
@@ -2209,20 +4429,11 @@ async function guardarCliente() {
 
     generarClientesJS();
 
+
     mostrarClientes();
 
 
-
-    enlaceActual =
-        "https://qonekta.github.io/qr-dinamicos/r/" +
-        codigo;
-
-
-
-    document.getElementById(
-        "urlCliente"
-    ).textContent =
-        enlaceActual;
+    actualizarSelectorRapido();
 
 
 
@@ -2239,10 +4450,8 @@ async function guardarCliente() {
         );
 
 
-
     botonGuardar.disabled =
         true;
-
 
 
     botonGuardar.textContent =
@@ -2270,10 +4479,8 @@ async function guardarCliente() {
         ) {
 
 
-            clientes[
-                codigoAnterior
-            ] =
-                clienteAnterior;
+            clientes[codigo] =
+                respaldo;
 
         }
 
@@ -2288,24 +4495,11 @@ async function guardarCliente() {
 
         generarClientesJS();
 
+
         mostrarClientes();
 
 
-
-        mostrarEstado(
-            "❌ No se pudo guardar.",
-            "estado-error"
-        );
-
-
-
-        alert(
-
-            "No se pudo actualizar clientes.js.\n\n" +
-
-            resultado.mensaje
-
-        );
+        actualizarSelectorRapido();
 
 
 
@@ -2318,16 +4512,43 @@ async function guardarCliente() {
                 : "Crear cliente";
 
 
+
+        mostrarEstado(
+            "❌ No se pudo guardar.",
+            "estado-error"
+        );
+
+
+        alert(
+            resultado.mensaje
+        );
+
+
         return;
 
     }
 
 
 
-    mostrarEstado(
-        "✅ Cambios guardados correctamente.",
-        "estado-ok"
-    );
+    enlaceActual =
+
+        "https://qonekta.github.io/qr-dinamicos/r/" +
+
+        codigo;
+
+
+
+    document.getElementById(
+        "urlCliente"
+    ).textContent =
+        enlaceActual;
+
+
+
+    document.getElementById(
+        "codigoGenerado"
+    ).textContent =
+        codigoActual;
 
 
 
@@ -2338,10 +4559,10 @@ async function guardarCliente() {
 
 
 
-    document.getElementById(
-        "codigoGenerado"
-    ).textContent =
-        codigoActual;
+    mostrarEstado(
+        "✅ Cambios guardados correctamente.",
+        "estado-ok"
+    );
 
 
 
@@ -2357,65 +4578,11 @@ async function guardarCliente() {
 
 
 
-    clienteEditando =
-        null;
+    cancelarEdicion();
 
 
 
-    document.getElementById(
-        "codigo"
-    ).disabled =
-        false;
-
-
-
-    document.getElementById(
-        "botonGuardar"
-    ).textContent =
-        "Crear cliente";
-
-
-
-    document.getElementById(
-        "botonCancelar"
-    ).style.display =
-        "none";
-
-
-
-    document.getElementById(
-        "tituloFormulario"
-    ).textContent =
-        "Crear nuevo cliente";
-
-
-
-    document.getElementById(
-        "tituloFormulario"
-    ).classList.remove(
-        "titulo-edicion"
-    );
-
-
-
-    document.getElementById(
-        "avisoEdicion"
-    ).style.display =
-        "none";
-
-
-
-    document.getElementById(
-        "listaClientes"
-    ).scrollIntoView({
-
-        behavior:
-            "smooth",
-
-        block:
-            "start"
-
-    });
+    actualizarSelectorRapido();
 
 }
 
@@ -2439,7 +4606,7 @@ async function sincronizarConGitHub() {
                 false,
 
             mensaje:
-                "No hay una clave de sincronización."
+                "No hay clave de sincronización."
 
         };
 
@@ -2481,32 +4648,8 @@ async function sincronizarConGitHub() {
 
 
 
-        let datos;
-
-
-
-        try {
-
-
-            datos =
-                await respuesta.json();
-
-        }
-
-        catch (error) {
-
-
-            return {
-
-                ok:
-                    false,
-
-                mensaje:
-                    "Cloudflare devolvió una respuesta no válida."
-
-            };
-
-        }
+        const datos =
+            await respuesta.json();
 
 
 
@@ -2584,9 +4727,7 @@ function generarClientesJS() {
 
 
     const codigos =
-        Object.keys(
-            clientes
-        );
+        obtenerCodigosOrdenados();
 
 
 
@@ -2595,7 +4736,7 @@ function generarClientesJS() {
 
 
             const cliente =
-                clientes[id];
+                clientes[id] || {};
 
 
 
@@ -2623,15 +4764,24 @@ function generarClientesJS() {
 
 
 
-            cliente.botones.forEach(
+            const botones =
+                Array.isArray(
+                    cliente.botones
+                )
+                ? cliente.botones
+                : [];
+
+
+
+            botones.forEach(
                 function(boton) {
 
 
                     codigo +=
 
 `            {
-                nombre: "${escaparJS(boton.nombre)}",
-                enlace: "${escaparJS(boton.enlace)}"
+                nombre: "${escaparJS(boton.nombre || "")}",
+                enlace: "${escaparJS(boton.enlace || "")}"
             },
 
 `;
@@ -2676,7 +4826,7 @@ function generarClientesJS() {
 
 
 /* =====================================================
-   COPIAR ENLACE
+   COPIAR
 ===================================================== */
 
 function copiarEnlace() {
@@ -2695,10 +4845,6 @@ function copiarEnlace() {
 
 
 
-/* =====================================================
-   COPIAR CLIENTES.JS
-===================================================== */
-
 function copiarCodigo() {
 
 
@@ -2708,7 +4854,7 @@ function copiarCodigo() {
 
 
     alert(
-        "clientes.js completo copiado."
+        "clientes.js copiado."
     );
 
 }
