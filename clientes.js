@@ -131,8 +131,8 @@ const negocios = {
         botones: [
 
             {
-                nombre: "a",
-                enlace: "https://a"
+                nombre: "⭐ Danos una opinión",
+                enlace: "https://search.google.com/local/writereview?placeid="
             },
 
         ]
