@@ -141,7 +141,7 @@ const negocios = {
 
         fondo: "",
 
-        logo: "https://qonekta.github.io/qr-dinamicos/imagenes/006/logo.jpg",
+        logo: "https://qonekta.github.io/qr-dinamicos/imagenes/005/logo.jpg",
 
         colorTarjeta: "#00b7ff",
 
