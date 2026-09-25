@@ -8,6 +8,14 @@ const negocios = {
 
         fondo: "",
 
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
         botones: [
 
             {
@@ -37,6 +45,14 @@ const negocios = {
 
         fondo: "",
 
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
         botones: [
 
             {
@@ -56,6 +72,14 @@ const negocios = {
 
         fondo: "",
 
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
         botones: [
 
             {
@@ -74,6 +98,14 @@ const negocios = {
         descripcion: "✨Todo para tu fiesta 🧁Repostería. 🌰Dietética. 🔝Productos de calidad premium  📩 Ingresa a nuestro chat desde \"Contacto\" 📍ALMAFUERTE 140",
 
         fondo: "https://qonekta.github.io/qr-dinamicos/imagenes/004/Fondo.jpg",
+
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
 
         botones: [
 
@@ -109,6 +141,14 @@ const negocios = {
 
         fondo: "",
 
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
         botones: [
 
             {
@@ -127,6 +167,14 @@ const negocios = {
         descripcion: "",
 
         fondo: "",
+
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
 
         botones: [
 
@@ -147,6 +195,14 @@ const negocios = {
 
         fondo: "",
 
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
         botones: [
 
             {
@@ -165,6 +221,14 @@ const negocios = {
         descripcion: "",
 
         fondo: "",
+
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
 
         botones: [
 
@@ -185,6 +249,14 @@ const negocios = {
 
         fondo: "",
 
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
         botones: [
 
             {
@@ -203,6 +275,14 @@ const negocios = {
         descripcion: "",
 
         fondo: "",
+
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
 
         botones: [
 
@@ -223,6 +303,14 @@ const negocios = {
 
         fondo: "",
 
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
         botones: [
 
             {
@@ -241,6 +329,14 @@ const negocios = {
         descripcion: "",
 
         fondo: "",
+
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
 
         botones: [
 
@@ -261,6 +357,14 @@ const negocios = {
 
         fondo: "",
 
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
         botones: [
 
             {
@@ -279,6 +383,14 @@ const negocios = {
         descripcion: "",
 
         fondo: "",
+
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
 
         botones: [
 
@@ -299,6 +411,14 @@ const negocios = {
 
         fondo: "",
 
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
         botones: [
 
             {
@@ -317,6 +437,14 @@ const negocios = {
         descripcion: "",
 
         fondo: "",
+
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
 
         botones: [
 
@@ -337,6 +465,14 @@ const negocios = {
 
         fondo: "",
 
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
         botones: [
 
             {
@@ -356,11 +492,46 @@ const negocios = {
 
         fondo: "",
 
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
         botones: [
 
             {
                 nombre: "⭐ Dejar una reseña",
                 enlace: "https://google.com"
+            },
+
+        ]
+
+    },
+
+    "019": {
+
+        nombre: "Negocio 19",
+
+        descripcion: "",
+
+        fondo: "",
+
+        logo: "",
+
+        colorTarjeta: "#00ff04",
+
+        colorCabecera: "#f50000",
+
+        colorBotones: "#222222",
+
+        botones: [
+
+            {
+                nombre: "contacto",
+                enlace: "https://wa.me/549"
             },
 
         ]
