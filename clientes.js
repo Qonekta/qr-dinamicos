@@ -15,6 +15,16 @@ const negocios = {
                 enlace: "https://search.google.com/local/writereview?placeid="
             },
 
+            {
+                nombre: "📩 Contacto",
+                enlace: "https://wa.me/549"
+            },
+
+            {
+                nombre: "📷 Instagram",
+                enlace: "https://instagram.com"
+            },
+
         ]
 
     },
