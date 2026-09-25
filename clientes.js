@@ -93,7 +93,7 @@ const negocios = {
             },
 
             {
-                nombre: "🌟 Dejar una reseña",
+                nombre: "⭐ Dejar una reseña",
                 enlace: "https://search.google.com/local/writereview?placeid=ChIJjVtoucAHeZYRbq9CCC6p4kk&utm_source=chatgpt.com"
             },
 
