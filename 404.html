@@ -2,9 +2,16 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Mi negocio</title>
+
 
     <style>
 
@@ -12,187 +19,746 @@
             box-sizing: border-box;
         }
 
+
+        html,
         body {
             margin: 0;
-            min-height: 100vh;
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 30px 15px;
+            min-height: 100%;
         }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            background:
+                #f5f5f5;
+
+            background-size:
+                cover;
+
+            background-position:
+                center;
+
+            background-repeat:
+                no-repeat;
+
+            background-attachment:
+                fixed;
+
+        }
+
+
+
+        /* =================================================
+           CAPA GENERAL
+        ================================================= */
 
         .fondo-oscuro {
+
             width: 100%;
+
             min-height: 100vh;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.20);
+
+            padding:
+                30px 15px;
+
+            background:
+                rgba(0, 0, 0, 0.18);
+
         }
+
+
+
+        /* =================================================
+           TARJETA CENTRAL
+        ================================================= */
 
         .contenedor {
+
             width: 100%;
-            max-width: 430px;
-            background: rgba(0, 183, 255, 0.28);
-            border-radius: 28px;
-            padding: 20px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+
+            max-width:
+                430px;
+
+            padding:
+                20px;
+
+            border-radius:
+                28px;
+
+            backdrop-filter:
+                blur(8px);
+
+            -webkit-backdrop-filter:
+                blur(8px);
+
+            box-shadow:
+                0 10px 35px
+                rgba(0, 0, 0, 0.20);
+
+            transition:
+                background 0.3s ease;
+
         }
+
+
+
+        /* =================================================
+           CABECERA
+        ================================================= */
 
         .cabecera {
-            background: rgba(0, 0, 0, 0.65);
-            border-radius: 18px;
-            padding: 22px 18px;
-            text-align: center;
-            margin-bottom: 18px;
+
+            border-radius:
+                20px;
+
+            padding:
+                24px 18px;
+
+            text-align:
+                center;
+
+            margin-bottom:
+                18px;
+
+            transition:
+                background 0.3s ease,
+                color 0.3s ease;
+
         }
+
+
+
+        /* =================================================
+           LOGO
+        ================================================= */
+
+        .contenedor-logo {
+
+            display:
+                none;
+
+            width:
+                110px;
+
+            height:
+                110px;
+
+            margin:
+                0 auto 16px auto;
+
+            padding:
+                10px;
+
+            border-radius:
+                22px;
+
+            background:
+                rgba(255,255,255,0.92);
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0,0,0,0.12);
+
+        }
+
+
+        .logo {
+
+            display:
+                block;
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            object-fit:
+                contain;
+
+        }
+
+
+
+        /* =================================================
+           NOMBRE
+        ================================================= */
 
         h1 {
-            margin: 0;
-            color: white;
-            font-size: 28px;
-            line-height: 1.2;
+
+            margin:
+                0;
+
+            font-size:
+                28px;
+
+            line-height:
+                1.2;
+
+            overflow-wrap:
+                anywhere;
+
         }
+
+
+
+        /* =================================================
+           DESCRIPCIÓN
+        ================================================= */
 
         .descripcion {
-            color: rgba(255, 255, 255, 0.92);
-            font-size: 15px;
-            line-height: 1.5;
-            margin-top: 10px;
-            display: none;
+
+            display:
+                none;
+
+            font-size:
+                15px;
+
+            line-height:
+                1.5;
+
+            margin:
+                10px 0 0 0;
+
+            opacity:
+                0.92;
+
         }
+
+
+
+        /* =================================================
+           ZONA DE BOTONES
+        ================================================= */
 
         .panel-botones {
-            background: rgba(255, 255, 255, 0.92);
-            border-radius: 20px;
-            padding: 22px 16px;
+
+            background:
+                rgba(255,255,255,0.94);
+
+            border-radius:
+                20px;
+
+            padding:
+                22px 16px;
+
         }
+
 
         .pregunta {
-            color: #555;
-            margin-top: 0;
-            margin-bottom: 18px;
-            text-align: center;
-            font-size: 16px;
+
+            color:
+                #555;
+
+            margin:
+                0 0 18px 0;
+
+            text-align:
+                center;
+
+            font-size:
+                16px;
+
         }
+
 
         .botones {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap:
+                12px;
+
         }
+
+
+
+        /* =================================================
+           BOTONES
+        ================================================= */
 
         .boton {
-            display: block;
-            width: 100%;
-            text-decoration: none;
-            background: #222;
-            color: white;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 17px;
-            text-align: center;
-            transition: transform 0.15s ease, background 0.15s ease;
+
+            display:
+                block;
+
+            width:
+                100%;
+
+            text-decoration:
+                none;
+
+            padding:
+                16px;
+
+            border-radius:
+                12px;
+
+            font-size:
+                17px;
+
+            font-weight:
+                600;
+
+            text-align:
+                center;
+
+            transition:
+                transform 0.15s ease,
+                filter 0.15s ease;
+
+            overflow-wrap:
+                anywhere;
+
         }
+
 
         .boton:hover {
-            background: #333;
-            transform: translateY(-1px);
+
+            transform:
+                translateY(-1px);
+
+            filter:
+                brightness(1.08);
+
         }
 
+
+
+        /* =================================================
+           MENSAJE DE ERROR
+        ================================================= */
+
         .mensaje-error {
-            text-align: center;
-            color: #444;
-            font-size: 16px;
-            line-height: 1.5;
+
+            text-align:
+                center;
+
+            color:
+                #444;
+
+            font-size:
+                16px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+
+        /* =================================================
+           CELULARES PEQUEÑOS
+        ================================================= */
+
+        @media (
+            max-width: 480px
+        ) {
+
+
+            .fondo-oscuro {
+
+                padding:
+                    20px 12px;
+
+            }
+
+
+            .contenedor {
+
+                padding:
+                    16px;
+
+                border-radius:
+                    24px;
+
+            }
+
+
+            .cabecera {
+
+                padding:
+                    22px 15px;
+
+            }
+
+
+            h1 {
+
+                font-size:
+                    25px;
+
+            }
+
+
+            .contenedor-logo {
+
+                width:
+                    95px;
+
+                height:
+                    95px;
+
+            }
+
         }
 
     </style>
 
 </head>
 
+
+
 <body>
+
 
 <div class="fondo-oscuro">
 
-    <div class="contenedor">
 
-        <div class="cabecera">
+    <div
+        class="contenedor"
+        id="contenedor"
+    >
+
+
+        <!-- =================================================
+             CABECERA
+        ================================================== -->
+
+        <div
+            class="cabecera"
+            id="cabecera"
+        >
+
+
+            <!-- LOGO OPCIONAL -->
+
+            <div
+                class="contenedor-logo"
+                id="contenedorLogo"
+            >
+
+                <img
+                    id="logo"
+                    class="logo"
+                    alt="Logo del negocio"
+                >
+
+            </div>
+
+
+
+            <!-- NOMBRE -->
 
             <h1 id="nombre">
+
                 Cargando...
+
             </h1>
+
+
+
+            <!-- DESCRIPCIÓN OPCIONAL -->
 
             <p
                 id="descripcion"
                 class="descripcion"
             ></p>
 
+
         </div>
 
 
+
+        <!-- =================================================
+             BOTONES
+        ================================================== -->
+
         <div class="panel-botones">
+
 
             <p
                 id="pregunta"
                 class="pregunta"
             >
+
                 ¿Qué querés hacer?
+
             </p>
+
 
             <div
                 id="botones"
                 class="botones"
             ></div>
 
+
         </div>
 
+
     </div>
+
 
 </div>
 
 
-<!-- Cargar los clientes -->
+
+<!-- =====================================================
+     CARGAR CLIENTES
+===================================================== -->
+
 <script src="/qr-dinamicos/clientes.js"></script>
 
 
+
 <script>
+
 
 /* =====================================================
    NORMALIZAR ENLACES
 ===================================================== */
 
-function normalizarEnlace(enlace) {
+function normalizarEnlace(
+    enlace
+) {
+
 
     let valor =
-        String(enlace || "").trim();
+        String(
+            enlace || ""
+        ).trim();
 
-    if (!valor) {
-        return "";
-    }
 
-    if (/^https?:\/\//i.test(valor)) {
-        return valor;
-    }
 
     if (
-        /^tel:/i.test(valor) ||
-        /^mailto:/i.test(valor)
+        !valor
     ) {
-        return valor;
+
+        return "";
+
     }
 
+
+
+    if (
+        /^https?:\/\//i.test(
+            valor
+        )
+    ) {
+
+        return valor;
+
+    }
+
+
+
+    if (
+        /^tel:/i.test(valor)
+        ||
+        /^mailto:/i.test(valor)
+    ) {
+
+        return valor;
+
+    }
+
+
+
     return "https://" +
-        valor.replace(/^\/+/, "");
+        valor.replace(
+            /^\/+/,
+            ""
+        );
+
+}
+
+
+
+/* =====================================================
+   CONVERTIR COLOR HEXADECIMAL A RGBA
+===================================================== */
+
+function colorConTransparencia(
+    color,
+    transparencia
+) {
+
+
+    let hex =
+        String(
+            color || ""
+        ).replace(
+            "#",
+            ""
+        );
+
+
+
+    if (
+        hex.length !== 6
+    ) {
+
+        return "rgba(0,183,255,0.28)";
+
+    }
+
+
+
+    const rojo =
+        parseInt(
+            hex.substring(0,2),
+            16
+        );
+
+
+    const verde =
+        parseInt(
+            hex.substring(2,4),
+            16
+        );
+
+
+    const azul =
+        parseInt(
+            hex.substring(4,6),
+            16
+        );
+
+
+
+    return (
+
+        "rgba(" +
+
+        rojo +
+
+        "," +
+
+        verde +
+
+        "," +
+
+        azul +
+
+        "," +
+
+        transparencia +
+
+        ")"
+
+    );
+
+}
+
+
+
+/* =====================================================
+   ELEGIR COLOR DE TEXTO
+===================================================== */
+
+function obtenerColorTexto(
+    color
+) {
+
+
+    let hex =
+        String(
+            color || ""
+        ).replace(
+            "#",
+            ""
+        );
+
+
+
+    if (
+        hex.length !== 6
+    ) {
+
+        return "#ffffff";
+
+    }
+
+
+
+    const rojo =
+        parseInt(
+            hex.substring(0,2),
+            16
+        );
+
+
+    const verde =
+        parseInt(
+            hex.substring(2,4),
+            16
+        );
+
+
+    const azul =
+        parseInt(
+            hex.substring(4,6),
+            16
+        );
+
+
+
+    /*
+        Calculamos el brillo aproximado.
+
+        Si el color es claro:
+        usamos texto oscuro.
+
+        Si el color es oscuro:
+        usamos texto blanco.
+    */
+
+    const brillo =
+
+        (
+            rojo * 299 +
+
+            verde * 587 +
+
+            azul * 114
+
+        ) / 1000;
+
+
+
+    if (
+        brillo > 155
+    ) {
+
+        return "#111111";
+
+    }
+
+
+
+    return "#ffffff";
 
 }
 
@@ -205,65 +771,270 @@ function normalizarEnlace(enlace) {
 const ruta =
     window.location.pathname;
 
+
+
 const partes =
     ruta.split("/");
 
+
+
 const codigo =
-    partes.filter(function(parte) {
-        return parte !== "";
-    }).pop();
+    partes.filter(
+        function(parte) {
+
+            return parte !== "";
+
+        }
+    ).pop();
+
+
 
 const negocio =
     negocios[codigo];
 
 
+
 /* =====================================================
-   MOSTRAR INFORMACIÓN DEL NEGOCIO
+   MOSTRAR NEGOCIO
 ===================================================== */
 
-if (negocio) {
+if (
+    negocio
+) {
+
 
     /* =================================================
-       FONDO OPCIONAL
+       FONDO
     ================================================= */
 
     const fondo =
-        String(negocio.fondo || "").trim();
+        String(
+            negocio.fondo || ""
+        ).trim();
 
-    if (fondo) {
+
+
+    if (
+        fondo
+    ) {
+
+
         document.body.style.backgroundImage =
-            'url("' + fondo + '")';
+
+            'url("' +
+            fondo +
+            '")';
+
     }
+
+
+
+    /* =================================================
+       COLORES
+    ================================================= */
+
+    const colorTarjeta =
+
+        negocio.colorTarjeta
+        ||
+        "#00b7ff";
+
+
+
+    const colorCabecera =
+
+        negocio.colorCabecera
+        ||
+        "#222222";
+
+
+
+    const colorBotones =
+
+        negocio.colorBotones
+        ||
+        "#222222";
+
+
+
+    /*
+        La tarjeta mantiene una transparencia fija.
+
+        Así el cliente cambia el color,
+        pero la imagen de fondo sigue visible.
+    */
+
+    document.getElementById(
+        "contenedor"
+    ).style.background =
+        colorConTransparencia(
+            colorTarjeta,
+            0.28
+        );
+
+
+
+    /*
+        Cabecera ligeramente translúcida.
+    */
+
+    document.getElementById(
+        "cabecera"
+    ).style.background =
+        colorConTransparencia(
+            colorCabecera,
+            0.84
+        );
+
+
+
+    const colorTextoCabecera =
+        obtenerColorTexto(
+            colorCabecera
+        );
+
+
+
+    document.getElementById(
+        "cabecera"
+    ).style.color =
+        colorTextoCabecera;
+
+
+
+    /* =================================================
+       LOGO OPCIONAL
+    ================================================= */
+
+    const logo =
+        String(
+            negocio.logo || ""
+        ).trim();
+
+
+
+    const contenedorLogo =
+        document.getElementById(
+            "contenedorLogo"
+        );
+
+
+
+    const elementoLogo =
+        document.getElementById(
+            "logo"
+        );
+
+
+
+    if (
+        logo
+    ) {
+
+
+        elementoLogo.src =
+            logo;
+
+
+        /*
+            Si la imagen carga correctamente,
+            mostramos el logo.
+        */
+
+        elementoLogo.onload =
+            function() {
+
+
+                contenedorLogo.style.display =
+                    "flex";
+
+            };
+
+
+
+        /*
+            Si el enlace del logo falla,
+            simplemente ocultamos la zona.
+        */
+
+        elementoLogo.onerror =
+            function() {
+
+
+                contenedorLogo.style.display =
+                    "none";
+
+            };
+
+
+    }
+
+    else {
+
+
+        contenedorLogo.style.display =
+            "none";
+
+    }
+
 
 
     /* =================================================
        NOMBRE
     ================================================= */
 
-    document.getElementById("nombre").textContent =
+    document.getElementById(
+        "nombre"
+    ).textContent =
         negocio.nombre;
 
 
+
     /* =================================================
-       DESCRIPCIÓN OPCIONAL
+       DESCRIPCIÓN
     ================================================= */
 
     const descripcion =
-        String(negocio.descripcion || "").trim();
+
+        String(
+            negocio.descripcion || ""
+        ).trim();
+
+
 
     const elementoDescripcion =
-        document.getElementById("descripcion");
+        document.getElementById(
+            "descripcion"
+        );
 
-    if (descripcion) {
+
+
+    if (
+        descripcion
+    ) {
+
+
         elementoDescripcion.textContent =
             descripcion;
 
+
         elementoDescripcion.style.display =
             "block";
-    } else {
+
+
+        elementoDescripcion.style.color =
+            colorTextoCabecera;
+
+    }
+
+    else {
+
+
         elementoDescripcion.style.display =
             "none";
+
     }
+
 
 
     /* =================================================
@@ -271,38 +1042,95 @@ if (negocio) {
     ================================================= */
 
     const contenedorBotones =
-        document.getElementById("botones");
+        document.getElementById(
+            "botones"
+        );
 
-    negocio.botones.forEach(function(boton) {
 
-        const enlaceCorregido =
-            normalizarEnlace(boton.enlace);
 
-        if (!enlaceCorregido) {
-            return;
+    const colorTextoBotones =
+        obtenerColorTexto(
+            colorBotones
+        );
+
+
+
+    negocio.botones.forEach(
+        function(boton) {
+
+
+            const enlaceCorregido =
+                normalizarEnlace(
+                    boton.enlace
+                );
+
+
+
+            /*
+                Los botones sin enlace
+                no aparecen.
+            */
+
+            if (
+                !enlaceCorregido
+            ) {
+
+                return;
+
+            }
+
+
+
+            const elemento =
+                document.createElement(
+                    "a"
+                );
+
+
+
+            elemento.className =
+                "boton";
+
+
+
+            elemento.textContent =
+                boton.nombre;
+
+
+
+            elemento.href =
+                enlaceCorregido;
+
+
+
+            elemento.target =
+                "_blank";
+
+
+
+            elemento.rel =
+                "noopener noreferrer";
+
+
+
+            elemento.style.background =
+                colorBotones;
+
+
+
+            elemento.style.color =
+                colorTextoBotones;
+
+
+
+            contenedorBotones.appendChild(
+                elemento
+            );
+
         }
+    );
 
-        const elemento =
-            document.createElement("a");
 
-        elemento.className =
-            "boton";
-
-        elemento.textContent =
-            boton.nombre;
-
-        elemento.href =
-            enlaceCorregido;
-
-        elemento.target =
-            "_blank";
-
-        elemento.rel =
-            "noopener noreferrer";
-
-        contenedorBotones.appendChild(elemento);
-
-    });
 
 }
 
@@ -313,21 +1141,50 @@ if (negocio) {
 
 else {
 
-    document.getElementById("nombre").textContent =
+
+    document.getElementById(
+        "nombre"
+    ).textContent =
         "Enlace no encontrado";
 
-    document.getElementById("descripcion").style.display =
+
+
+    document.getElementById(
+        "descripcion"
+    ).style.display =
         "none";
 
-    document.getElementById("pregunta").textContent =
+
+
+    document.getElementById(
+        "contenedorLogo"
+    ).style.display =
+        "none";
+
+
+
+    document.getElementById(
+        "pregunta"
+    ).textContent =
         "El código utilizado no está configurado.";
 
-    document.getElementById("botones").innerHTML =
-        '<p class="mensaje-error">Verificá el código o volvé a intentarlo.</p>';
+
+
+    document.getElementById(
+        "botones"
+    ).innerHTML =
+
+        '<p class="mensaje-error">' +
+
+        'Verificá el código o volvé a intentarlo.' +
+
+        '</p>';
 
 }
 
+
 </script>
+
 
 </body>
 
