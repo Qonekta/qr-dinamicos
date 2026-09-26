@@ -6,9 +6,9 @@ const negocios = {
 
         descripcion: "",
 
-        fondo: "",
+        fondo: "https://qonekta.github.io/qr-dinamicos/imagenes/001/fondo.webp?v=1790382479027",
 
-        logo: "",
+        logo: "https://qonekta.github.io/qr-dinamicos/imagenes/001/logo.webp?v=1790382483583",
 
         colorTarjeta: "#00b7ff",
 
@@ -23,18 +23,18 @@ const negocios = {
         botones: [
 
             {
-                nombre: "⭐ Dejar una reseña",
-                enlace: "https://search.google.com/local/writereview?placeid="
-            },
-
-            {
-                nombre: "📩 Contacto",
+                nombre: "📱 WhatsApp",
                 enlace: "https://wa.me/549"
             },
 
             {
-                nombre: "📷 Instagram",
-                enlace: "https://instagram.com"
+                nombre: "📸 Instagram",
+                enlace: "https://instagram.com/instagram.com"
+            },
+
+            {
+                nombre: "⭐ Dejanos tu opinión",
+                enlace: "https://search.google.com/local/writereview?placeid=aa"
             },
 
         ]
