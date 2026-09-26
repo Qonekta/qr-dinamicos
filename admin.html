@@ -3,575 +3,413 @@
 
 <head>
 
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Panel de clientes</title>
-
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-
-        body {
-
-            font-family: Arial, sans-serif;
-
-            background: #f5f5f5;
-
-            margin: 0;
-
-            padding: 30px 15px;
-
-            color: #222;
-
-        }
-
-
-        .contenedor {
-
-            max-width: 750px;
-
-            margin: auto;
-
-        }
-
-
-        .tarjeta {
-
-            background: white;
-
-            padding: 30px;
-
-            border-radius: 15px;
-
-            margin-bottom: 20px;
-
-            box-shadow:
-                0 3px 12px
-                rgba(0,0,0,0.08);
-
-        }
-
-
-        h1 {
-
-            text-align: center;
-
-            margin-top: 0;
-
-        }
-
-
-        h2 {
-
-            margin-top: 0;
-
-        }
-
-
-        h3 {
-
-            margin-top: 25px;
-
-        }
-
-
-        label {
-
-            display: block;
-
-            margin-top: 15px;
-
-            font-weight: bold;
-
-        }
-
-
-        input,
-        select {
-
-            width: 100%;
-
-            padding: 12px;
-
-            margin-top: 6px;
-
-            border: 1px solid #ccc;
-
-            border-radius: 8px;
-
-            font-size: 15px;
-
-            background: white;
-
-        }
-
-
-        input[type="color"] {
-
-            height: 52px;
-
-            padding: 5px;
-
-            cursor: pointer;
-
-        }
-
-
-        button {
-
-            width: 100%;
-
-            padding: 14px;
-
-            margin-top: 20px;
-
-            background: #222;
-
-            color: white;
-
-            border: none;
-
-            border-radius: 8px;
-
-            font-size: 16px;
-
-            cursor: pointer;
-
-        }
-
-
-        button:hover {
-
-            filter: brightness(1.10);
-
-        }
-
-
-        button:disabled {
-
-            opacity: 0.6;
-
-            cursor: wait;
-
-        }
-
-
-        .aviso {
-
-            color: #777;
-
-            font-size: 14px;
-
-            line-height: 1.5;
-
-        }
-
-
-        .separador {
-
-            border: none;
-
-            border-top: 1px solid #ddd;
-
-            margin: 30px 0;
-
-        }
-
-
-
-        /* =================================================
-           ALTA RÁPIDA
-        ================================================= */
-
-        .alta-rapida {
-
-            border:
-                2px solid #dbeafe;
-
-            background:
-                #f8fbff;
-
-        }
-
-
-        .titulo-rapido {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-        }
-
-
-        .insignia {
-
-            display: inline-block;
-
-            background: #1976d2;
-
-            color: white;
-
-            padding: 5px 9px;
-
-            border-radius: 20px;
-
-            font-size: 12px;
-
-            font-weight: bold;
-
-        }
-
-
-        .resumen-tarjeta {
-
-            margin-top: 15px;
-
-            padding: 14px;
-
-            background: #eef5ff;
-
-            border-radius: 10px;
-
-            color: #345;
-
-            font-size: 14px;
-
-            line-height: 1.5;
-
-        }
-
-
-        .bloque-datos {
-
-            margin-top: 20px;
-
-            padding: 18px;
-
-            border-radius: 12px;
-
-            background: white;
-
-            border: 1px solid #e2e8f0;
-
-        }
-
-
-        .boton-rapido {
-
-            background: #1976d2;
-
-        }
-
-
-        .boton-avanzado {
-
-            background: #555;
-
-        }
-
-
-        .boton-abrir {
-
-            background: #16803b;
-
-        }
-
-
-
-        /* =================================================
-           CLIENTES
-        ================================================= */
-
-        .cliente {
-
-            border: 1px solid #ddd;
-
-            padding: 15px;
-
-            border-radius: 10px;
-
-            margin-top: 10px;
-
-            background: #fafafa;
-
-        }
-
-
-        .cliente strong {
-
-            display: block;
-
-            margin-bottom: 5px;
-
-        }
-
-
-        .cliente-url {
-
-            color: #777;
-
-            font-size: 14px;
-
-            margin-top: 5px;
-
-        }
-
-
-        .cliente-info {
-
-            color: #555;
-
-            font-size: 13px;
-
-            margin-top: 7px;
-
-        }
-
-
-        .cliente-acciones {
-
-            display: flex;
-
-            gap: 10px;
-
-        }
-
-
-        .cliente-acciones button {
-
-            margin-top: 12px;
-
-        }
-
-
-        .boton-editar {
-
-            background: #1976d2;
-
-        }
-
-
-        .boton-eliminar {
-
-            background: #b00020;
-
-        }
-
-
-
-        /* =================================================
-           FORMULARIO AVANZADO
-        ================================================= */
-
-        .boton-personalizado {
-
-            border: 1px solid #ddd;
-
-            padding: 15px;
-
-            margin-top: 15px;
-
-            border-radius: 10px;
-
-            background: #fafafa;
-
-        }
-
-
-        .boton-agregar {
-
-            background: #1976d2;
-
-        }
-
-
-        .boton-quitar {
-
-            background: #777;
-
-            width: auto;
-
-            padding: 8px 12px;
-
-            margin-top: 10px;
-
-        }
-
-
-        .boton-cancelar {
-
-            background: #777;
-
-        }
-
-
-        .boton-cerrar-sesion {
-
-            background: #555;
-
-            margin-top: 15px;
-
-        }
-
-
-        .seccion-personalizacion {
-
-            margin-top: 30px;
-
-            padding: 20px;
-
-            background: #f7f9fc;
-
-            border: 1px solid #e0e4ea;
-
-            border-radius: 12px;
-
-        }
-
-
-        .seccion-personalizacion h3 {
-
-            margin-top: 0;
-
-        }
-
-
-        .resultado {
-
-            margin-top: 25px;
-
-            padding: 20px;
-
-            background: #f0f0f0;
-
-            border-radius: 10px;
-
-            display: none;
-
-        }
-
-
-        .url {
-
-            word-break: break-all;
-
-            font-weight: bold;
-
-        }
-
-
-        .codigo {
-
-            background: #222;
-
-            color: white;
-
-            padding: 15px;
-
-            border-radius: 8px;
-
-            overflow-x: auto;
-
-            white-space: pre-wrap;
-
-            word-break: break-word;
-
-        }
-
-
-        .titulo-edicion {
-
-            color: #1976d2;
-
-        }
-
-
-
-        /* =================================================
-           ESTADO
-        ================================================= */
-
-        .estado {
-
-            margin-top: 15px;
-
-            padding: 12px;
-
-            border-radius: 8px;
-
-            display: none;
-
-            font-weight: bold;
-
-        }
-
-
-        .estado-ok {
-
-            background: #dff5e3;
-
-            color: #176b2c;
-
-        }
-
-
-        .estado-error {
-
-            background: #ffe1e1;
-
-            color: #9b0000;
-
-        }
-
-
-        .estado-cargando {
-
-            background: #e8eef7;
-
-            color: #24527a;
-
-        }
-
-
-
-        /* =================================================
-           RESPONSIVE
-        ================================================= */
-
-        @media (
-            max-width: 550px
-        ) {
-
-
-            .tarjeta {
-
-                padding: 22px 17px;
-
-            }
-
-
-            .cliente-acciones {
-
-                flex-direction: column;
-
-                gap: 0;
-
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Panel de clientes</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 30px 15px;
+    color: #222;
+}
+
+.contenedor {
+    max-width: 750px;
+    margin: auto;
+}
+
+.tarjeta {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+h1 {
+    text-align: center;
+    margin-top: 0;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+h3 {
+    margin-top: 25px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    background: white;
+}
+
+input[type="color"] {
+    height: 52px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    background: #222;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(1.10);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.aviso {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   RESUMEN DE STOCK
+===================================================== */
+
+.resumen-stock {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.stock-card {
+    text-align: center;
+    padding: 15px 8px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+}
+
+.stock-card strong {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.stock-total {
+    background: #f3f4f6;
+}
+
+.stock-disponible {
+    background: #f8fafc;
+}
+
+.stock-pendiente {
+    background: #fff7d6;
+}
+
+.stock-vendida {
+    background: #e5f7ea;
+}
+
+
+/* =====================================================
+   ALTA RÁPIDA
+===================================================== */
+
+.alta-rapida {
+    border: 2px solid #dbeafe;
+    background: #f8fbff;
+}
+
+.titulo-rapido {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.insignia {
+    display: inline-block;
+    background: #1976d2;
+    color: white;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.resumen-tarjeta {
+    margin-top: 15px;
+    padding: 14px;
+    background: #eef5ff;
+    border-radius: 10px;
+    color: #345;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.bloque-datos {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 12px;
+    background: white;
+    border: 1px solid #e2e8f0;
+}
+
+.boton-rapido {
+    background: #1976d2;
+}
+
+.boton-avanzado {
+    background: #555;
+}
+
+.boton-abrir {
+    background: #16803b;
+}
+
+
+/* =====================================================
+   CLIENTES / STOCK
+===================================================== */
+
+.cliente {
+    border: 1px solid #ddd;
+    padding: 18px;
+    border-radius: 12px;
+    margin-top: 15px;
+    background: #fafafa;
+}
+
+.cliente strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.cliente-url {
+    color: #777;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.cliente-info {
+    color: #555;
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+.badge-estado {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 7px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.badge-disponible {
+    background: #e9edf2;
+    color: #444;
+}
+
+.badge-pendiente {
+    background: #fff0b3;
+    color: #725500;
+}
+
+.badge-vendida {
+    background: #d7f3df;
+    color: #176b2c;
+}
+
+.control-stock {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid #e2e2e2;
+}
+
+.control-stock label:first-child {
+    margin-top: 0;
+}
+
+.boton-guardar-estado {
+    background: #475569;
+    margin-top: 12px;
+}
+
+.cliente-acciones {
+    display: flex;
+    gap: 10px;
+}
+
+.cliente-acciones button {
+    margin-top: 12px;
+}
+
+.boton-editar {
+    background: #1976d2;
+}
+
+.boton-eliminar {
+    background: #b00020;
+}
+
+
+/* =====================================================
+   FORMULARIO AVANZADO
+===================================================== */
+
+.boton-personalizado {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+    background: #fafafa;
+}
+
+.boton-agregar {
+    background: #1976d2;
+}
+
+.boton-quitar {
+    background: #777;
+    width: auto;
+    padding: 8px 12px;
+    margin-top: 10px;
+}
+
+.boton-cancelar {
+    background: #777;
+}
+
+.boton-cerrar-sesion {
+    background: #555;
+    margin-top: 15px;
+}
+
+.seccion-personalizacion {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f7f9fc;
+    border: 1px solid #e0e4ea;
+    border-radius: 12px;
+}
+
+.seccion-personalizacion h3 {
+    margin-top: 0;
+}
+
+.resultado {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    display: none;
+}
+
+.url {
+    word-break: break-all;
+    font-weight: bold;
+}
+
+.codigo {
+    background: #222;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.titulo-edicion {
+    color: #1976d2;
+}
+
+
+/* =====================================================
+   ESTADO GENERAL
+===================================================== */
+
+.estado {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    display: none;
+    font-weight: bold;
+}
+
+.estado-ok {
+    background: #dff5e3;
+    color: #176b2c;
+}
+
+.estado-error {
+    background: #ffe1e1;
+    color: #9b0000;
+}
+
+.estado-cargando {
+    background: #e8eef7;
+    color: #24527a;
+}
+
+
+/* =====================================================
+   CELULAR
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .tarjeta {
+        padding: 22px 17px;
+    }
+
+    .cliente-acciones {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .resumen-stock {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -585,24 +423,17 @@
 
 <div id="login">
 
-
     <div class="tarjeta">
 
-
-        <h2>
-            🔐 Acceso restringido
-        </h2>
-
+        <h2>🔐 Acceso restringido</h2>
 
         <p>
             Ingresá las claves para acceder al panel.
         </p>
 
-
         <label>
             Contraseña del panel
         </label>
-
 
         <input
             type="password"
@@ -610,11 +441,9 @@
             placeholder="Contraseña"
         >
 
-
         <label>
             Clave de sincronización
         </label>
-
 
         <input
             type="password"
@@ -622,30 +451,21 @@
             placeholder="Clave de Cloudflare"
         >
 
-
         <p class="aviso">
-
             La sesión permanecerá activa mientras
             mantengas abierta esta pestaña.
-
         </p>
 
-
         <button onclick="iniciarSesion()">
-
             Ingresar
-
         </button>
-
 
         <p
             id="errorLogin"
             style="color:red;"
         ></p>
 
-
     </div>
-
 
 </div>
 
@@ -666,16 +486,13 @@
 
     <div class="tarjeta">
 
-
         <h1>
             Panel de clientes
         </h1>
 
-
         <p>
             Administrá tus tarjetas QR/NFC.
         </p>
-
 
         <div
             id="estado"
@@ -683,15 +500,39 @@
         ></div>
 
 
+        <!-- RESUMEN STOCK -->
+
+        <div class="resumen-stock">
+
+            <div class="stock-card stock-total">
+                <strong id="stockTotal">0</strong>
+                Total
+            </div>
+
+            <div class="stock-card stock-disponible">
+                <strong id="stockDisponibles">0</strong>
+                ⚪ Disponibles
+            </div>
+
+            <div class="stock-card stock-pendiente">
+                <strong id="stockPendientes">0</strong>
+                🟡 Pendientes
+            </div>
+
+            <div class="stock-card stock-vendida">
+                <strong id="stockVendidas">0</strong>
+                🟢 Vendidas
+            </div>
+
+        </div>
+
+
         <button
             class="boton-cerrar-sesion"
             onclick="cerrarSesion()"
         >
-
             🔒 Cerrar sesión
-
         </button>
-
 
     </div>
 
@@ -703,51 +544,32 @@
 
     <div class="tarjeta alta-rapida">
 
-
         <div class="titulo-rapido">
 
-
             <h2 style="margin:0;">
-
                 ⚡ Alta rápida
-
             </h2>
 
-
             <span class="insignia">
-
                 RECOMENDADO
-
             </span>
-
 
         </div>
 
 
         <p>
-
-            Elegí una de tus tarjetas ya creadas y
-            cargá los datos básicos del cliente.
-
+            Elegí una de tus tarjetas y cargá
+            los datos básicos del cliente.
         </p>
-
 
         <p class="aviso">
-
-            Este modo NO cambia el código del QR ni del NFC.
-            Solamente configura la información asociada
-            al código seleccionado.
-
+            Este modo no cambia el código del QR ni del NFC.
         </p>
-
 
 
         <label>
-
             Tarjeta a configurar
-
         </label>
-
 
         <select
             id="rapidoCodigo"
@@ -755,13 +577,10 @@
         >
 
             <option value="">
-
                 Seleccioná una tarjeta
-
             </option>
 
         </select>
-
 
 
         <div
@@ -774,125 +593,81 @@
 
         <div class="bloque-datos">
 
-
             <h3 style="margin-top:0;">
-
                 Datos del negocio
-
             </h3>
 
-
-
             <label>
-
                 Nombre del negocio
-
             </label>
-
 
             <input
                 id="rapidoNombre"
                 placeholder="Ejemplo: Café San Rafael"
             >
 
-
-
             <label>
-
                 Descripción breve
-
             </label>
-
 
             <input
                 id="rapidoDescripcion"
                 placeholder="Ejemplo: Café, desayunos y pastelería"
             >
 
-
-
         </div>
 
 
 
         <div class="bloque-datos">
 
-
             <h3 style="margin-top:0;">
-
                 Contacto y redes
-
             </h3>
 
-
-
             <label>
-
                 WhatsApp
-
             </label>
-
 
             <input
                 id="rapidoWhatsapp"
                 placeholder="Ejemplo: 2604123456"
             >
 
-
             <p class="aviso">
-
-                Podés escribir solamente el número.
-                Para Argentina usá código de área + número,
-                sin 0 ni 15.
-
-                Ejemplo: 2604123456.
-
+                Para Argentina usá código de área +
+                número, sin 0 ni 15.
             </p>
 
 
-
             <label>
-
                 Instagram
-
             </label>
-
 
             <input
                 id="rapidoInstagram"
                 placeholder="@cafesanrafael"
             >
 
-
             <p class="aviso">
-
-                Podés escribir @usuario,
-                usuario o pegar el enlace completo.
-
+                Podés escribir @usuario, usuario
+                o pegar el enlace completo.
             </p>
 
 
-
             <label>
-
                 Place ID de Google
-
             </label>
-
 
             <input
                 id="rapidoPlaceId"
                 placeholder="Ejemplo: ChIJ..."
             >
 
-
             <p class="aviso">
-
                 Pegá el Place ID obtenido desde
                 Place ID Finder.
-
             </p>
-
 
         </div>
 
@@ -900,49 +675,31 @@
 
         <div class="bloque-datos">
 
-
             <h3 style="margin-top:0;">
-
                 Personalización
-
             </h3>
 
-
-
             <label>
-
                 Fondo (opcional)
-
             </label>
-
 
             <input
                 id="rapidoFondo"
                 placeholder="https://..."
             >
 
-
-
             <label>
-
                 Logo (opcional)
-
             </label>
-
 
             <input
                 id="rapidoLogo"
                 placeholder="https://..."
             >
 
-
-
             <label>
-
                 Color de tarjeta
-
             </label>
-
 
             <input
                 type="color"
@@ -950,14 +707,9 @@
                 value="#00b7ff"
             >
 
-
-
             <label>
-
                 Color de cabecera
-
             </label>
-
 
             <input
                 type="color"
@@ -965,14 +717,9 @@
                 value="#222222"
             >
 
-
-
             <label>
-
                 Color de botones
-
             </label>
-
 
             <input
                 type="color"
@@ -980,9 +727,7 @@
                 value="#222222"
             >
 
-
         </div>
-
 
 
         <button
@@ -990,54 +735,46 @@
             id="botonGuardarRapido"
             onclick="guardarClienteRapido()"
         >
-
             ⚡ Guardar configuración rápida
-
         </button>
-
 
 
         <button
             class="boton-abrir"
             onclick="abrirTarjetaRapida()"
         >
-
             🔗 Abrir página de la tarjeta
-
         </button>
-
 
 
         <button
             class="boton-avanzado"
             onclick="abrirEdicionAvanzadaDesdeRapido()"
         >
-
             ⚙️ Abrir edición avanzada
-
         </button>
-
 
     </div>
 
 
 
     <!-- =================================================
-         CLIENTES
+         STOCK / CLIENTES
     ================================================== -->
 
     <div class="tarjeta">
 
-
         <h2>
-
-            Clientes actuales
-
+            Tarjetas y clientes
         </h2>
 
+        <p class="aviso">
+            El estado y la nota interna son solamente
+            para tu administración. No aparecen en la
+            página pública del cliente.
+        </p>
 
         <div id="listaClientes"></div>
-
 
     </div>
 
@@ -1052,41 +789,28 @@
         id="formularioCliente"
     >
 
-
         <h2 id="tituloFormulario">
-
             Crear nuevo cliente
-
         </h2>
 
-
         <p class="aviso">
-
-            Esta sección sigue permitiendo configurar
-            cualquier cantidad de botones y modificar
-            todos los datos manualmente.
-
+            Esta sección permite configurar cualquier
+            cantidad de botones y modificar todos los
+            datos manualmente.
         </p>
-
 
         <p
             class="aviso"
             id="avisoEdicion"
             style="display:none;"
         >
-
             Estás editando un cliente existente.
-
         </p>
 
 
-
         <label>
-
             Código del cliente
-
         </label>
-
 
         <input
             id="codigo"
@@ -1094,13 +818,9 @@
         >
 
 
-
         <label>
-
             Nombre del negocio
-
         </label>
-
 
         <input
             id="nombre"
@@ -1108,13 +828,9 @@
         >
 
 
-
         <label>
-
             Descripción breve (opcional)
-
         </label>
-
 
         <input
             id="descripcion"
@@ -1123,53 +839,33 @@
 
 
 
-        <!-- PERSONALIZACIÓN -->
-
         <div class="seccion-personalizacion">
 
-
             <h3>
-
                 🎨 Personalización visual
-
             </h3>
 
-
-
             <label>
-
                 Imagen de fondo
-
             </label>
-
 
             <input
                 id="fondo"
                 placeholder="https://..."
             >
 
-
-
             <label>
-
                 Logo del negocio
-
             </label>
-
 
             <input
                 id="logo"
                 placeholder="https://..."
             >
 
-
-
             <label>
-
                 Color de la tarjeta translúcida
-
             </label>
-
 
             <input
                 type="color"
@@ -1177,14 +873,9 @@
                 value="#00b7ff"
             >
 
-
-
             <label>
-
                 Color de la cabecera
-
             </label>
-
 
             <input
                 type="color"
@@ -1192,14 +883,9 @@
                 value="#222222"
             >
 
-
-
             <label>
-
                 Color de los botones
-
             </label>
-
 
             <input
                 type="color"
@@ -1207,19 +893,12 @@
                 value="#222222"
             >
 
-
         </div>
 
 
-
-        <!-- BOTONES -->
-
         <h3>
-
             Botones del negocio
-
         </h3>
-
 
         <div id="botonesPersonalizados"></div>
 
@@ -1228,9 +907,7 @@
             class="boton-agregar"
             onclick="agregarBoton()"
         >
-
             + Agregar botón
-
         </button>
 
 
@@ -1238,9 +915,7 @@
             id="botonGuardar"
             onclick="guardarCliente()"
         >
-
             Crear cliente
-
         </button>
 
 
@@ -1250,9 +925,7 @@
             onclick="cancelarEdicion()"
             style="display:none;"
         >
-
             Cancelar
-
         </button>
 
 
@@ -1262,59 +935,39 @@
             id="resultado"
         >
 
-
             <h3>
-
                 ✅ Cambios guardados
-
             </h3>
 
-
             <p>
-
                 Enlace permanente:
-
             </p>
-
 
             <p
                 class="url"
                 id="urlCliente"
             ></p>
 
-
             <button onclick="copiarEnlace()">
-
                 Copiar enlace
-
             </button>
 
-
             <h3>
-
                 Código actual de clientes.js
-
             </h3>
-
 
             <pre
                 class="codigo"
                 id="codigoGenerado"
             ></pre>
 
-
             <button onclick="copiarCodigo()">
-
                 📋 Copiar clientes.js completo
-
             </button>
-
 
         </div>
 
-
     </div>
-
 
 </div>
 
@@ -1330,41 +983,26 @@
 const WORKER_URL =
     "https://qr-dinamicos-api.lattucalucas.workers.dev";
 
-
 const CONTRASENA =
     "Callejeros12";
-
 
 const CLAVE_SESION =
     "qonekta_sesion_activa";
 
-
 const CLAVE_SECRET =
     "qonekta_admin_secret";
 
+let claveSincronizacion = "";
 
-let claveSincronizacion =
-    "";
+let clientes = {};
 
+let contadorBotones = 0;
 
-let clientes =
-    {};
+let enlaceActual = "";
 
+let codigoActual = "";
 
-let contadorBotones =
-    0;
-
-
-let enlaceActual =
-    "";
-
-
-let codigoActual =
-    "";
-
-
-let clienteEditando =
-    null;
+let clienteEditando = null;
 
 
 
@@ -1378,15 +1016,12 @@ window.addEventListener(
 );
 
 
-
 async function restaurarSesion() {
-
 
     const sesionActiva =
         sessionStorage.getItem(
             CLAVE_SESION
         );
-
 
     const secretGuardado =
         sessionStorage.getItem(
@@ -1394,19 +1029,15 @@ async function restaurarSesion() {
         );
 
 
-
     if (
         sesionActiva === "si" &&
         secretGuardado
     ) {
 
-
         claveSincronizacion =
             secretGuardado;
 
-
         mostrarPanel();
-
 
         await cargarClientesDesdeGitHub();
 
@@ -1422,12 +1053,10 @@ async function restaurarSesion() {
 
 async function iniciarSesion() {
 
-
     const password =
         document.getElementById(
             "password"
         ).value.trim();
-
 
     const adminSecret =
         document.getElementById(
@@ -1435,44 +1064,36 @@ async function iniciarSesion() {
         ).value.trim();
 
 
-
     if (
         password !== CONTRASENA
     ) {
-
 
         document.getElementById(
             "errorLogin"
         ).textContent =
             "Contraseña incorrecta.";
 
-
         return;
 
     }
-
 
 
     if (
         !adminSecret
     ) {
 
-
         document.getElementById(
             "errorLogin"
         ).textContent =
             "Ingresá la clave de sincronización.";
-
 
         return;
 
     }
 
 
-
     claveSincronizacion =
         adminSecret;
-
 
 
     sessionStorage.setItem(
@@ -1480,24 +1101,18 @@ async function iniciarSesion() {
         "si"
     );
 
-
     sessionStorage.setItem(
         CLAVE_SECRET,
         adminSecret
     );
 
 
-
     document.getElementById(
         "errorLogin"
-    ).textContent =
-        "";
-
+    ).textContent = "";
 
 
     mostrarPanel();
-
-
 
     await cargarClientesDesdeGitHub();
 
@@ -1506,22 +1121,18 @@ async function iniciarSesion() {
 
 
 /* =====================================================
-   MOSTRAR PANEL
+   PANEL
 ===================================================== */
 
 function mostrarPanel() {
 
-
     document.getElementById(
         "login"
-    ).style.display =
-        "none";
-
+    ).style.display = "none";
 
     document.getElementById(
         "panel"
-    ).style.display =
-        "block";
+    ).style.display = "block";
 
 }
 
@@ -1533,62 +1144,49 @@ function mostrarPanel() {
 
 function cerrarSesion() {
 
-
     sessionStorage.removeItem(
         CLAVE_SESION
     );
-
 
     sessionStorage.removeItem(
         CLAVE_SECRET
     );
 
+    claveSincronizacion = "";
 
-    claveSincronizacion =
-        "";
+    clientes = {};
 
-
-    clientes =
-        {};
-
-
-    clienteEditando =
-        null;
+    clienteEditando = null;
 
 
     document.getElementById(
         "panel"
-    ).style.display =
-        "none";
+    ).style.display = "none";
 
 
     document.getElementById(
         "login"
-    ).style.display =
-        "block";
+    ).style.display = "block";
 
 
     document.getElementById(
         "password"
-    ).value =
-        "";
+    ).value = "";
 
 
     document.getElementById(
         "adminSecret"
-    ).value =
-        "";
+    ).value = "";
 
 }
 
 
 
 /* =====================================================
-   CARGAR CLIENTES DESDE GITHUB
+   CARGAR CLIENTES
 ===================================================== */
 
 async function cargarClientesDesdeGitHub() {
-
 
     mostrarEstado(
         "⏳ Cargando clientes actuales...",
@@ -1598,50 +1196,38 @@ async function cargarClientesDesdeGitHub() {
 
     try {
 
-
         const respuesta =
             await fetch(
                 WORKER_URL,
                 {
-
-                    method:
-                        "GET",
+                    method: "GET",
 
                     headers: {
-
                         "X-Admin-Key":
                             claveSincronizacion
-
                     }
-
                 }
             );
-
 
 
         const datos =
             await respuesta.json();
 
 
-
         if (
             respuesta.status === 401
         ) {
 
-
             cerrarSesion();
-
 
             document.getElementById(
                 "errorLogin"
             ).textContent =
                 "Clave de sincronización incorrecta.";
 
-
             return false;
 
         }
-
 
 
         if (
@@ -1649,59 +1235,42 @@ async function cargarClientesDesdeGitHub() {
             !datos.ok
         ) {
 
-
             throw new Error(
-
                 datos.mensaje ||
                 "No se pudieron cargar los clientes."
-
             );
 
         }
 
 
-
         const coincidencia =
             datos.content.match(
-
                 /const\s+negocios\s*=\s*(\{[\s\S]*\});/
-
             );
-
 
 
         if (
             !coincidencia
         ) {
 
-
             throw new Error(
-
                 "No se encontró la estructura de clientes.js."
-
             );
 
         }
 
 
-
         clientes =
             Function(
-
                 `"use strict"; return (${coincidencia[1]});`
-
             )();
-
 
 
         mostrarClientes();
 
-
         actualizarSelectorRapido();
 
-
         generarClientesJS();
-
 
 
         mostrarEstado(
@@ -1712,16 +1281,11 @@ async function cargarClientesDesdeGitHub() {
 
         return true;
 
-
     }
 
     catch (error) {
 
-
-        console.error(
-            error
-        );
-
+        console.error(error);
 
         mostrarEstado(
             "❌ No se pudieron cargar los clientes.",
@@ -1730,11 +1294,8 @@ async function cargarClientesDesdeGitHub() {
 
 
         alert(
-
             "Error al cargar clientes:\n\n" +
-
             error.message
-
         );
 
 
@@ -1747,7 +1308,7 @@ async function cargarClientesDesdeGitHub() {
 
 
 /* =====================================================
-   ESTADO
+   ESTADO GENERAL
 ===================================================== */
 
 function mostrarEstado(
@@ -1755,24 +1316,85 @@ function mostrarEstado(
     tipo
 ) {
 
-
     const estado =
         document.getElementById(
             "estado"
         );
 
-
     estado.textContent =
         mensaje;
 
-
     estado.className =
-        "estado " +
-        tipo;
-
+        "estado " + tipo;
 
     estado.style.display =
         "block";
+
+}
+
+
+
+/* =====================================================
+   ESTADO ADMINISTRATIVO
+===================================================== */
+
+function obtenerEstadoCliente(
+    cliente
+) {
+
+    const valor =
+        String(
+            cliente.estado || ""
+        ).toLowerCase();
+
+
+    if (
+        valor === "pendiente"
+    ) {
+
+        return "pendiente";
+
+    }
+
+
+    if (
+        valor === "vendida"
+    ) {
+
+        return "vendida";
+
+    }
+
+
+    return "disponible";
+
+}
+
+
+
+function textoEstado(
+    estado
+) {
+
+    if (
+        estado === "pendiente"
+    ) {
+
+        return "🟡 Pendiente";
+
+    }
+
+
+    if (
+        estado === "vendida"
+    ) {
+
+        return "🟢 Vendida";
+
+    }
+
+
+    return "⚪ Disponible";
 
 }
 
@@ -1784,26 +1406,16 @@ function mostrarEstado(
 
 function obtenerCodigosOrdenados() {
 
-
     return Object.keys(
         clientes
     ).sort(
         function(a, b) {
 
-
             const numeroA =
-                parseInt(
-                    a,
-                    10
-                );
-
+                parseInt(a, 10);
 
             const numeroB =
-                parseInt(
-                    b,
-                    10
-                );
-
+                parseInt(b, 10);
 
 
             if (
@@ -1811,19 +1423,229 @@ function obtenerCodigosOrdenados() {
                 !isNaN(numeroB)
             ) {
 
-
                 return numeroA -
                     numeroB;
 
             }
 
 
-
-            return a.localeCompare(
-                b
-            );
+            return a.localeCompare(b);
 
         }
+    );
+
+}
+
+
+
+/* =====================================================
+   RESUMEN DE STOCK
+===================================================== */
+
+function actualizarResumenStock() {
+
+    const codigos =
+        obtenerCodigosOrdenados();
+
+
+    let disponibles = 0;
+    let pendientes = 0;
+    let vendidas = 0;
+
+
+    codigos.forEach(
+        function(codigo) {
+
+            const estado =
+                obtenerEstadoCliente(
+                    clientes[codigo]
+                );
+
+
+            if (
+                estado === "pendiente"
+            ) {
+
+                pendientes++;
+
+            }
+
+            else if (
+                estado === "vendida"
+            ) {
+
+                vendidas++;
+
+            }
+
+            else {
+
+                disponibles++;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "stockTotal"
+    ).textContent =
+        codigos.length;
+
+
+    document.getElementById(
+        "stockDisponibles"
+    ).textContent =
+        disponibles;
+
+
+    document.getElementById(
+        "stockPendientes"
+    ).textContent =
+        pendientes;
+
+
+    document.getElementById(
+        "stockVendidas"
+    ).textContent =
+        vendidas;
+
+}
+
+
+
+/* =====================================================
+   GUARDAR ESTADO DE UNA TARJETA
+===================================================== */
+
+async function guardarEstadoCliente(
+    codigo
+) {
+
+    const cliente =
+        clientes[codigo];
+
+
+    if (
+        !cliente
+    ) {
+
+        alert(
+            "No se encontró esa tarjeta."
+        );
+
+        return;
+
+    }
+
+
+    const selector =
+        document.getElementById(
+            "estado-" + codigo
+        );
+
+
+    const campoNota =
+        document.getElementById(
+            "nota-" + codigo
+        );
+
+
+    const boton =
+        document.getElementById(
+            "guardarEstado-" + codigo
+        );
+
+
+    const nuevoEstado =
+        selector.value;
+
+
+    const nuevaNota =
+        campoNota.value.trim();
+
+
+    const respaldo =
+        JSON.parse(
+            JSON.stringify(
+                cliente
+            )
+        );
+
+
+    clientes[codigo].estado =
+        nuevoEstado;
+
+
+    clientes[codigo].notaInterna =
+        nuevaNota;
+
+
+    generarClientesJS();
+
+
+    boton.disabled =
+        true;
+
+
+    boton.textContent =
+        "⏳ Guardando...";
+
+
+    mostrarEstado(
+        "⏳ Actualizando estado de la tarjeta " +
+        codigo +
+        "...",
+        "estado-cargando"
+    );
+
+
+    const resultado =
+        await sincronizarConGitHub();
+
+
+    if (
+        !resultado.ok
+    ) {
+
+        clientes[codigo] =
+            respaldo;
+
+
+        generarClientesJS();
+
+        mostrarClientes();
+
+        actualizarSelectorRapido();
+
+
+        mostrarEstado(
+            "❌ No se pudo actualizar el estado.",
+            "estado-error"
+        );
+
+
+        alert(
+            resultado.mensaje
+        );
+
+
+        return;
+
+    }
+
+
+    mostrarClientes();
+
+    actualizarSelectorRapido();
+
+
+    mostrarEstado(
+        "✅ Estado de la tarjeta " +
+        codigo +
+        " actualizado.",
+        "estado-ok"
     );
 
 }
@@ -1836,7 +1658,6 @@ function obtenerCodigosOrdenados() {
 
 function actualizarSelectorRapido() {
 
-
     const selector =
         document.getElementById(
             "rapidoCodigo"
@@ -1848,23 +1669,17 @@ function actualizarSelectorRapido() {
 
 
     selector.innerHTML =
-
         '<option value="">' +
-
         'Seleccioná una tarjeta' +
-
         '</option>';
-
 
 
     const codigos =
         obtenerCodigosOrdenados();
 
 
-
     codigos.forEach(
         function(codigo) {
-
 
             const cliente =
                 clientes[codigo] || {};
@@ -1884,6 +1699,13 @@ function actualizarSelectorRapido() {
                 : 0;
 
 
+            const estado =
+                textoEstado(
+                    obtenerEstadoCliente(
+                        cliente
+                    )
+                );
+
 
             const opcion =
                 document.createElement(
@@ -1895,24 +1717,18 @@ function actualizarSelectorRapido() {
                 codigo;
 
 
-
             opcion.textContent =
-
                 codigo +
-
                 " — " +
-
+                estado +
+                " — " +
                 (
                     nombre ||
                     "Sin nombre"
                 ) +
-
                 " — " +
-
                 cantidadBotones +
-
                 " botón/es";
-
 
 
             selector.appendChild(
@@ -1923,13 +1739,11 @@ function actualizarSelectorRapido() {
     );
 
 
-
     if (
         clientes[
             seleccionadoAntes
         ]
     ) {
-
 
         selector.value =
             seleccionadoAntes;
@@ -1948,7 +1762,6 @@ function identificarTipoBoton(
     boton
 ) {
 
-
     const nombre =
         String(
             boton.nombre || ""
@@ -1961,43 +1774,25 @@ function identificarTipoBoton(
         ).toLowerCase();
 
 
-
     if (
-        enlace.includes(
-            "wa.me/"
-        )
-        ||
-        enlace.includes(
-            "whatsapp.com"
-        )
-        ||
-        nombre.includes(
-            "whatsapp"
-        )
+        enlace.includes("wa.me/") ||
+        enlace.includes("whatsapp.com") ||
+        nombre.includes("whatsapp")
     ) {
-
 
         return "whatsapp";
 
     }
 
 
-
     if (
-        enlace.includes(
-            "instagram.com"
-        )
-        ||
-        nombre.includes(
-            "instagram"
-        )
+        enlace.includes("instagram.com") ||
+        nombre.includes("instagram")
     ) {
-
 
         return "instagram";
 
     }
-
 
 
     if (
@@ -2006,27 +1801,22 @@ function identificarTipoBoton(
         )
         ||
         (
-            enlace.includes(
-                "google"
-            )
+            enlace.includes("google")
             &&
             (
-                nombre.includes(
-                    "reseña"
-                )
-                ||
-                nombre.includes(
-                    "opini"
-                )
+                nombre.includes("reseña") ||
+                nombre.includes("opini")
             )
         )
+        ||
+        nombre.includes("reseña")
+        ||
+        nombre.includes("opini")
     ) {
-
 
         return "resena";
 
     }
-
 
 
     return "otro";
@@ -2036,13 +1826,12 @@ function identificarTipoBoton(
 
 
 /* =====================================================
-   EXTRAER WHATSAPP EXISTENTE
+   EXTRAER WHATSAPP
 ===================================================== */
 
 function extraerWhatsapp(
     cliente
 ) {
-
 
     const botones =
         Array.isArray(
@@ -2052,11 +1841,9 @@ function extraerWhatsapp(
         : [];
 
 
-
     const boton =
         botones.find(
             function(b) {
-
 
                 return identificarTipoBoton(
                     b
@@ -2066,7 +1853,6 @@ function extraerWhatsapp(
         );
 
 
-
     if (
         !boton
     ) {
@@ -2076,12 +1862,10 @@ function extraerWhatsapp(
     }
 
 
-
     const enlace =
         String(
             boton.enlace || ""
         );
-
 
 
     let coincidencia =
@@ -2090,17 +1874,14 @@ function extraerWhatsapp(
         );
 
 
-
     if (
         coincidencia
     ) {
-
 
         return "+" +
             coincidencia[1];
 
     }
-
 
 
     coincidencia =
@@ -2109,17 +1890,14 @@ function extraerWhatsapp(
         );
 
 
-
     if (
         coincidencia
     ) {
-
 
         return "+" +
             coincidencia[1];
 
     }
-
 
 
     return "";
@@ -2129,13 +1907,12 @@ function extraerWhatsapp(
 
 
 /* =====================================================
-   EXTRAER INSTAGRAM EXISTENTE
+   EXTRAER INSTAGRAM
 ===================================================== */
 
 function extraerInstagram(
     cliente
 ) {
-
 
     const botones =
         Array.isArray(
@@ -2145,11 +1922,9 @@ function extraerInstagram(
         : [];
 
 
-
     const boton =
         botones.find(
             function(b) {
-
 
                 return identificarTipoBoton(
                     b
@@ -2159,7 +1934,6 @@ function extraerInstagram(
         );
 
 
-
     if (
         !boton
     ) {
@@ -2169,12 +1943,10 @@ function extraerInstagram(
     }
 
 
-
     const enlace =
         String(
             boton.enlace || ""
         );
-
 
 
     const coincidencia =
@@ -2183,17 +1955,14 @@ function extraerInstagram(
         );
 
 
-
     if (
         coincidencia
     ) {
-
 
         return "@" +
             coincidencia[1];
 
     }
-
 
 
     return "";
@@ -2203,13 +1972,12 @@ function extraerInstagram(
 
 
 /* =====================================================
-   EXTRAER PLACE ID EXISTENTE
+   EXTRAER PLACE ID
 ===================================================== */
 
 function extraerPlaceId(
     cliente
 ) {
-
 
     const botones =
         Array.isArray(
@@ -2219,11 +1987,9 @@ function extraerPlaceId(
         : [];
 
 
-
     const boton =
         botones.find(
             function(b) {
-
 
                 return identificarTipoBoton(
                     b
@@ -2231,7 +1997,6 @@ function extraerPlaceId(
 
             }
         );
-
 
 
     if (
@@ -2243,12 +2008,10 @@ function extraerPlaceId(
     }
 
 
-
     const enlace =
         String(
             boton.enlace || ""
         );
-
 
 
     const coincidencia =
@@ -2257,18 +2020,15 @@ function extraerPlaceId(
         );
 
 
-
     if (
         coincidencia
     ) {
-
 
         return decodeURIComponent(
             coincidencia[1]
         );
 
     }
-
 
 
     return "";
@@ -2285,7 +2045,6 @@ function obtenerBotonesExtra(
     cliente
 ) {
 
-
     const botones =
         Array.isArray(
             cliente.botones
@@ -2294,10 +2053,8 @@ function obtenerBotonesExtra(
         : [];
 
 
-
     return botones.filter(
         function(boton) {
-
 
             return identificarTipoBoton(
                 boton
@@ -2311,17 +2068,15 @@ function obtenerBotonesExtra(
 
 
 /* =====================================================
-   CARGAR CLIENTE EN ALTA RÁPIDA
+   CARGAR ALTA RÁPIDA
 ===================================================== */
 
 function cargarClienteRapido() {
-
 
     const codigo =
         document.getElementById(
             "rapidoCodigo"
         ).value;
-
 
 
     const resumen =
@@ -2330,29 +2085,23 @@ function cargarClienteRapido() {
         );
 
 
-
     if (
         !codigo ||
         !clientes[codigo]
     ) {
 
-
         limpiarFormularioRapido();
-
 
         resumen.style.display =
             "none";
-
 
         return;
 
     }
 
 
-
     const cliente =
         clientes[codigo];
-
 
 
     document.getElementById(
@@ -2361,12 +2110,10 @@ function cargarClienteRapido() {
         cliente.nombre || "";
 
 
-
     document.getElementById(
         "rapidoDescripcion"
     ).value =
         cliente.descripcion || "";
-
 
 
     document.getElementById(
@@ -2375,12 +2122,10 @@ function cargarClienteRapido() {
         cliente.fondo || "";
 
 
-
     document.getElementById(
         "rapidoLogo"
     ).value =
         cliente.logo || "";
-
 
 
     document.getElementById(
@@ -2390,7 +2135,6 @@ function cargarClienteRapido() {
         "#00b7ff";
 
 
-
     document.getElementById(
         "rapidoColorCabecera"
     ).value =
@@ -2398,13 +2142,11 @@ function cargarClienteRapido() {
         "#222222";
 
 
-
     document.getElementById(
         "rapidoColorBotones"
     ).value =
         cliente.colorBotones ||
         "#222222";
-
 
 
     document.getElementById(
@@ -2415,14 +2157,12 @@ function cargarClienteRapido() {
         );
 
 
-
     document.getElementById(
         "rapidoInstagram"
     ).value =
         extraerInstagram(
             cliente
         );
-
 
 
     document.getElementById(
@@ -2433,7 +2173,6 @@ function cargarClienteRapido() {
         );
 
 
-
     const cantidadBotones =
         Array.isArray(
             cliente.botones
@@ -2442,39 +2181,40 @@ function cargarClienteRapido() {
         : 0;
 
 
-
     const extras =
         obtenerBotonesExtra(
             cliente
         );
 
 
+    const estado =
+        textoEstado(
+            obtenerEstadoCliente(
+                cliente
+            )
+        );
+
 
     let mensaje =
-
         "Tarjeta " +
         codigo +
+        " — " +
+        estado +
         ". Actualmente tiene " +
         cantidadBotones +
         " botón/es.";
-
 
 
     if (
         extras.length > 0
     ) {
 
-
         mensaje +=
-
             " Hay " +
-
             extras.length +
-
-            " botón/es adicional/es que el modo rápido conservará.";
+            " botón/es adicional/es que se conservarán.";
 
     }
-
 
 
     resumen.textContent =
@@ -2489,65 +2229,48 @@ function cargarClienteRapido() {
 
 
 /* =====================================================
-   LIMPIAR FORMULARIO RÁPIDO
+   LIMPIAR ALTA RÁPIDA
 ===================================================== */
 
 function limpiarFormularioRapido() {
 
-
     document.getElementById(
         "rapidoNombre"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "rapidoDescripcion"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "rapidoWhatsapp"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "rapidoInstagram"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "rapidoPlaceId"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "rapidoFondo"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "rapidoLogo"
-    ).value =
-        "";
-
+    ).value = "";
 
     document.getElementById(
         "rapidoColorTarjeta"
     ).value =
         "#00b7ff";
 
-
     document.getElementById(
         "rapidoColorCabecera"
     ).value =
         "#222222";
-
 
     document.getElementById(
         "rapidoColorBotones"
@@ -2566,7 +2289,6 @@ function generarEnlaceWhatsapp(
     valor
 ) {
 
-
     let numero =
         String(
             valor || ""
@@ -2574,7 +2296,6 @@ function generarEnlaceWhatsapp(
             /\D/g,
             ""
         );
-
 
 
     if (
@@ -2586,18 +2307,9 @@ function generarEnlaceWhatsapp(
     }
 
 
-
-    /*
-        Si ya viene:
-        +54 9 ...
-    */
-
     if (
-        numero.startsWith(
-            "549"
-        )
+        numero.startsWith("549")
     ) {
-
 
         return "https://wa.me/" +
             numero;
@@ -2605,24 +2317,12 @@ function generarEnlaceWhatsapp(
     }
 
 
-
-    /*
-        Si viene:
-        +54 ...
-        agregamos el 9.
-    */
-
     if (
-        numero.startsWith(
-            "54"
-        )
+        numero.startsWith("54")
     ) {
 
-
         numero =
-            numero.substring(
-                2
-            );
+            numero.substring(2);
 
 
         return "https://wa.me/549" +
@@ -2631,26 +2331,14 @@ function generarEnlaceWhatsapp(
     }
 
 
-
-    /*
-        Quitamos un 0 inicial:
-        0260...
-    */
-
     if (
-        numero.startsWith(
-            "0"
-        )
+        numero.startsWith("0")
     ) {
 
-
         numero =
-            numero.substring(
-                1
-            );
+            numero.substring(1);
 
     }
-
 
 
     return "https://wa.me/549" +
@@ -2668,12 +2356,10 @@ function generarEnlaceInstagram(
     valor
 ) {
 
-
     let texto =
         String(
             valor || ""
         ).trim();
-
 
 
     if (
@@ -2685,18 +2371,15 @@ function generarEnlaceInstagram(
     }
 
 
-
     if (
         /^https?:\/\//i.test(
             texto
         )
     ) {
 
-
         return texto;
 
     }
-
 
 
     if (
@@ -2705,12 +2388,10 @@ function generarEnlaceInstagram(
         )
     ) {
 
-
         return "https://" +
             texto;
 
     }
-
 
 
     if (
@@ -2719,12 +2400,10 @@ function generarEnlaceInstagram(
         )
     ) {
 
-
         return "https://" +
             texto;
 
     }
-
 
 
     texto =
@@ -2748,7 +2427,6 @@ function generarEnlaceInstagram(
         );
 
 
-
     return "https://instagram.com/" +
         texto;
 
@@ -2764,12 +2442,10 @@ function generarEnlaceResena(
     placeId
 ) {
 
-
     const valor =
         String(
             placeId || ""
         ).trim();
-
 
 
     if (
@@ -2781,33 +2457,22 @@ function generarEnlaceResena(
     }
 
 
-
-    /*
-        Si ya pegó el enlace completo,
-        también lo aceptamos.
-    */
-
     if (
         /^https?:\/\//i.test(
             valor
         )
     ) {
 
-
         return valor;
 
     }
 
 
-
     return (
-
         "https://search.google.com/local/writereview?placeid=" +
-
         encodeURIComponent(
             valor
         )
-
     );
 
 }
@@ -2820,12 +2485,10 @@ function generarEnlaceResena(
 
 async function guardarClienteRapido() {
 
-
     const codigo =
         document.getElementById(
             "rapidoCodigo"
         ).value;
-
 
 
     if (
@@ -2833,18 +2496,13 @@ async function guardarClienteRapido() {
         !clientes[codigo]
     ) {
 
-
         alert(
-
             "Primero seleccioná una tarjeta."
-
         );
-
 
         return;
 
     }
-
 
 
     const nombre =
@@ -2853,12 +2511,10 @@ async function guardarClienteRapido() {
         ).value.trim();
 
 
-
     const descripcion =
         document.getElementById(
             "rapidoDescripcion"
         ).value.trim();
-
 
 
     const whatsapp =
@@ -2867,12 +2523,10 @@ async function guardarClienteRapido() {
         ).value.trim();
 
 
-
     const instagram =
         document.getElementById(
             "rapidoInstagram"
         ).value.trim();
-
 
 
     const placeId =
@@ -2881,27 +2535,20 @@ async function guardarClienteRapido() {
         ).value.trim();
 
 
-
     const fondo =
         normalizarEnlace(
-
             document.getElementById(
                 "rapidoFondo"
             ).value
-
         );
-
 
 
     const logo =
         normalizarEnlace(
-
             document.getElementById(
                 "rapidoLogo"
             ).value
-
         );
-
 
 
     const colorTarjeta =
@@ -2910,12 +2557,10 @@ async function guardarClienteRapido() {
         ).value;
 
 
-
     const colorCabecera =
         document.getElementById(
             "rapidoColorCabecera"
         ).value;
-
 
 
     const colorBotones =
@@ -2924,77 +2569,56 @@ async function guardarClienteRapido() {
         ).value;
 
 
-
     if (
         !nombre
     ) {
 
-
         alert(
-
             "Ingresá el nombre del negocio."
-
         );
-
 
         return;
 
     }
-
 
 
     if (
         !whatsapp
     ) {
 
-
         alert(
-
             "Ingresá el número de WhatsApp."
-
         );
-
 
         return;
 
     }
-
 
 
     if (
         !instagram
     ) {
 
-
         alert(
-
             "Ingresá el Instagram."
-
         );
-
 
         return;
 
     }
-
 
 
     if (
         !placeId
     ) {
 
-
         alert(
-
             "Ingresá el Place ID de Google."
-
         );
-
 
         return;
 
     }
-
 
 
     const enlaceWhatsapp =
@@ -3003,12 +2627,10 @@ async function guardarClienteRapido() {
         );
 
 
-
     const enlaceInstagram =
         generarEnlaceInstagram(
             instagram
         );
-
 
 
     const enlaceResena =
@@ -3017,29 +2639,13 @@ async function guardarClienteRapido() {
         );
 
 
-
     const clienteAnterior =
         JSON.parse(
-
             JSON.stringify(
                 clientes[codigo]
             )
-
         );
 
-
-
-    /*
-        IMPORTANTÍSIMO:
-
-        Conservamos todos los botones
-        que NO sean WhatsApp,
-        Instagram ni reseñas.
-
-        De esta manera, un cliente como 004
-        que tiene un cuarto botón
-        no lo pierde.
-    */
 
     const botonesExtra =
         obtenerBotonesExtra(
@@ -3047,60 +2653,48 @@ async function guardarClienteRapido() {
         );
 
 
-
     const botonesNuevos = [
 
         {
-
             nombre:
                 "📱 WhatsApp",
 
             enlace:
                 enlaceWhatsapp
-
         },
 
         {
-
             nombre:
                 "📸 Instagram",
 
             enlace:
                 enlaceInstagram
-
         },
 
         {
-
             nombre:
                 "⭐ Dejanos tu opinión",
 
             enlace:
                 enlaceResena
-
         }
 
     ];
 
 
-
     botonesExtra.forEach(
         function(boton) {
 
-
             botonesNuevos.push(
-
                 JSON.parse(
                     JSON.stringify(
                         boton
                     )
                 )
-
             );
 
         }
     );
-
 
 
     clientes[codigo] = {
@@ -3126,28 +2720,21 @@ async function guardarClienteRapido() {
         colorBotones:
             colorBotones,
 
+        estado:
+            obtenerEstadoCliente(
+                clienteAnterior
+            ),
+
+        notaInterna:
+            clienteAnterior.notaInterna || "",
+
         botones:
             botonesNuevos
 
     };
 
 
-
     generarClientesJS();
-
-
-    mostrarClientes();
-
-
-    actualizarSelectorRapido();
-
-
-
-    document.getElementById(
-        "rapidoCodigo"
-    ).value =
-        codigo;
-
 
 
     mostrarEstado(
@@ -3156,12 +2743,10 @@ async function guardarClienteRapido() {
     );
 
 
-
     const botonGuardar =
         document.getElementById(
             "botonGuardarRapido"
         );
-
 
 
     botonGuardar.disabled =
@@ -3172,10 +2757,8 @@ async function guardarClienteRapido() {
         "⏳ Guardando...";
 
 
-
     const resultado =
         await sincronizarConGitHub();
-
 
 
     botonGuardar.disabled =
@@ -3186,25 +2769,19 @@ async function guardarClienteRapido() {
         "⚡ Guardar configuración rápida";
 
 
-
     if (
         !resultado.ok
     ) {
-
 
         clientes[codigo] =
             clienteAnterior;
 
 
-
         generarClientesJS();
-
 
         mostrarClientes();
 
-
         actualizarSelectorRapido();
-
 
 
         document.getElementById(
@@ -3216,20 +2793,14 @@ async function guardarClienteRapido() {
         cargarClienteRapido();
 
 
-
         mostrarEstado(
             "❌ No se pudieron guardar los cambios.",
             "estado-error"
         );
 
 
-
         alert(
-
-            "No se pudo actualizar clientes.js.\n\n" +
-
             resultado.mensaje
-
         );
 
 
@@ -3238,17 +2809,23 @@ async function guardarClienteRapido() {
     }
 
 
-
     enlaceActual =
-
         "https://qonekta.github.io/qr-dinamicos/r/" +
-
         codigo;
 
 
+    mostrarClientes();
+
+    actualizarSelectorRapido();
+
+
+    document.getElementById(
+        "rapidoCodigo"
+    ).value =
+        codigo;
+
 
     cargarClienteRapido();
-
 
 
     mostrarEstado(
@@ -3259,23 +2836,8 @@ async function guardarClienteRapido() {
     );
 
 
-
     alert(
-
-        "✅ Cliente configurado correctamente.\n\n" +
-
-        "Tarjeta: " +
-        codigo +
-        "\n\n" +
-
-        "Se generaron automáticamente:\n" +
-
-        "📱 WhatsApp\n" +
-
-        "📸 Instagram\n" +
-
-        "⭐ Opinión en Google"
-
+        "✅ Cliente configurado correctamente."
     );
 
 }
@@ -3283,11 +2845,10 @@ async function guardarClienteRapido() {
 
 
 /* =====================================================
-   ABRIR TARJETA RÁPIDA
+   ABRIR TARJETA
 ===================================================== */
 
 function abrirTarjetaRapida() {
-
 
     const codigo =
         document.getElementById(
@@ -3295,31 +2856,22 @@ function abrirTarjetaRapida() {
         ).value;
 
 
-
     if (
         !codigo
     ) {
 
-
         alert(
-
             "Seleccioná una tarjeta."
-
         );
-
 
         return;
 
     }
 
 
-
     const enlace =
-
         "https://qonekta.github.io/qr-dinamicos/r/" +
-
         codigo;
-
 
 
     window.open(
@@ -3333,11 +2885,10 @@ function abrirTarjetaRapida() {
 
 
 /* =====================================================
-   IR DE ALTA RÁPIDA A EDICIÓN AVANZADA
+   ALTA RÁPIDA → AVANZADA
 ===================================================== */
 
 function abrirEdicionAvanzadaDesdeRapido() {
-
 
     const codigo =
         document.getElementById(
@@ -3345,23 +2896,17 @@ function abrirEdicionAvanzadaDesdeRapido() {
         ).value;
 
 
-
     if (
         !codigo
     ) {
 
-
         alert(
-
             "Seleccioná una tarjeta."
-
         );
-
 
         return;
 
     }
-
 
 
     editarCliente(
@@ -3378,6 +2923,8 @@ function abrirEdicionAvanzadaDesdeRapido() {
 
 function mostrarClientes() {
 
+    actualizarResumenStock();
+
 
     const lista =
         document.getElementById(
@@ -3385,39 +2932,29 @@ function mostrarClientes() {
         );
 
 
-    lista.innerHTML =
-        "";
-
+    lista.innerHTML = "";
 
 
     const codigos =
         obtenerCodigosOrdenados();
 
 
-
     if (
         codigos.length === 0
     ) {
 
-
         lista.innerHTML =
-
             '<p class="aviso">' +
-
             'No hay clientes registrados.' +
-
             '</p>';
-
 
         return;
 
     }
 
 
-
     codigos.forEach(
         function(codigo) {
-
 
             const cliente =
                 clientes[codigo] || {};
@@ -3431,6 +2968,15 @@ function mostrarClientes() {
                 : [];
 
 
+            const estado =
+                obtenerEstadoCliente(
+                    cliente
+                );
+
+
+            const nota =
+                cliente.notaInterna || "";
+
 
             const div =
                 document.createElement(
@@ -3442,7 +2988,6 @@ function mostrarClientes() {
                 "cliente";
 
 
-
             div.innerHTML = `
 
                 <strong>
@@ -3451,7 +2996,10 @@ function mostrarClientes() {
 
                     —
 
-                    ${escaparHTML(cliente.nombre || "Sin nombre")}
+                    ${escaparHTML(
+                        cliente.nombre ||
+                        "Sin nombre"
+                    )}
 
                 </strong>
 
@@ -3465,21 +3013,89 @@ function mostrarClientes() {
 
                 <div class="cliente-info">
 
-                    ${botones.length} botón/es configurado/s
+                    ${botones.length}
+                    botón/es configurado/s
+
+                </div>
+
+
+                <span
+                    class="badge-estado badge-${estado}"
+                >
+
+                    ${textoEstado(estado)}
+
+                </span>
+
+
+                <div class="control-stock">
+
+                    <label>
+                        Estado de la tarjeta
+                    </label>
+
+                    <select
+                        id="estado-${escaparHTML(codigo)}"
+                    >
+
+                        <option
+                            value="disponible"
+                            ${estado === "disponible" ? "selected" : ""}
+                        >
+                            ⚪ Disponible
+                        </option>
+
+                        <option
+                            value="pendiente"
+                            ${estado === "pendiente" ? "selected" : ""}
+                        >
+                            🟡 Pendiente
+                        </option>
+
+                        <option
+                            value="vendida"
+                            ${estado === "vendida" ? "selected" : ""}
+                        >
+                            🟢 Vendida
+                        </option>
+
+                    </select>
+
+
+                    <label>
+                        Nota interna
+                    </label>
+
+                    <input
+                        id="nota-${escaparHTML(codigo)}"
+                        value="${escaparHTML(nota)}"
+                        placeholder="Ejemplo: esperando logo"
+                    >
+
+
+                    <p class="aviso">
+                        Esta nota solamente la ves vos.
+                    </p>
+
+
+                    <button
+                        id="guardarEstado-${escaparHTML(codigo)}"
+                        class="boton-guardar-estado"
+                        onclick="guardarEstadoCliente('${escaparJS(codigo)}')"
+                    >
+                        💾 Guardar estado
+                    </button>
 
                 </div>
 
 
                 <div class="cliente-acciones">
 
-
                     <button
                         class="boton-editar"
                         onclick="editarCliente('${escaparJS(codigo)}')"
                     >
-
                         ✏️ Editar
-
                     </button>
 
 
@@ -3487,16 +3103,12 @@ function mostrarClientes() {
                         class="boton-eliminar"
                         onclick="eliminarCliente('${escaparJS(codigo)}')"
                     >
-
                         🗑️ Eliminar
-
                     </button>
-
 
                 </div>
 
             `;
-
 
 
             lista.appendChild(
@@ -3511,7 +3123,7 @@ function mostrarClientes() {
 
 
 /* =====================================================
-   AGREGAR BOTÓN AVANZADO
+   AGREGAR BOTÓN
 ===================================================== */
 
 function agregarBoton(
@@ -3519,16 +3131,13 @@ function agregarBoton(
     enlaceInicial = ""
 ) {
 
-
     contadorBotones++;
-
 
 
     const contenedor =
         document.getElementById(
             "botonesPersonalizados"
         );
-
 
 
     const div =
@@ -3546,13 +3155,11 @@ function agregarBoton(
         contadorBotones;
 
 
-
     div.innerHTML = `
 
         <label>
             Nombre del botón
         </label>
-
 
         <input
             class="nombre-boton"
@@ -3565,7 +3172,6 @@ function agregarBoton(
             Enlace
         </label>
 
-
         <input
             class="enlace-boton"
             placeholder="https://..."
@@ -3577,13 +3183,10 @@ function agregarBoton(
             class="boton-quitar"
             onclick="quitarBoton(${contadorBotones})"
         >
-
             🗑️ Quitar botón
-
         </button>
 
     `;
-
 
 
     contenedor.appendChild(
@@ -3600,13 +3203,10 @@ function agregarBoton(
 
 function quitarBoton(id) {
 
-
     const elemento =
         document.getElementById(
-            "boton-" +
-            id
+            "boton-" + id
         );
-
 
 
     if (
@@ -3618,7 +3218,6 @@ function quitarBoton(id) {
     }
 
 
-
     const nombre =
         elemento.querySelector(
             ".nombre-boton"
@@ -3627,17 +3226,13 @@ function quitarBoton(id) {
         "este botón";
 
 
-
     if (
         confirm(
-
             '¿Eliminar "' +
             nombre +
             '"?'
-
         )
     ) {
-
 
         elemento.remove();
 
@@ -3653,33 +3248,25 @@ function quitarBoton(id) {
 
 function editarCliente(codigo) {
 
-
     const cliente =
         clientes[codigo];
-
 
 
     if (
         !cliente
     ) {
 
-
         alert(
-
             "No se encontró ese cliente."
-
         );
-
 
         return;
 
     }
 
 
-
     clienteEditando =
         codigo;
-
 
 
     document.getElementById(
@@ -3689,13 +3276,11 @@ function editarCliente(codigo) {
         codigo;
 
 
-
     document.getElementById(
         "tituloFormulario"
     ).classList.add(
         "titulo-edicion"
     );
-
 
 
     document.getElementById(
@@ -3704,12 +3289,10 @@ function editarCliente(codigo) {
         "block";
 
 
-
     document.getElementById(
         "codigo"
     ).value =
         codigo;
-
 
 
     document.getElementById(
@@ -3718,12 +3301,10 @@ function editarCliente(codigo) {
         true;
 
 
-
     document.getElementById(
         "nombre"
     ).value =
         cliente.nombre || "";
-
 
 
     document.getElementById(
@@ -3732,19 +3313,16 @@ function editarCliente(codigo) {
         cliente.descripcion || "";
 
 
-
     document.getElementById(
         "fondo"
     ).value =
         cliente.fondo || "";
 
 
-
     document.getElementById(
         "logo"
     ).value =
         cliente.logo || "";
-
 
 
     document.getElementById(
@@ -3754,13 +3332,11 @@ function editarCliente(codigo) {
         "#00b7ff";
 
 
-
     document.getElementById(
         "colorCabecera"
     ).value =
         cliente.colorCabecera ||
         "#222222";
-
 
 
     document.getElementById(
@@ -3770,17 +3346,12 @@ function editarCliente(codigo) {
         "#222222";
 
 
-
     document.getElementById(
         "botonesPersonalizados"
-    ).innerHTML =
-        "";
+    ).innerHTML = "";
 
 
-
-    contadorBotones =
-        0;
-
+    contadorBotones = 0;
 
 
     const botones =
@@ -3791,22 +3362,16 @@ function editarCliente(codigo) {
         : [];
 
 
-
     botones.forEach(
         function(boton) {
 
-
             agregarBoton(
-
                 boton.nombre,
-
                 boton.enlace
-
             );
 
         }
     );
-
 
 
     document.getElementById(
@@ -3815,12 +3380,10 @@ function editarCliente(codigo) {
         "💾 Guardar cambios";
 
 
-
     document.getElementById(
         "botonCancelar"
     ).style.display =
         "block";
-
 
 
     document.getElementById(
@@ -3829,14 +3392,10 @@ function editarCliente(codigo) {
         "none";
 
 
-
     document.getElementById(
         "formularioCliente"
     ).scrollIntoView({
-
-        behavior:
-            "smooth"
-
+        behavior: "smooth"
     });
 
 }
@@ -3849,10 +3408,8 @@ function editarCliente(codigo) {
 
 async function eliminarCliente(codigo) {
 
-
     const cliente =
         clientes[codigo];
-
 
 
     if (
@@ -3862,7 +3419,6 @@ async function eliminarCliente(codigo) {
         return;
 
     }
-
 
 
     const confirmar =
@@ -3886,7 +3442,6 @@ async function eliminarCliente(codigo) {
         );
 
 
-
     if (
         !confirmar
     ) {
@@ -3896,30 +3451,18 @@ async function eliminarCliente(codigo) {
     }
 
 
-
     const respaldo =
         JSON.parse(
-
             JSON.stringify(
                 cliente
             )
-
         );
-
 
 
     delete clientes[codigo];
 
 
-
     generarClientesJS();
-
-
-    mostrarClientes();
-
-
-    actualizarSelectorRapido();
-
 
 
     mostrarEstado(
@@ -3928,30 +3471,23 @@ async function eliminarCliente(codigo) {
     );
 
 
-
     const resultado =
         await sincronizarConGitHub();
-
 
 
     if (
         !resultado.ok
     ) {
 
-
         clientes[codigo] =
             respaldo;
 
 
-
         generarClientesJS();
-
 
         mostrarClientes();
 
-
         actualizarSelectorRapido();
-
 
 
         mostrarEstado(
@@ -3970,6 +3506,10 @@ async function eliminarCliente(codigo) {
     }
 
 
+    mostrarClientes();
+
+    actualizarSelectorRapido();
+
 
     mostrarEstado(
         "✅ Cliente eliminado.",
@@ -3977,11 +3517,9 @@ async function eliminarCliente(codigo) {
     );
 
 
-
     if (
         clienteEditando === codigo
     ) {
-
 
         cancelarEdicion();
 
@@ -3997,17 +3535,14 @@ async function eliminarCliente(codigo) {
 
 function cancelarEdicion() {
 
-
     clienteEditando =
         null;
-
 
 
     document.getElementById(
         "tituloFormulario"
     ).textContent =
         "Crear nuevo cliente";
-
 
 
     document.getElementById(
@@ -4017,12 +3552,10 @@ function cancelarEdicion() {
     );
 
 
-
     document.getElementById(
         "avisoEdicion"
     ).style.display =
         "none";
-
 
 
     document.getElementById(
@@ -4031,40 +3564,29 @@ function cancelarEdicion() {
         false;
 
 
-
     document.getElementById(
         "codigo"
-    ).value =
-        "";
-
+    ).value = "";
 
 
     document.getElementById(
         "nombre"
-    ).value =
-        "";
-
+    ).value = "";
 
 
     document.getElementById(
         "descripcion"
-    ).value =
-        "";
-
+    ).value = "";
 
 
     document.getElementById(
         "fondo"
-    ).value =
-        "";
-
+    ).value = "";
 
 
     document.getElementById(
         "logo"
-    ).value =
-        "";
-
+    ).value = "";
 
 
     document.getElementById(
@@ -4073,12 +3595,10 @@ function cancelarEdicion() {
         "#00b7ff";
 
 
-
     document.getElementById(
         "colorCabecera"
     ).value =
         "#222222";
-
 
 
     document.getElementById(
@@ -4087,24 +3607,18 @@ function cancelarEdicion() {
         "#222222";
 
 
-
     document.getElementById(
         "botonesPersonalizados"
-    ).innerHTML =
-        "";
+    ).innerHTML = "";
 
 
-
-    contadorBotones =
-        0;
-
+    contadorBotones = 0;
 
 
     document.getElementById(
         "botonGuardar"
     ).textContent =
         "Crear cliente";
-
 
 
     document.getElementById(
@@ -4122,12 +3636,10 @@ function cancelarEdicion() {
 
 function normalizarEnlace(enlace) {
 
-
     let valor =
         String(
             enlace || ""
         ).trim();
-
 
 
     if (
@@ -4137,7 +3649,6 @@ function normalizarEnlace(enlace) {
         return "";
 
     }
-
 
 
     if (
@@ -4151,7 +3662,6 @@ function normalizarEnlace(enlace) {
     }
 
 
-
     if (
         /^tel:/i.test(valor)
         ||
@@ -4161,7 +3671,6 @@ function normalizarEnlace(enlace) {
         return valor;
 
     }
-
 
 
     return "https://" +
@@ -4175,17 +3684,15 @@ function normalizarEnlace(enlace) {
 
 
 /* =====================================================
-   GUARDAR CLIENTE AVANZADO
+   GUARDAR AVANZADO
 ===================================================== */
 
 async function guardarCliente() {
-
 
     const codigo =
         document.getElementById(
             "codigo"
         ).value.trim();
-
 
 
     const nombre =
@@ -4194,34 +3701,26 @@ async function guardarCliente() {
         ).value.trim();
 
 
-
     const descripcion =
         document.getElementById(
             "descripcion"
         ).value.trim();
 
 
-
     const fondo =
         normalizarEnlace(
-
             document.getElementById(
                 "fondo"
             ).value
-
         );
-
 
 
     const logo =
         normalizarEnlace(
-
             document.getElementById(
                 "logo"
             ).value
-
         );
-
 
 
     const colorTarjeta =
@@ -4230,12 +3729,10 @@ async function guardarCliente() {
         ).value;
 
 
-
     const colorCabecera =
         document.getElementById(
             "colorCabecera"
         ).value;
-
 
 
     const colorBotones =
@@ -4244,24 +3741,18 @@ async function guardarCliente() {
         ).value;
 
 
-
     if (
         !codigo ||
         !nombre
     ) {
 
-
         alert(
-
             "Completá código y nombre."
-
         );
-
 
         return;
 
     }
-
 
 
     if (
@@ -4269,18 +3760,13 @@ async function guardarCliente() {
         clientes[codigo]
     ) {
 
-
         alert(
-
             "Ese código ya existe."
-
         );
-
 
         return;
 
     }
-
 
 
     const nombres =
@@ -4289,35 +3775,26 @@ async function guardarCliente() {
         );
 
 
-
     const enlaces =
         document.querySelectorAll(
             ".enlace-boton"
         );
 
 
-
     if (
         nombres.length === 0
     ) {
 
-
         alert(
-
             "Agregá al menos un botón."
-
         );
-
 
         return;
 
     }
 
 
-
-    const botones =
-        [];
-
+    const botones = [];
 
 
     for (
@@ -4326,10 +3803,8 @@ async function guardarCliente() {
         i++
     ) {
 
-
         const nombreBoton =
             nombres[i].value.trim();
-
 
 
         const enlaceBoton =
@@ -4338,24 +3813,18 @@ async function guardarCliente() {
             );
 
 
-
         if (
             !nombreBoton ||
             !enlaceBoton
         ) {
 
-
             alert(
-
                 "Completá nombre y enlace de cada botón."
-
             );
-
 
             return;
 
         }
-
 
 
         botones.push({
@@ -4371,30 +3840,24 @@ async function guardarCliente() {
     }
 
 
-
     const estabaEditando =
         Boolean(
             clienteEditando
         );
 
 
-
     const respaldo =
-
         estabaEditando
 
             ? JSON.parse(
-
                 JSON.stringify(
                     clientes[
                         clienteEditando
                     ]
                 )
-
             )
 
             : null;
-
 
 
     clientes[codigo] = {
@@ -4420,28 +3883,34 @@ async function guardarCliente() {
         colorBotones:
             colorBotones,
 
+        estado:
+            estabaEditando
+                ? obtenerEstadoCliente(
+                    respaldo
+                )
+                : "disponible",
+
+        notaInterna:
+            estabaEditando
+                ? (
+                    respaldo.notaInterna ||
+                    ""
+                )
+                : "",
+
         botones:
             botones
 
     };
 
 
-
     generarClientesJS();
-
-
-    mostrarClientes();
-
-
-    actualizarSelectorRapido();
-
 
 
     mostrarEstado(
         "⏳ Guardando cambios...",
         "estado-cargando"
     );
-
 
 
     const botonGuardar =
@@ -4458,26 +3927,21 @@ async function guardarCliente() {
         "⏳ Guardando...";
 
 
-
     const resultado =
         await sincronizarConGitHub();
-
 
 
     botonGuardar.disabled =
         false;
 
 
-
     if (
         !resultado.ok
     ) {
 
-
         if (
             estabaEditando
         ) {
-
 
             clientes[codigo] =
                 respaldo;
@@ -4486,31 +3950,22 @@ async function guardarCliente() {
 
         else {
 
-
             delete clientes[codigo];
 
         }
 
 
-
         generarClientesJS();
 
-
         mostrarClientes();
-
 
         actualizarSelectorRapido();
 
 
-
         botonGuardar.textContent =
-
             estabaEditando
-
                 ? "💾 Guardar cambios"
-
                 : "Crear cliente";
-
 
 
         mostrarEstado(
@@ -4529,13 +3984,9 @@ async function guardarCliente() {
     }
 
 
-
     enlaceActual =
-
         "https://qonekta.github.io/qr-dinamicos/r/" +
-
         codigo;
-
 
 
     document.getElementById(
@@ -4544,12 +3995,10 @@ async function guardarCliente() {
         enlaceActual;
 
 
-
     document.getElementById(
         "codigoGenerado"
     ).textContent =
         codigoActual;
-
 
 
     document.getElementById(
@@ -4558,6 +4007,10 @@ async function guardarCliente() {
         "block";
 
 
+    mostrarClientes();
+
+    actualizarSelectorRapido();
+
 
     mostrarEstado(
         "✅ Cambios guardados correctamente.",
@@ -4565,24 +4018,14 @@ async function guardarCliente() {
     );
 
 
-
     alert(
-
         estabaEditando
-
             ? "Cliente actualizado correctamente."
-
             : "Cliente creado correctamente."
-
     );
 
 
-
     cancelarEdicion();
-
-
-
-    actualizarSelectorRapido();
 
 }
 
@@ -4594,16 +4037,13 @@ async function guardarCliente() {
 
 async function sincronizarConGitHub() {
 
-
     if (
         !claveSincronizacion
     ) {
 
-
         return {
 
-            ok:
-                false,
+            ok: false,
 
             mensaje:
                 "No hay clave de sincronización."
@@ -4613,17 +4053,13 @@ async function sincronizarConGitHub() {
     }
 
 
-
     try {
-
 
         const respuesta =
             await fetch(
                 WORKER_URL,
                 {
-
-                    method:
-                        "POST",
+                    method: "POST",
 
                     headers: {
 
@@ -4637,20 +4073,15 @@ async function sincronizarConGitHub() {
 
                     body:
                         JSON.stringify({
-
                             content:
                                 codigoActual
-
                         })
-
                 }
             );
 
 
-
         const datos =
             await respuesta.json();
-
 
 
         if (
@@ -4658,16 +4089,12 @@ async function sincronizarConGitHub() {
             !datos.ok
         ) {
 
-
             return {
 
-                ok:
-                    false,
+                ok: false,
 
                 mensaje:
-
                     datos.mensaje ||
-
                     "Cloudflare rechazó la actualización."
 
             };
@@ -4675,32 +4102,25 @@ async function sincronizarConGitHub() {
         }
 
 
-
         return {
 
-            ok:
-                true,
+            ok: true,
 
             mensaje:
                 datos.mensaje
 
         };
 
-
     }
 
     catch (error) {
 
-
         return {
 
-            ok:
-                false,
+            ok: false,
 
             mensaje:
-
                 "No se pudo conectar con Cloudflare.\n\n" +
-
                 error.message
 
         };
@@ -4717,7 +4137,6 @@ async function sincronizarConGitHub() {
 
 function generarClientesJS() {
 
-
     let codigo =
 
 `const negocios = {
@@ -4725,19 +4144,15 @@ function generarClientesJS() {
 `;
 
 
-
     const codigos =
         obtenerCodigosOrdenados();
-
 
 
     codigos.forEach(
         function(id) {
 
-
             const cliente =
                 clientes[id] || {};
-
 
 
             codigo +=
@@ -4758,10 +4173,13 @@ function generarClientesJS() {
 
         colorBotones: "${escaparJS(cliente.colorBotones || "#222222")}",
 
+        estado: "${escaparJS(obtenerEstadoCliente(cliente))}",
+
+        notaInterna: "${escaparJS(cliente.notaInterna || "")}",
+
         botones: [
 
 `;
-
 
 
             const botones =
@@ -4772,10 +4190,8 @@ function generarClientesJS() {
                 : [];
 
 
-
             botones.forEach(
                 function(boton) {
-
 
                     codigo +=
 
@@ -4790,7 +4206,6 @@ function generarClientesJS() {
             );
 
 
-
             codigo +=
 
 `        ]
@@ -4803,17 +4218,14 @@ function generarClientesJS() {
     );
 
 
-
     codigo +=
 
 `};
 `;
 
 
-
     codigoActual =
         codigo;
-
 
 
     document.getElementById(
@@ -4831,11 +4243,9 @@ function generarClientesJS() {
 
 function copiarEnlace() {
 
-
     navigator.clipboard.writeText(
         enlaceActual
     );
-
 
     alert(
         "Enlace copiado."
@@ -4844,14 +4254,11 @@ function copiarEnlace() {
 }
 
 
-
 function copiarCodigo() {
-
 
     navigator.clipboard.writeText(
         codigoActual
     );
-
 
     alert(
         "clientes.js copiado."
@@ -4866,7 +4273,6 @@ function copiarCodigo() {
 ===================================================== */
 
 function escaparHTML(texto) {
-
 
     return String(texto)
 
@@ -4900,7 +4306,6 @@ function escaparHTML(texto) {
 
 function escaparJS(texto) {
 
-
     return String(texto)
 
         .replace(
@@ -4925,9 +4330,7 @@ function escaparJS(texto) {
 
 }
 
-
 </script>
-
 
 </body>
 
