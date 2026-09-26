@@ -2,7 +2,6 @@
 <html lang="es">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta
@@ -150,6 +149,63 @@ button:disabled {
 
 
 /* =====================================================
+   CREAR NUEVAS TARJETAS
+===================================================== */
+
+.crear-tarjetas {
+    border: 2px solid #dcfce7;
+    background: #f7fff9;
+}
+
+.dato-proximo {
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: 12px;
+    background: white;
+    border: 1px solid #d8e8dd;
+}
+
+.dato-proximo strong {
+    font-size: 22px;
+}
+
+.preview-rango {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #eefbf1;
+    color: #265d35;
+    font-weight: bold;
+}
+
+.boton-crear-tarjetas {
+    background: #15803d;
+}
+
+.resultado-nuevas {
+    display: none;
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 12px;
+    background: #ecfdf3;
+    border: 1px solid #bbebca;
+}
+
+.lista-nuevas {
+    margin-top: 12px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 300px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+
+/* =====================================================
    ALTA RÁPIDA
 ===================================================== */
 
@@ -206,7 +262,7 @@ button:disabled {
 
 
 /* =====================================================
-   CARGA DE IMÁGENES
+   IMÁGENES
 ===================================================== */
 
 .carga-imagen {
@@ -256,7 +312,7 @@ button:disabled {
 
 
 /* =====================================================
-   CONTROL ESTADO
+   ESTADOS
 ===================================================== */
 
 .cliente {
@@ -380,7 +436,6 @@ button:disabled {
 
 .boton-cerrar-sesion {
     background: #555;
-    margin-top: 15px;
 }
 
 .seccion-personalizacion {
@@ -416,10 +471,6 @@ button:disabled {
     overflow-x: auto;
     white-space: pre-wrap;
     word-break: break-word;
-}
-
-.titulo-edicion {
-    color: #1976d2;
 }
 
 
@@ -488,9 +539,7 @@ button:disabled {
 
     <div class="tarjeta">
 
-        <h2>
-            🔐 Acceso restringido
-        </h2>
+        <h2>🔐 Acceso restringido</h2>
 
         <p>
             Ingresá las claves para acceder al panel.
@@ -517,8 +566,7 @@ button:disabled {
         >
 
         <p class="aviso">
-            La sesión permanecerá activa mientras
-            mantengas abierta esta pestaña.
+            La sesión permanecerá activa mientras mantengas abierta esta pestaña.
         </p>
 
         <button onclick="iniciarSesion()">
@@ -598,6 +646,92 @@ button:disabled {
         >
             🔒 Cerrar sesión
         </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         CREAR NUEVAS TARJETAS
+    ================================================== -->
+
+    <div class="tarjeta crear-tarjetas">
+
+        <h2>
+            ➕ Crear nuevas tarjetas
+        </h2>
+
+        <p>
+            Generá automáticamente nuevos códigos para tu próxima tanda física.
+        </p>
+
+        <p class="aviso">
+            El sistema siempre continúa después del código numérico más alto.
+            Nunca reutiliza automáticamente un código anterior.
+        </p>
+
+
+        <div class="dato-proximo">
+
+            Próximo código disponible:
+
+            <strong id="proximoCodigo">
+                ---
+            </strong>
+
+        </div>
+
+
+        <label>
+            ¿Cuántas tarjetas querés crear?
+        </label>
+
+        <input
+            type="number"
+            id="cantidadNuevasTarjetas"
+            value="1"
+            min="1"
+            max="100"
+            oninput="actualizarVistaNuevasTarjetas()"
+        >
+
+
+        <div
+            id="previewRango"
+            class="preview-rango"
+        ></div>
+
+
+        <button
+            id="botonCrearNuevas"
+            class="boton-crear-tarjetas"
+            onclick="crearNuevasTarjetas()"
+        >
+            ➕ Crear tarjetas
+        </button>
+
+
+        <div
+            id="resultadoNuevasTarjetas"
+            class="resultado-nuevas"
+        >
+
+            <strong>
+                ✅ Tarjetas creadas correctamente
+            </strong>
+
+            <div
+                id="listaNuevasTarjetas"
+                class="lista-nuevas"
+            ></div>
+
+            <button
+                onclick="copiarListaNuevasTarjetas()"
+            >
+                📋 Copiar códigos y enlaces
+            </button>
+
+        </div>
 
     </div>
 
@@ -723,18 +857,12 @@ button:disabled {
 
 
 
-        <!-- =================================================
-             PERSONALIZACIÓN RÁPIDA
-        ================================================== -->
-
         <div class="bloque-datos">
 
             <h3 style="margin-top:0;">
                 🎨 Personalización
             </h3>
 
-
-            <!-- FONDO -->
 
             <div class="carga-imagen">
 
@@ -785,7 +913,6 @@ button:disabled {
             >
 
 
-            <!-- LOGO -->
 
             <div class="carga-imagen">
 
@@ -900,7 +1027,7 @@ button:disabled {
 
 
     <!-- =================================================
-         ESTADO TARJETAS
+         ESTADO DE TARJETAS
     ================================================== -->
 
     <div class="tarjeta">
@@ -910,8 +1037,7 @@ button:disabled {
         </h2>
 
         <p class="aviso">
-            Elegí una tarjeta para consultar o modificar
-            su estado.
+            Elegí una tarjeta para consultar o modificar su estado.
         </p>
 
 
@@ -957,9 +1083,8 @@ button:disabled {
         </h2>
 
         <p class="aviso">
-            Esta sección permite configurar cualquier
-            cantidad de botones y modificar todos los
-            datos manualmente.
+            Esta sección permite configurar cualquier cantidad
+            de botones y modificar todos los datos manualmente.
         </p>
 
         <p
@@ -1008,8 +1133,6 @@ button:disabled {
                 🎨 Personalización visual
             </h3>
 
-
-            <!-- FONDO AVANZADO -->
 
             <div class="carga-imagen">
 
@@ -1060,7 +1183,6 @@ button:disabled {
             >
 
 
-            <!-- LOGO AVANZADO -->
 
             <div class="carga-imagen">
 
@@ -1242,6 +1364,7 @@ const CLAVE_SESION =
 const CLAVE_SECRET =
     "qonekta_admin_secret";
 
+
 let claveSincronizacion = "";
 
 let clientes = {};
@@ -1253,6 +1376,8 @@ let enlaceActual = "";
 let codigoActual = "";
 
 let clienteEditando = null;
+
+let ultimasTarjetasCreadas = [];
 
 
 
@@ -1359,7 +1484,8 @@ async function iniciarSesion() {
 
     document.getElementById(
         "errorLogin"
-    ).textContent = "";
+    ).textContent =
+        "";
 
 
     mostrarPanel();
@@ -1378,11 +1504,13 @@ function mostrarPanel() {
 
     document.getElementById(
         "login"
-    ).style.display = "none";
+    ).style.display =
+        "none";
 
     document.getElementById(
         "panel"
-    ).style.display = "block";
+    ).style.display =
+        "block";
 
 }
 
@@ -1402,31 +1530,38 @@ function cerrarSesion() {
         CLAVE_SECRET
     );
 
-    claveSincronizacion = "";
+    claveSincronizacion =
+        "";
 
-    clientes = {};
+    clientes =
+        {};
 
-    clienteEditando = null;
+    clienteEditando =
+        null;
 
 
     document.getElementById(
         "panel"
-    ).style.display = "none";
+    ).style.display =
+        "none";
 
 
     document.getElementById(
         "login"
-    ).style.display = "block";
+    ).style.display =
+        "block";
 
 
     document.getElementById(
         "password"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "adminSecret"
-    ).value = "";
+    ).value =
+        "";
 
 }
 
@@ -1450,7 +1585,8 @@ async function cargarClientesDesdeGitHub() {
             await fetch(
                 WORKER_URL,
                 {
-                    method: "GET",
+                    method:
+                        "GET",
 
                     headers: {
                         "X-Admin-Key":
@@ -1535,6 +1671,7 @@ async function cargarClientesDesdeGitHub() {
 
         console.error(error);
 
+
         mostrarEstado(
             "❌ No se pudieron cargar los clientes.",
             "estado-error"
@@ -1567,6 +1704,8 @@ function actualizarTodoPanel() {
 
     actualizarSelectorEstado();
 
+    actualizarVistaNuevasTarjetas();
+
 }
 
 
@@ -1585,11 +1724,15 @@ function mostrarEstado(
             "estado"
         );
 
+
     estado.textContent =
         mensaje;
 
+
     estado.className =
-        "estado " + tipo;
+        "estado " +
+        tipo;
+
 
     estado.style.display =
         "block";
@@ -1599,7 +1742,7 @@ function mostrarEstado(
 
 
 /* =====================================================
-   ESTADO ADMINISTRATIVO
+   ESTADOS ADMINISTRATIVOS
 ===================================================== */
 
 function obtenerEstadoCliente(
@@ -1615,14 +1758,18 @@ function obtenerEstadoCliente(
     if (
         valor === "pendiente"
     ) {
+
         return "pendiente";
+
     }
 
 
     if (
         valor === "vendida"
     ) {
+
         return "vendida";
+
     }
 
 
@@ -1638,14 +1785,18 @@ function textoEstado(
     if (
         estado === "pendiente"
     ) {
+
         return "🟡 Pendiente";
+
     }
 
 
     if (
         estado === "vendida"
     ) {
+
         return "🟢 Vendida";
+
     }
 
 
@@ -1656,7 +1807,7 @@ function textoEstado(
 
 
 /* =====================================================
-   ORDEN CÓDIGOS
+   CÓDIGOS
 ===================================================== */
 
 function obtenerCodigosOrdenados() {
@@ -1667,10 +1818,16 @@ function obtenerCodigosOrdenados() {
         function(a, b) {
 
             const numeroA =
-                parseInt(a, 10);
+                parseInt(
+                    a,
+                    10
+                );
 
             const numeroB =
-                parseInt(b, 10);
+                parseInt(
+                    b,
+                    10
+                );
 
 
             if (
@@ -1678,12 +1835,15 @@ function obtenerCodigosOrdenados() {
                 !isNaN(numeroB)
             ) {
 
-                return numeroA - numeroB;
+                return numeroA -
+                    numeroB;
 
             }
 
 
-            return a.localeCompare(b);
+            return a.localeCompare(
+                b
+            );
 
         }
     );
@@ -1691,9 +1851,551 @@ function obtenerCodigosOrdenados() {
 }
 
 
+function obtenerMayorCodigoNumerico() {
+
+    let mayor =
+        0;
+
+
+    Object.keys(
+        clientes
+    ).forEach(
+        function(codigo) {
+
+            if (
+                /^\d+$/.test(
+                    codigo
+                )
+            ) {
+
+                const numero =
+                    parseInt(
+                        codigo,
+                        10
+                    );
+
+
+                if (
+                    numero > mayor
+                ) {
+
+                    mayor =
+                        numero;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    return mayor;
+
+}
+
+
+function formatearCodigo(
+    numero
+) {
+
+    const ancho =
+        Math.max(
+            3,
+            String(numero).length
+        );
+
+
+    return String(
+        numero
+    ).padStart(
+        ancho,
+        "0"
+    );
+
+}
+
+
 
 /* =====================================================
-   RESUMEN STOCK
+   CREAR NUEVAS TARJETAS
+===================================================== */
+
+function actualizarVistaNuevasTarjetas() {
+
+    const campoCantidad =
+        document.getElementById(
+            "cantidadNuevasTarjetas"
+        );
+
+
+    if (
+        !campoCantidad
+    ) {
+
+        return;
+
+    }
+
+
+    let cantidad =
+        parseInt(
+            campoCantidad.value,
+            10
+        );
+
+
+    if (
+        isNaN(cantidad) ||
+        cantidad < 1
+    ) {
+
+        cantidad =
+            1;
+
+    }
+
+
+    const inicio =
+        obtenerMayorCodigoNumerico() +
+        1;
+
+
+    const fin =
+        inicio +
+        cantidad -
+        1;
+
+
+    const codigoInicio =
+        formatearCodigo(
+            inicio
+        );
+
+
+    const codigoFin =
+        formatearCodigo(
+            fin
+        );
+
+
+    document.getElementById(
+        "proximoCodigo"
+    ).textContent =
+        codigoInicio;
+
+
+    const preview =
+        document.getElementById(
+            "previewRango"
+        );
+
+
+    if (
+        cantidad === 1
+    ) {
+
+        preview.textContent =
+            "Se creará la tarjeta " +
+            codigoInicio +
+            ".";
+
+    }
+
+    else {
+
+        preview.textContent =
+            "Se crearán " +
+            cantidad +
+            " tarjetas: " +
+            codigoInicio +
+            " a " +
+            codigoFin +
+            ".";
+
+    }
+
+}
+
+
+
+async function crearNuevasTarjetas() {
+
+    let cantidad =
+        parseInt(
+            document.getElementById(
+                "cantidadNuevasTarjetas"
+            ).value,
+            10
+        );
+
+
+    if (
+        isNaN(cantidad) ||
+        cantidad < 1
+    ) {
+
+        alert(
+            "Ingresá una cantidad válida."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        cantidad > 100
+    ) {
+
+        alert(
+            "Por seguridad, podés crear hasta 100 tarjetas por vez."
+        );
+
+        return;
+
+    }
+
+
+    const inicio =
+        obtenerMayorCodigoNumerico() +
+        1;
+
+
+    const fin =
+        inicio +
+        cantidad -
+        1;
+
+
+    const codigoInicio =
+        formatearCodigo(
+            inicio
+        );
+
+
+    const codigoFin =
+        formatearCodigo(
+            fin
+        );
+
+
+    let mensajeConfirmacion;
+
+
+    if (
+        cantidad === 1
+    ) {
+
+        mensajeConfirmacion =
+            "¿Crear la nueva tarjeta " +
+            codigoInicio +
+            "?";
+
+    }
+
+    else {
+
+        mensajeConfirmacion =
+            "¿Crear " +
+            cantidad +
+            " nuevas tarjetas?\n\n" +
+            codigoInicio +
+            " a " +
+            codigoFin;
+
+    }
+
+
+    if (
+        !confirm(
+            mensajeConfirmacion
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const nuevosCodigos =
+        [];
+
+
+    for (
+        let numero = inicio;
+        numero <= fin;
+        numero++
+    ) {
+
+        const codigo =
+            formatearCodigo(
+                numero
+            );
+
+
+        if (
+            clientes[codigo]
+        ) {
+
+            alert(
+                "El código " +
+                codigo +
+                " ya existe. No se creó ninguna tarjeta."
+            );
+
+            return;
+
+        }
+
+
+        nuevosCodigos.push(
+            codigo
+        );
+
+    }
+
+
+    nuevosCodigos.forEach(
+        function(codigo) {
+
+            clientes[codigo] = {
+
+                nombre:
+                    "",
+
+                descripcion:
+                    "",
+
+                fondo:
+                    "",
+
+                logo:
+                    "",
+
+                colorTarjeta:
+                    "#00b7ff",
+
+                colorCabecera:
+                    "#222222",
+
+                colorBotones:
+                    "#222222",
+
+                estado:
+                    "disponible",
+
+                notaInterna:
+                    "",
+
+                botones:
+                    []
+
+            };
+
+        }
+    );
+
+
+    generarClientesJS();
+
+
+    const boton =
+        document.getElementById(
+            "botonCrearNuevas"
+        );
+
+
+    boton.disabled =
+        true;
+
+
+    boton.textContent =
+        "⏳ Creando tarjetas...";
+
+
+    mostrarEstado(
+        "⏳ Creando nuevas tarjetas...",
+        "estado-cargando"
+    );
+
+
+    const resultado =
+        await sincronizarConGitHub();
+
+
+    boton.disabled =
+        false;
+
+
+    boton.textContent =
+        "➕ Crear tarjetas";
+
+
+    if (
+        !resultado.ok
+    ) {
+
+        nuevosCodigos.forEach(
+            function(codigo) {
+
+                delete clientes[
+                    codigo
+                ];
+
+            }
+        );
+
+
+        generarClientesJS();
+
+        actualizarTodoPanel();
+
+
+        mostrarEstado(
+            "❌ No se pudieron crear las tarjetas.",
+            "estado-error"
+        );
+
+
+        alert(
+            "No se pudieron crear las tarjetas.\n\n" +
+            resultado.mensaje
+        );
+
+
+        return;
+
+    }
+
+
+    ultimasTarjetasCreadas =
+        nuevosCodigos;
+
+
+    actualizarTodoPanel();
+
+
+    mostrarResultadoNuevasTarjetas();
+
+
+    mostrarEstado(
+        "✅ Nuevas tarjetas creadas correctamente.",
+        "estado-ok"
+    );
+
+
+    alert(
+        cantidad === 1
+            ? "✅ Tarjeta " +
+              codigoInicio +
+              " creada correctamente."
+            : "✅ " +
+              cantidad +
+              " tarjetas creadas correctamente."
+    );
+
+}
+
+
+
+function mostrarResultadoNuevasTarjetas() {
+
+    const resultado =
+        document.getElementById(
+            "resultadoNuevasTarjetas"
+        );
+
+
+    const lista =
+        document.getElementById(
+            "listaNuevasTarjetas"
+        );
+
+
+    if (
+        ultimasTarjetasCreadas.length === 0
+    ) {
+
+        resultado.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    const lineas =
+        ultimasTarjetasCreadas.map(
+            function(codigo) {
+
+                return (
+                    codigo +
+                    " — " +
+                    "https://qonekta.github.io/qr-dinamicos/r/" +
+                    codigo
+                );
+
+            }
+        );
+
+
+    lista.textContent =
+        lineas.join(
+            "\n"
+        );
+
+
+    resultado.style.display =
+        "block";
+
+}
+
+
+
+function copiarListaNuevasTarjetas() {
+
+    if (
+        ultimasTarjetasCreadas.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    const texto =
+        ultimasTarjetasCreadas.map(
+            function(codigo) {
+
+                return (
+                    codigo +
+                    " — " +
+                    "https://qonekta.github.io/qr-dinamicos/r/" +
+                    codigo
+                );
+
+            }
+        ).join(
+            "\n"
+        );
+
+
+    navigator.clipboard.writeText(
+        texto
+    );
+
+
+    alert(
+        "Códigos y enlaces copiados."
+    );
+
+}
+
+
+
+/* =====================================================
+   RESUMEN DE STOCK
 ===================================================== */
 
 function actualizarResumenStock() {
@@ -1702,9 +2404,14 @@ function actualizarResumenStock() {
         obtenerCodigosOrdenados();
 
 
-    let disponibles = 0;
-    let pendientes = 0;
-    let vendidas = 0;
+    let disponibles =
+        0;
+
+    let pendientes =
+        0;
+
+    let vendidas =
+        0;
 
 
     codigos.forEach(
@@ -1719,17 +2426,23 @@ function actualizarResumenStock() {
             if (
                 estado === "pendiente"
             ) {
+
                 pendientes++;
+
             }
 
             else if (
                 estado === "vendida"
             ) {
+
                 vendidas++;
+
             }
 
             else {
+
                 disponibles++;
+
             }
 
         }
@@ -1785,11 +2498,7 @@ function actualizarSelectorEstado() {
         '</option>';
 
 
-    const codigos =
-        obtenerCodigosOrdenados();
-
-
-    codigos.forEach(
+    obtenerCodigosOrdenados().forEach(
         function(codigo) {
 
             const cliente =
@@ -1815,7 +2524,9 @@ function actualizarSelectorEstado() {
             opcion.textContent =
                 codigo +
                 " — " +
-                textoEstado(estado) +
+                textoEstado(
+                    estado
+                ) +
                 " — " +
                 (
                     cliente.nombre ||
@@ -1849,10 +2560,6 @@ function actualizarSelectorEstado() {
 
 
 
-/* =====================================================
-   MOSTRAR ESTADO SELECCIONADO
-===================================================== */
-
 function mostrarClienteEstadoSeleccionado() {
 
     const codigo =
@@ -1875,10 +2582,7 @@ function mostrarClienteEstadoSeleccionado() {
         contenedor.innerHTML = `
 
             <div class="seleccion-vacia">
-
-                Seleccioná una tarjeta para
-                administrar su estado.
-
+                Seleccioná una tarjeta para administrar su estado.
             </div>
 
         `;
@@ -1907,7 +2611,8 @@ function mostrarClienteEstadoSeleccionado() {
 
 
     const nota =
-        cliente.notaInterna || "";
+        cliente.notaInterna ||
+        "";
 
 
     contenedor.innerHTML = `
@@ -1915,40 +2620,27 @@ function mostrarClienteEstadoSeleccionado() {
         <div class="cliente">
 
             <strong>
-
                 ${escaparHTML(codigo)}
-
                 —
-
                 ${escaparHTML(
                     cliente.nombre ||
                     "Sin nombre"
                 )}
-
             </strong>
 
-
             <div class="cliente-url">
-
                 /r/${escaparHTML(codigo)}
-
             </div>
-
 
             <div class="cliente-info">
-
                 ${botones.length}
                 botón/es configurado/s
-
             </div>
-
 
             <span
                 class="badge-estado badge-${estado}"
             >
-
                 ${textoEstado(estado)}
-
             </span>
 
 
@@ -1958,10 +2650,7 @@ function mostrarClienteEstadoSeleccionado() {
                     Estado de la tarjeta
                 </label>
 
-
-                <select
-                    id="estadoSeleccionado"
-                >
+                <select id="estadoSeleccionado">
 
                     <option
                         value="disponible"
@@ -1991,7 +2680,6 @@ function mostrarClienteEstadoSeleccionado() {
                     Nota interna
                 </label>
 
-
                 <input
                     id="notaSeleccionada"
                     value="${escaparHTML(nota)}"
@@ -2018,7 +2706,6 @@ function mostrarClienteEstadoSeleccionado() {
                     ✏️ Editar
                 </button>
 
-
                 <button
                     class="boton-eliminar"
                     onclick="eliminarCliente('${escaparJS(codigo)}')"
@@ -2036,10 +2723,6 @@ function mostrarClienteEstadoSeleccionado() {
 
 
 
-/* =====================================================
-   GUARDAR ESTADO
-===================================================== */
-
 async function guardarEstadoCliente(
     codigo
 ) {
@@ -2051,7 +2734,9 @@ async function guardarEstadoCliente(
     if (
         !cliente
     ) {
+
         return;
+
     }
 
 
@@ -2249,19 +2934,36 @@ function identificarTipoBoton(
 
 
     if (
-        enlace.includes("wa.me/") ||
-        enlace.includes("whatsapp.com") ||
-        nombre.includes("whatsapp")
+        enlace.includes(
+            "wa.me/"
+        )
+        ||
+        enlace.includes(
+            "whatsapp.com"
+        )
+        ||
+        nombre.includes(
+            "whatsapp"
+        )
     ) {
+
         return "whatsapp";
+
     }
 
 
     if (
-        enlace.includes("instagram.com") ||
-        nombre.includes("instagram")
+        enlace.includes(
+            "instagram.com"
+        )
+        ||
+        nombre.includes(
+            "instagram"
+        )
     ) {
+
         return "instagram";
+
     }
 
 
@@ -2270,11 +2972,17 @@ function identificarTipoBoton(
             "search.google.com/local/writereview"
         )
         ||
-        nombre.includes("reseña")
+        nombre.includes(
+            "reseña"
+        )
         ||
-        nombre.includes("opini")
+        nombre.includes(
+            "opini"
+        )
     ) {
+
         return "resena";
+
     }
 
 
@@ -2293,16 +3001,26 @@ function extraerWhatsapp(
 ) {
 
     const boton =
-        (cliente.botones || []).find(
+        (
+            cliente.botones ||
+            []
+        ).find(
             function(b) {
-                return identificarTipoBoton(b) ===
-                    "whatsapp";
+
+                return identificarTipoBoton(
+                    b
+                ) === "whatsapp";
+
             }
         );
 
 
-    if (!boton) {
+    if (
+        !boton
+    ) {
+
         return "";
+
     }
 
 
@@ -2315,7 +3033,8 @@ function extraerWhatsapp(
 
 
     return coincidencia
-        ? "+" + coincidencia[1]
+        ? "+" +
+          coincidencia[1]
         : "";
 
 }
@@ -2327,16 +3046,26 @@ function extraerInstagram(
 ) {
 
     const boton =
-        (cliente.botones || []).find(
+        (
+            cliente.botones ||
+            []
+        ).find(
             function(b) {
-                return identificarTipoBoton(b) ===
-                    "instagram";
+
+                return identificarTipoBoton(
+                    b
+                ) === "instagram";
+
             }
         );
 
 
-    if (!boton) {
+    if (
+        !boton
+    ) {
+
         return "";
+
     }
 
 
@@ -2349,7 +3078,8 @@ function extraerInstagram(
 
 
     return coincidencia
-        ? "@" + coincidencia[1]
+        ? "@" +
+          coincidencia[1]
         : "";
 
 }
@@ -2361,16 +3091,26 @@ function extraerPlaceId(
 ) {
 
     const boton =
-        (cliente.botones || []).find(
+        (
+            cliente.botones ||
+            []
+        ).find(
             function(b) {
-                return identificarTipoBoton(b) ===
-                    "resena";
+
+                return identificarTipoBoton(
+                    b
+                ) === "resena";
+
             }
         );
 
 
-    if (!boton) {
+    if (
+        !boton
+    ) {
+
         return "";
+
     }
 
 
@@ -2456,25 +3196,29 @@ function cargarClienteRapido() {
     document.getElementById(
         "rapidoNombre"
     ).value =
-        cliente.nombre || "";
+        cliente.nombre ||
+        "";
 
 
     document.getElementById(
         "rapidoDescripcion"
     ).value =
-        cliente.descripcion || "";
+        cliente.descripcion ||
+        "";
 
 
     document.getElementById(
         "rapidoFondo"
     ).value =
-        cliente.fondo || "";
+        cliente.fondo ||
+        "";
 
 
     document.getElementById(
         "rapidoLogo"
     ).value =
-        cliente.logo || "";
+        cliente.logo ||
+        "";
 
 
     document.getElementById(
@@ -2538,22 +3282,26 @@ function cargarClienteRapido() {
 
     document.getElementById(
         "rapidoArchivoFondo"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "rapidoArchivoLogo"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "estadoFondoRapido"
-    ).textContent = "";
+    ).textContent =
+        "";
 
 
     document.getElementById(
         "estadoLogoRapido"
-    ).textContent = "";
+    ).textContent =
+        "";
 
 
     const cantidadBotones =
@@ -2604,7 +3352,8 @@ function limpiarFormularioRapido() {
 
             document.getElementById(
                 id
-            ).value = "";
+            ).value =
+                "";
 
         }
     );
@@ -2659,7 +3408,9 @@ function mostrarPreviewDesdeUrl(
         ).trim();
 
 
-    if (!valor) {
+    if (
+        !valor
+    ) {
 
         ocultarPreview(
             imagenId,
@@ -2677,17 +3428,13 @@ function mostrarPreviewDesdeUrl(
         );
 
 
-    const caja =
-        document.getElementById(
-            cajaId
-        );
-
-
     imagen.src =
         valor;
 
 
-    caja.style.display =
+    document.getElementById(
+        cajaId
+    ).style.display =
         "block";
 
 }
@@ -2700,23 +3447,15 @@ function mostrarPreviewData(
     cajaId
 ) {
 
-    const imagen =
-        document.getElementById(
-            imagenId
-        );
-
-
-    const caja =
-        document.getElementById(
-            cajaId
-        );
-
-
-    imagen.src =
+    document.getElementById(
+        imagenId
+    ).src =
         dataUrl;
 
 
-    caja.style.display =
+    document.getElementById(
+        cajaId
+    ).style.display =
         "block";
 
 }
@@ -2756,7 +3495,6 @@ function procesarImagen(
     return new Promise(
         function(resolve, reject) {
 
-
             if (
                 !archivo ||
                 !archivo.type.startsWith(
@@ -2782,14 +3520,12 @@ function procesarImagen(
             lector.onload =
                 function(evento) {
 
-
                     const imagen =
                         new Image();
 
 
                     imagen.onload =
                         function() {
-
 
                             const maximo =
                                 tipo === "fondo"
@@ -2871,8 +3607,9 @@ function procesarImagen(
                             canvas.toBlob(
                                 function(blob) {
 
-
-                                    if (!blob) {
+                                    if (
+                                        !blob
+                                    ) {
 
                                         reject(
                                             new Error(
@@ -2892,21 +3629,16 @@ function procesarImagen(
                                     lectorBlob.onload =
                                         function(e) {
 
-
                                             const dataUrl =
                                                 e.target.result;
-
-
-                                            const base64 =
-                                                dataUrl.split(
-                                                    ","
-                                                )[1];
 
 
                                             resolve({
 
                                                 base64:
-                                                    base64,
+                                                    dataUrl.split(
+                                                        ","
+                                                    )[1],
 
                                                 dataUrl:
                                                     dataUrl,
@@ -2924,18 +3656,6 @@ function procesarImagen(
                                                     blob.size
 
                                             });
-
-                                        };
-
-
-                                    lectorBlob.onerror =
-                                        function() {
-
-                                            reject(
-                                                new Error(
-                                                    "No se pudo leer la imagen procesada."
-                                                )
-                                            );
 
                                         };
 
@@ -2996,7 +3716,7 @@ function procesarImagen(
 
 
 /* =====================================================
-   SUBIR IMAGEN DESDE ADMIN
+   SUBIR IMAGEN
 ===================================================== */
 
 async function subirImagenDesdeAdmin(
@@ -3209,7 +3929,6 @@ async function subirImagenDesdeAdmin(
             await fetch(
                 WORKER_URL,
                 {
-
                     method:
                         "POST",
 
@@ -3264,14 +3983,6 @@ async function subirImagenDesdeAdmin(
         }
 
 
-        /*
-            Agregamos una pequeña versión a la URL.
-
-            Esto evita que el navegador siga mostrando
-            una imagen anterior si después reemplazás
-            fondo.webp o logo.webp.
-        */
-
         const urlFinal =
             datos.url +
             "?v=" +
@@ -3306,7 +4017,6 @@ async function subirImagenDesdeAdmin(
             " subido correctamente.\n\n" +
             "La URL ya quedó colocada en el formulario."
         );
-
 
     }
 
@@ -3360,13 +4070,19 @@ function generarEnlaceWhatsapp(
         );
 
 
-    if (!numero) {
+    if (
+        !numero
+    ) {
+
         return "";
+
     }
 
 
     if (
-        numero.startsWith("549")
+        numero.startsWith(
+            "549"
+        )
     ) {
 
         return "https://wa.me/" +
@@ -3376,11 +4092,15 @@ function generarEnlaceWhatsapp(
 
 
     if (
-        numero.startsWith("54")
+        numero.startsWith(
+            "54"
+        )
     ) {
 
         numero =
-            numero.substring(2);
+            numero.substring(
+                2
+            );
 
 
         return "https://wa.me/549" +
@@ -3390,11 +4110,15 @@ function generarEnlaceWhatsapp(
 
 
     if (
-        numero.startsWith("0")
+        numero.startsWith(
+            "0"
+        )
     ) {
 
         numero =
-            numero.substring(1);
+            numero.substring(
+                1
+            );
 
     }
 
@@ -3416,8 +4140,12 @@ function generarEnlaceInstagram(
         ).trim();
 
 
-    if (!texto) {
+    if (
+        !texto
+    ) {
+
         return "";
+
     }
 
 
@@ -3480,8 +4208,12 @@ function generarEnlaceResena(
         ).trim();
 
 
-    if (!valor) {
+    if (
+        !valor
+    ) {
+
         return "";
+
     }
 
 
@@ -3775,7 +4507,9 @@ function abrirTarjetaRapida() {
         ).value;
 
 
-    if (!codigo) {
+    if (
+        !codigo
+    ) {
 
         alert(
             "Seleccioná una tarjeta."
@@ -3789,7 +4523,6 @@ function abrirTarjetaRapida() {
     window.open(
         "https://qonekta.github.io/qr-dinamicos/r/" +
         codigo,
-
         "_blank"
     );
 
@@ -3809,7 +4542,9 @@ function abrirEdicionAvanzadaDesdeRapido() {
         ).value;
 
 
-    if (!codigo) {
+    if (
+        !codigo
+    ) {
 
         alert(
             "Seleccioná una tarjeta."
@@ -3897,11 +4632,14 @@ function agregarBoton(
 
 
 
-function quitarBoton(id) {
+function quitarBoton(
+    id
+) {
 
     const elemento =
         document.getElementById(
-            "boton-" + id
+            "boton-" +
+            id
         );
 
 
@@ -3932,8 +4670,12 @@ function editarCliente(
         clientes[codigo];
 
 
-    if (!cliente) {
+    if (
+        !cliente
+    ) {
+
         return;
+
     }
 
 
@@ -3969,25 +4711,29 @@ function editarCliente(
     document.getElementById(
         "nombre"
     ).value =
-        cliente.nombre || "";
+        cliente.nombre ||
+        "";
 
 
     document.getElementById(
         "descripcion"
     ).value =
-        cliente.descripcion || "";
+        cliente.descripcion ||
+        "";
 
 
     document.getElementById(
         "fondo"
     ).value =
-        cliente.fondo || "";
+        cliente.fondo ||
+        "";
 
 
     document.getElementById(
         "logo"
     ).value =
-        cliente.logo || "";
+        cliente.logo ||
+        "";
 
 
     document.getElementById(
@@ -4026,11 +4772,37 @@ function editarCliente(
 
 
     document.getElementById(
+        "avanzadoArchivoFondo"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "avanzadoArchivoLogo"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "estadoFondoAvanzado"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
+        "estadoLogoAvanzado"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
         "botonesPersonalizados"
-    ).innerHTML = "";
+    ).innerHTML =
+        "";
 
 
-    contadorBotones = 0;
+    contadorBotones =
+        0;
 
 
     (
@@ -4063,10 +4835,8 @@ function editarCliente(
     document.getElementById(
         "formularioCliente"
     ).scrollIntoView({
-
         behavior:
             "smooth"
-
     });
 
 }
@@ -4085,8 +4855,12 @@ async function eliminarCliente(
         clientes[codigo];
 
 
-    if (!cliente) {
+    if (
+        !cliente
+    ) {
+
         return;
+
     }
 
 
@@ -4094,10 +4868,12 @@ async function eliminarCliente(
         !confirm(
             "⚠️ ¿Seguro que querés borrar " +
             codigo +
-            "?"
+            "?\n\nRecordá que puede existir un QR físico con este código."
         )
     ) {
+
         return;
+
     }
 
 
@@ -4109,7 +4885,9 @@ async function eliminarCliente(
         );
 
 
-    delete clientes[codigo];
+    delete clientes[
+        codigo
+    ];
 
 
     generarClientesJS();
@@ -4191,18 +4969,39 @@ function cancelarEdicion() {
 
             document.getElementById(
                 id
-            ).value = "";
+            ).value =
+                "";
 
         }
     );
 
 
     document.getElementById(
+        "colorTarjeta"
+    ).value =
+        "#00b7ff";
+
+
+    document.getElementById(
+        "colorCabecera"
+    ).value =
+        "#222222";
+
+
+    document.getElementById(
+        "colorBotones"
+    ).value =
+        "#222222";
+
+
+    document.getElementById(
         "botonesPersonalizados"
-    ).innerHTML = "";
+    ).innerHTML =
+        "";
 
 
-    contadorBotones = 0;
+    contadorBotones =
+        0;
 
 
     ocultarPreview(
@@ -4215,6 +5014,30 @@ function cancelarEdicion() {
         "previewLogoAvanzado",
         "previewLogoAvanzadoCaja"
     );
+
+
+    document.getElementById(
+        "avanzadoArchivoFondo"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "avanzadoArchivoLogo"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "estadoFondoAvanzado"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
+        "estadoLogoAvanzado"
+    ).textContent =
+        "";
 
 
     document.getElementById(
@@ -4246,15 +5069,27 @@ function normalizarEnlace(
         ).trim();
 
 
-    if (!valor) {
+    if (
+        !valor
+    ) {
+
         return "";
+
     }
 
 
     if (
-        /^https?:\/\//i.test(valor) ||
-        /^tel:/i.test(valor) ||
-        /^mailto:/i.test(valor)
+        /^https?:\/\//i.test(
+            valor
+        )
+        ||
+        /^tel:/i.test(
+            valor
+        )
+        ||
+        /^mailto:/i.test(
+            valor
+        )
     ) {
 
         return valor;
@@ -4304,6 +5139,20 @@ async function guardarCliente() {
     }
 
 
+    if (
+        !clienteEditando &&
+        clientes[codigo]
+    ) {
+
+        alert(
+            "Ese código ya existe."
+        );
+
+        return;
+
+    }
+
+
     const nombres =
         document.querySelectorAll(
             ".nombre-boton"
@@ -4316,7 +5165,8 @@ async function guardarCliente() {
         );
 
 
-    const botones = [];
+    const botones =
+        [];
 
 
     for (
@@ -4465,7 +5315,9 @@ async function guardarCliente() {
 
         else {
 
-            delete clientes[codigo];
+            delete clientes[
+                codigo
+            ];
 
         }
 
@@ -4520,7 +5372,6 @@ async function sincronizarConGitHub() {
             await fetch(
                 WORKER_URL,
                 {
-
                     method:
                         "POST",
 
@@ -4570,7 +5421,8 @@ async function sincronizarConGitHub() {
 
 
         return {
-            ok: true
+            ok:
+                true
         };
 
     }
@@ -4610,7 +5462,8 @@ function generarClientesJS() {
         function(id) {
 
             const cliente =
-                clientes[id] || {};
+                clientes[id] ||
+                {};
 
 
             codigo +=
@@ -4729,27 +5582,29 @@ function escaparHTML(
     texto
 ) {
 
-    return String(texto)
+    return String(
+        texto
+    )
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
-        .replace(
-            />/g,
-            "&gt;"
-        );
+    .replace(
+        />/g,
+        "&gt;"
+    );
 
 }
 
@@ -4763,27 +5618,29 @@ function escaparJS(
     texto
 ) {
 
-    return String(texto)
+    return String(
+        texto
+    )
 
-        .replace(
-            /\\/g,
-            "\\\\"
-        )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
 
-        .replace(
-            /"/g,
-            '\\"'
-        )
+    .replace(
+        /"/g,
+        '\\"'
+    )
 
-        .replace(
-            /\n/g,
-            "\\n"
-        )
+    .replace(
+        /\n/g,
+        "\\n"
+    )
 
-        .replace(
-            /\r/g,
-            "\\r"
-        );
+    .replace(
+        /\r/g,
+        "\\r"
+    );
 
 }
 
