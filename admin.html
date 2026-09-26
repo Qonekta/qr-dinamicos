@@ -201,14 +201,14 @@ button:disabled {
 
 
 /* =====================================================
-   CLIENTES / STOCK
+   CONTROL DE ESTADO
 ===================================================== */
 
 .cliente {
     border: 1px solid #ddd;
     padding: 18px;
     border-radius: 12px;
-    margin-top: 15px;
+    margin-top: 18px;
     background: #fafafa;
 }
 
@@ -267,7 +267,6 @@ button:disabled {
 
 .boton-guardar-estado {
     background: #475569;
-    margin-top: 12px;
 }
 
 .cliente-acciones {
@@ -285,6 +284,15 @@ button:disabled {
 
 .boton-eliminar {
     background: #b00020;
+}
+
+.seleccion-vacia {
+    margin-top: 18px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    background: #f7f7f7;
+    color: #777;
 }
 
 
@@ -425,7 +433,9 @@ button:disabled {
 
     <div class="tarjeta">
 
-        <h2>🔐 Acceso restringido</h2>
+        <h2>
+            🔐 Acceso restringido
+        </h2>
 
         <p>
             Ingresá las claves para acceder al panel.
@@ -482,7 +492,9 @@ button:disabled {
 >
 
 
-    <!-- CABECERA -->
+    <!-- =================================================
+         CABECERA
+    ================================================== -->
 
     <div class="tarjeta">
 
@@ -499,8 +511,6 @@ button:disabled {
             class="estado"
         ></div>
 
-
-        <!-- RESUMEN STOCK -->
 
         <div class="resumen-stock">
 
@@ -759,22 +769,44 @@ button:disabled {
 
 
     <!-- =================================================
-         STOCK / CLIENTES
+         CONTROL DE ESTADO
     ================================================== -->
 
     <div class="tarjeta">
 
         <h2>
-            Tarjetas y clientes
+            📦 Estado de tarjetas
         </h2>
 
         <p class="aviso">
-            El estado y la nota interna son solamente
-            para tu administración. No aparecen en la
-            página pública del cliente.
+            Elegí una tarjeta para consultar o modificar
+            su estado. Solo se mostrará la tarjeta seleccionada.
         </p>
 
-        <div id="listaClientes"></div>
+
+        <label>
+            Seleccionar tarjeta
+        </label>
+
+        <select
+            id="selectorEstadoCliente"
+            onchange="mostrarClienteEstadoSeleccionado()"
+        >
+
+            <option value="">
+                Seleccioná una tarjeta
+            </option>
+
+        </select>
+
+
+        <div id="clienteEstadoSeleccionado">
+
+            <div class="seleccion-vacia">
+                Seleccioná una tarjeta para administrar su estado.
+            </div>
+
+        </div>
 
     </div>
 
@@ -1266,9 +1298,7 @@ async function cargarClientesDesdeGitHub() {
             )();
 
 
-        mostrarClientes();
-
-        actualizarSelectorRapido();
+        actualizarTodoPanel();
 
         generarClientesJS();
 
@@ -1302,6 +1332,22 @@ async function cargarClientesDesdeGitHub() {
         return false;
 
     }
+
+}
+
+
+
+/* =====================================================
+   ACTUALIZAR PANEL
+===================================================== */
+
+function actualizarTodoPanel() {
+
+    actualizarResumenStock();
+
+    actualizarSelectorRapido();
+
+    actualizarSelectorEstado();
 
 }
 
@@ -1423,8 +1469,7 @@ function obtenerCodigosOrdenados() {
                 !isNaN(numeroB)
             ) {
 
-                return numeroA -
-                    numeroB;
+                return numeroA - numeroB;
 
             }
 
@@ -1439,7 +1484,7 @@ function obtenerCodigosOrdenados() {
 
 
 /* =====================================================
-   RESUMEN DE STOCK
+   RESUMEN STOCK
 ===================================================== */
 
 function actualizarResumenStock() {
@@ -1516,7 +1561,301 @@ function actualizarResumenStock() {
 
 
 /* =====================================================
-   GUARDAR ESTADO DE UNA TARJETA
+   SELECTOR DE ESTADO
+===================================================== */
+
+function actualizarSelectorEstado() {
+
+    const selector =
+        document.getElementById(
+            "selectorEstadoCliente"
+        );
+
+
+    const seleccionadoAntes =
+        selector.value;
+
+
+    selector.innerHTML =
+        '<option value="">' +
+        'Seleccioná una tarjeta' +
+        '</option>';
+
+
+    const codigos =
+        obtenerCodigosOrdenados();
+
+
+    codigos.forEach(
+        function(codigo) {
+
+            const cliente =
+                clientes[codigo] || {};
+
+
+            const estado =
+                obtenerEstadoCliente(
+                    cliente
+                );
+
+
+            const opcion =
+                document.createElement(
+                    "option"
+                );
+
+
+            opcion.value =
+                codigo;
+
+
+            opcion.textContent =
+                codigo +
+                " — " +
+                textoEstado(estado) +
+                " — " +
+                (
+                    cliente.nombre ||
+                    "Sin nombre"
+                );
+
+
+            selector.appendChild(
+                opcion
+            );
+
+        }
+    );
+
+
+    if (
+        clientes[
+            seleccionadoAntes
+        ]
+    ) {
+
+        selector.value =
+            seleccionadoAntes;
+
+    }
+
+
+    mostrarClienteEstadoSeleccionado();
+
+}
+
+
+
+/* =====================================================
+   MOSTRAR SOLO TARJETA SELECCIONADA
+===================================================== */
+
+function mostrarClienteEstadoSeleccionado() {
+
+    const selector =
+        document.getElementById(
+            "selectorEstadoCliente"
+        );
+
+
+    const codigo =
+        selector.value;
+
+
+    const contenedor =
+        document.getElementById(
+            "clienteEstadoSeleccionado"
+        );
+
+
+    if (
+        !codigo ||
+        !clientes[codigo]
+    ) {
+
+        contenedor.innerHTML = `
+
+            <div class="seleccion-vacia">
+
+                Seleccioná una tarjeta para
+                administrar su estado.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const cliente =
+        clientes[codigo];
+
+
+    const botones =
+        Array.isArray(
+            cliente.botones
+        )
+        ? cliente.botones
+        : [];
+
+
+    const estado =
+        obtenerEstadoCliente(
+            cliente
+        );
+
+
+    const nota =
+        cliente.notaInterna || "";
+
+
+    contenedor.innerHTML = `
+
+        <div class="cliente">
+
+            <strong>
+
+                ${escaparHTML(codigo)}
+
+                —
+
+                ${escaparHTML(
+                    cliente.nombre ||
+                    "Sin nombre"
+                )}
+
+            </strong>
+
+
+            <div class="cliente-url">
+
+                /r/${escaparHTML(codigo)}
+
+            </div>
+
+
+            <div class="cliente-info">
+
+                ${botones.length}
+                botón/es configurado/s
+
+            </div>
+
+
+            <span
+                class="badge-estado badge-${estado}"
+            >
+
+                ${textoEstado(estado)}
+
+            </span>
+
+
+            <div class="control-stock">
+
+                <label>
+
+                    Estado de la tarjeta
+
+                </label>
+
+
+                <select
+                    id="estadoSeleccionado"
+                >
+
+                    <option
+                        value="disponible"
+                        ${estado === "disponible" ? "selected" : ""}
+                    >
+                        ⚪ Disponible
+                    </option>
+
+                    <option
+                        value="pendiente"
+                        ${estado === "pendiente" ? "selected" : ""}
+                    >
+                        🟡 Pendiente
+                    </option>
+
+                    <option
+                        value="vendida"
+                        ${estado === "vendida" ? "selected" : ""}
+                    >
+                        🟢 Vendida
+                    </option>
+
+                </select>
+
+
+                <label>
+
+                    Nota interna
+
+                </label>
+
+
+                <input
+                    id="notaSeleccionada"
+                    value="${escaparHTML(nota)}"
+                    placeholder="Ejemplo: esperando logo"
+                >
+
+
+                <p class="aviso">
+
+                    Esta nota solamente la ves vos.
+
+                </p>
+
+
+                <button
+                    class="boton-guardar-estado"
+                    onclick="guardarEstadoCliente('${escaparJS(codigo)}')"
+                >
+
+                    💾 Guardar estado
+
+                </button>
+
+            </div>
+
+
+            <div class="cliente-acciones">
+
+                <button
+                    class="boton-editar"
+                    onclick="editarCliente('${escaparJS(codigo)}')"
+                >
+
+                    ✏️ Editar
+
+                </button>
+
+
+                <button
+                    class="boton-eliminar"
+                    onclick="eliminarCliente('${escaparJS(codigo)}')"
+                >
+
+                    🗑️ Eliminar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   GUARDAR ESTADO
 ===================================================== */
 
 async function guardarEstadoCliente(
@@ -1540,26 +1879,30 @@ async function guardarEstadoCliente(
     }
 
 
-    const selector =
+    const selectorEstado =
         document.getElementById(
-            "estado-" + codigo
+            "estadoSeleccionado"
         );
 
 
     const campoNota =
         document.getElementById(
-            "nota-" + codigo
+            "notaSeleccionada"
         );
 
 
-    const boton =
-        document.getElementById(
-            "guardarEstado-" + codigo
-        );
+    if (
+        !selectorEstado ||
+        !campoNota
+    ) {
+
+        return;
+
+    }
 
 
     const nuevoEstado =
-        selector.value;
+        selectorEstado.value;
 
 
     const nuevaNota =
@@ -1585,14 +1928,6 @@ async function guardarEstadoCliente(
     generarClientesJS();
 
 
-    boton.disabled =
-        true;
-
-
-    boton.textContent =
-        "⏳ Guardando...";
-
-
     mostrarEstado(
         "⏳ Actualizando estado de la tarjeta " +
         codigo +
@@ -1615,9 +1950,16 @@ async function guardarEstadoCliente(
 
         generarClientesJS();
 
-        mostrarClientes();
+        actualizarTodoPanel();
 
-        actualizarSelectorRapido();
+
+        document.getElementById(
+            "selectorEstadoCliente"
+        ).value =
+            codigo;
+
+
+        mostrarClienteEstadoSeleccionado();
 
 
         mostrarEstado(
@@ -1636,9 +1978,16 @@ async function guardarEstadoCliente(
     }
 
 
-    mostrarClientes();
+    actualizarTodoPanel();
 
-    actualizarSelectorRapido();
+
+    document.getElementById(
+        "selectorEstadoCliente"
+    ).value =
+        codigo;
+
+
+    mostrarClienteEstadoSeleccionado();
 
 
     mostrarEstado(
@@ -2779,9 +3128,7 @@ async function guardarClienteRapido() {
 
         generarClientesJS();
 
-        mostrarClientes();
-
-        actualizarSelectorRapido();
+        actualizarTodoPanel();
 
 
         document.getElementById(
@@ -2814,9 +3161,7 @@ async function guardarClienteRapido() {
         codigo;
 
 
-    mostrarClientes();
-
-    actualizarSelectorRapido();
+    actualizarTodoPanel();
 
 
     document.getElementById(
@@ -2911,211 +3256,6 @@ function abrirEdicionAvanzadaDesdeRapido() {
 
     editarCliente(
         codigo
-    );
-
-}
-
-
-
-/* =====================================================
-   MOSTRAR CLIENTES
-===================================================== */
-
-function mostrarClientes() {
-
-    actualizarResumenStock();
-
-
-    const lista =
-        document.getElementById(
-            "listaClientes"
-        );
-
-
-    lista.innerHTML = "";
-
-
-    const codigos =
-        obtenerCodigosOrdenados();
-
-
-    if (
-        codigos.length === 0
-    ) {
-
-        lista.innerHTML =
-            '<p class="aviso">' +
-            'No hay clientes registrados.' +
-            '</p>';
-
-        return;
-
-    }
-
-
-    codigos.forEach(
-        function(codigo) {
-
-            const cliente =
-                clientes[codigo] || {};
-
-
-            const botones =
-                Array.isArray(
-                    cliente.botones
-                )
-                ? cliente.botones
-                : [];
-
-
-            const estado =
-                obtenerEstadoCliente(
-                    cliente
-                );
-
-
-            const nota =
-                cliente.notaInterna || "";
-
-
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-
-            div.className =
-                "cliente";
-
-
-            div.innerHTML = `
-
-                <strong>
-
-                    ${escaparHTML(codigo)}
-
-                    —
-
-                    ${escaparHTML(
-                        cliente.nombre ||
-                        "Sin nombre"
-                    )}
-
-                </strong>
-
-
-                <div class="cliente-url">
-
-                    /r/${escaparHTML(codigo)}
-
-                </div>
-
-
-                <div class="cliente-info">
-
-                    ${botones.length}
-                    botón/es configurado/s
-
-                </div>
-
-
-                <span
-                    class="badge-estado badge-${estado}"
-                >
-
-                    ${textoEstado(estado)}
-
-                </span>
-
-
-                <div class="control-stock">
-
-                    <label>
-                        Estado de la tarjeta
-                    </label>
-
-                    <select
-                        id="estado-${escaparHTML(codigo)}"
-                    >
-
-                        <option
-                            value="disponible"
-                            ${estado === "disponible" ? "selected" : ""}
-                        >
-                            ⚪ Disponible
-                        </option>
-
-                        <option
-                            value="pendiente"
-                            ${estado === "pendiente" ? "selected" : ""}
-                        >
-                            🟡 Pendiente
-                        </option>
-
-                        <option
-                            value="vendida"
-                            ${estado === "vendida" ? "selected" : ""}
-                        >
-                            🟢 Vendida
-                        </option>
-
-                    </select>
-
-
-                    <label>
-                        Nota interna
-                    </label>
-
-                    <input
-                        id="nota-${escaparHTML(codigo)}"
-                        value="${escaparHTML(nota)}"
-                        placeholder="Ejemplo: esperando logo"
-                    >
-
-
-                    <p class="aviso">
-                        Esta nota solamente la ves vos.
-                    </p>
-
-
-                    <button
-                        id="guardarEstado-${escaparHTML(codigo)}"
-                        class="boton-guardar-estado"
-                        onclick="guardarEstadoCliente('${escaparJS(codigo)}')"
-                    >
-                        💾 Guardar estado
-                    </button>
-
-                </div>
-
-
-                <div class="cliente-acciones">
-
-                    <button
-                        class="boton-editar"
-                        onclick="editarCliente('${escaparJS(codigo)}')"
-                    >
-                        ✏️ Editar
-                    </button>
-
-
-                    <button
-                        class="boton-eliminar"
-                        onclick="eliminarCliente('${escaparJS(codigo)}')"
-                    >
-                        🗑️ Eliminar
-                    </button>
-
-                </div>
-
-            `;
-
-
-            lista.appendChild(
-                div
-            );
-
-        }
     );
 
 }
@@ -3485,9 +3625,7 @@ async function eliminarCliente(codigo) {
 
         generarClientesJS();
 
-        mostrarClientes();
-
-        actualizarSelectorRapido();
+        actualizarTodoPanel();
 
 
         mostrarEstado(
@@ -3506,9 +3644,7 @@ async function eliminarCliente(codigo) {
     }
 
 
-    mostrarClientes();
-
-    actualizarSelectorRapido();
+    actualizarTodoPanel();
 
 
     mostrarEstado(
@@ -3957,9 +4093,7 @@ async function guardarCliente() {
 
         generarClientesJS();
 
-        mostrarClientes();
-
-        actualizarSelectorRapido();
+        actualizarTodoPanel();
 
 
         botonGuardar.textContent =
@@ -4007,9 +4141,7 @@ async function guardarCliente() {
         "block";
 
 
-    mostrarClientes();
-
-    actualizarSelectorRapido();
+    actualizarTodoPanel();
 
 
     mostrarEstado(
@@ -4059,6 +4191,7 @@ async function sincronizarConGitHub() {
             await fetch(
                 WORKER_URL,
                 {
+
                     method: "POST",
 
                     headers: {
@@ -4073,9 +4206,12 @@ async function sincronizarConGitHub() {
 
                     body:
                         JSON.stringify({
+
                             content:
                                 codigoActual
+
                         })
+
                 }
             );
 
