@@ -614,4 +614,30 @@ const negocios = {
 
     },
 
+    "020": {
+
+        nombre: "",
+
+        descripcion: "",
+
+        fondo: "",
+
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
+        estado: "disponible",
+
+        notaInterna: "",
+
+        botones: [
+
+        ]
+
+    },
+
 };
