@@ -640,4 +640,82 @@ const negocios = {
 
     },
 
+    "021": {
+
+        nombre: "",
+
+        descripcion: "",
+
+        fondo: "",
+
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
+        estado: "disponible",
+
+        notaInterna: "",
+
+        botones: [
+
+        ]
+
+    },
+
+    "022": {
+
+        nombre: "",
+
+        descripcion: "",
+
+        fondo: "",
+
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
+        estado: "disponible",
+
+        notaInterna: "",
+
+        botones: [
+
+        ]
+
+    },
+
+    "023": {
+
+        nombre: "",
+
+        descripcion: "",
+
+        fondo: "",
+
+        logo: "",
+
+        colorTarjeta: "#00b7ff",
+
+        colorCabecera: "#222222",
+
+        colorBotones: "#222222",
+
+        estado: "disponible",
+
+        notaInterna: "",
+
+        botones: [
+
+        ]
+
+    },
+
 };
