@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta
@@ -214,11 +215,23 @@ button:disabled {
     background: #fcfaff;
 }
 
+.qr-seccion {
+    margin-top: 22px;
+    padding: 18px;
+    background: white;
+    border: 1px solid #e8dff3;
+    border-radius: 14px;
+}
+
+.qr-seccion h3 {
+    margin-top: 0;
+}
+
 .qr-info {
     margin-top: 16px;
     padding: 15px;
     border-radius: 12px;
-    background: white;
+    background: #faf7ff;
     border: 1px solid #e8dff3;
 }
 
@@ -260,6 +273,36 @@ button:disabled {
 
 .boton-copiar-qr {
     background: #555;
+}
+
+.boton-descargar-lote {
+    background: #6b21a8;
+}
+
+.rango-qr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.resumen-lote {
+    margin-top: 15px;
+    padding: 13px;
+    border-radius: 10px;
+    background: #f3e8ff;
+    color: #5b2177;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.progreso-lote {
+    display: none;
+    margin-top: 14px;
+    padding: 13px;
+    border-radius: 10px;
+    background: #f5f3ff;
+    color: #5b21b6;
+    font-weight: bold;
 }
 
 
@@ -579,6 +622,10 @@ button:disabled {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .rango-qr {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 </style>
@@ -597,7 +644,9 @@ button:disabled {
 
     <div class="tarjeta">
 
-        <h2>🔐 Acceso restringido</h2>
+        <h2>
+            🔐 Acceso restringido
+        </h2>
 
         <p>
             Ingresá las claves para acceder al panel.
@@ -653,9 +702,7 @@ button:disabled {
 >
 
 
-    <!-- =================================================
-         CABECERA
-    ================================================== -->
+    <!-- CABECERA -->
 
     <div class="tarjeta">
 
@@ -789,6 +836,13 @@ button:disabled {
                 📋 Copiar códigos y enlaces
             </button>
 
+            <button
+                class="boton-descargar-lote"
+                onclick="descargarQRUltimaTanda()"
+            >
+                📦 Descargar QR de esta tanda
+            </button>
+
         </div>
 
     </div>
@@ -796,7 +850,7 @@ button:disabled {
 
 
     <!-- =================================================
-         GENERADOR DE QR
+         GENERADOR QR
     ================================================== -->
 
     <div class="tarjeta generador-qr">
@@ -806,82 +860,165 @@ button:disabled {
         </h2>
 
         <p>
-            Elegí cualquier tarjeta existente y generá su QR permanente.
+            Generá los QR permanentes de tus tarjetas.
         </p>
 
         <p class="aviso">
-            El QR siempre apunta a la página dinámica de la tarjeta.
-            Los datos del cliente podrán cambiar después sin cambiar el QR.
+            Aunque después cambies WhatsApp, Instagram, fondo,
+            logo o botones, el QR físico seguirá siendo el mismo.
         </p>
 
 
-        <label>
-            Tarjeta
-        </label>
 
-        <select
-            id="selectorQR"
-            onchange="generarQRSeleccionado()"
-        >
+        <!-- INDIVIDUAL -->
 
-            <option value="">
-                Seleccioná una tarjeta
-            </option>
+        <div class="qr-seccion">
 
-        </select>
+            <h3>
+                QR individual
+            </h3>
 
+            <label>
+                Tarjeta
+            </label>
 
-        <div
-            id="qrInfo"
-            class="qr-info"
-            style="display:none;"
-        >
+            <select
+                id="selectorQR"
+                onchange="generarQRSeleccionado()"
+            >
 
-            <strong>
-                Enlace incluido en el QR:
-            </strong>
+                <option value="">
+                    Seleccioná una tarjeta
+                </option>
+
+            </select>
+
 
             <div
-                id="qrUrl"
-                class="qr-url"
-            ></div>
+                id="qrInfo"
+                class="qr-info"
+                style="display:none;"
+            >
+
+                <strong>
+                    Enlace incluido en el QR:
+                </strong>
+
+                <div
+                    id="qrUrl"
+                    class="qr-url"
+                ></div>
+
+            </div>
+
+
+            <div
+                id="qrPreview"
+                class="qr-preview"
+            >
+
+                <div id="qrContenedor"></div>
+
+                <div
+                    id="qrCodigoGrande"
+                    class="qr-codigo-grande"
+                ></div>
+
+            </div>
+
+
+            <button
+                id="botonDescargarQR"
+                class="boton-descargar-qr"
+                onclick="descargarQRSeleccionado()"
+                disabled
+            >
+                ⬇️ Descargar QR
+            </button>
+
+
+            <button
+                id="botonCopiarUrlQR"
+                class="boton-copiar-qr"
+                onclick="copiarUrlQR()"
+                disabled
+            >
+                📋 Copiar enlace
+            </button>
 
         </div>
 
 
-        <div
-            id="qrPreview"
-            class="qr-preview"
-        >
 
-            <div id="qrContenedor"></div>
+        <!-- TANDA -->
+
+        <div class="qr-seccion">
+
+            <h3>
+                📦 QR por tanda
+            </h3>
+
+            <p class="aviso">
+                Elegí el primer y último código.
+                El sistema generará todos los QR existentes
+                dentro de ese rango y los descargará juntos
+                en un archivo ZIP.
+            </p>
+
+
+            <div class="rango-qr">
+
+                <div>
+
+                    <label>
+                        Desde
+                    </label>
+
+                    <select
+                        id="qrLoteDesde"
+                        onchange="actualizarResumenLoteQR()"
+                    ></select>
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Hasta
+                    </label>
+
+                    <select
+                        id="qrLoteHasta"
+                        onchange="actualizarResumenLoteQR()"
+                    ></select>
+
+                </div>
+
+            </div>
+
 
             <div
-                id="qrCodigoGrande"
-                class="qr-codigo-grande"
+                id="resumenLoteQR"
+                class="resumen-lote"
             ></div>
 
+
+            <div
+                id="progresoLoteQR"
+                class="progreso-lote"
+            ></div>
+
+
+            <button
+                id="botonDescargarLoteQR"
+                class="boton-descargar-lote"
+                onclick="descargarLoteQR()"
+            >
+                📦 Descargar tanda ZIP
+            </button>
+
         </div>
-
-
-        <button
-            id="botonDescargarQR"
-            class="boton-descargar-qr"
-            onclick="descargarQRSeleccionado()"
-            disabled
-        >
-            ⬇️ Descargar QR
-        </button>
-
-
-        <button
-            id="botonCopiarUrlQR"
-            class="boton-copiar-qr"
-            onclick="copiarUrlQR()"
-            disabled
-        >
-            📋 Copiar enlace
-        </button>
 
     </div>
 
@@ -1044,10 +1181,12 @@ button:disabled {
                     id="previewFondoRapidoCaja"
                     class="preview-imagen"
                 >
+
                     <img
                         id="previewFondoRapido"
                         alt="Vista previa del fondo"
                     >
+
                 </div>
 
             </div>
@@ -1094,10 +1233,12 @@ button:disabled {
                     id="previewLogoRapidoCaja"
                     class="preview-imagen preview-logo"
                 >
+
                     <img
                         id="previewLogoRapido"
                         alt="Vista previa del logo"
                     >
+
                 </div>
 
             </div>
@@ -1177,7 +1318,7 @@ button:disabled {
 
 
     <!-- =================================================
-         ESTADO DE TARJETAS
+         ESTADO
     ================================================== -->
 
     <div class="tarjeta">
@@ -1314,10 +1455,12 @@ button:disabled {
                     id="previewFondoAvanzadoCaja"
                     class="preview-imagen"
                 >
+
                     <img
                         id="previewFondoAvanzado"
                         alt="Vista previa del fondo"
                     >
+
                 </div>
 
             </div>
@@ -1364,10 +1507,12 @@ button:disabled {
                     id="previewLogoAvanzadoCaja"
                     class="preview-imagen preview-logo"
                 >
+
                     <img
                         id="previewLogoAvanzado"
                         alt="Vista previa del logo"
                     >
+
                 </div>
 
             </div>
@@ -1496,11 +1641,15 @@ button:disabled {
 
 
 <!-- =====================================================
-     LIBRERÍA QR
+     LIBRERÍAS
 ===================================================== -->
 
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+></script>
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
 ></script>
 
 
@@ -1523,6 +1672,9 @@ const CLAVE_SESION =
 
 const CLAVE_SECRET =
     "qonekta_admin_secret";
+
+const URL_BASE_TARJETAS =
+    "https://qonekta.github.io/qr-dinamicos/r/";
 
 
 let claveSincronizacion = "";
@@ -1870,6 +2022,8 @@ function actualizarTodoPanel() {
 
     actualizarSelectorQR();
 
+    actualizarSelectoresLoteQR();
+
     actualizarVistaNuevasTarjetas();
 
 }
@@ -2009,6 +2163,21 @@ function obtenerCodigosOrdenados() {
 
             return a.localeCompare(
                 b
+            );
+
+        }
+    );
+
+}
+
+
+function obtenerCodigosNumericosOrdenados() {
+
+    return obtenerCodigosOrdenados().filter(
+        function(codigo) {
+
+            return /^\d+$/.test(
+                codigo
             );
 
         }
@@ -2442,6 +2611,14 @@ async function crearNuevasTarjetas() {
     actualizarTodoPanel();
 
 
+    seleccionarRangoQR(
+        nuevosCodigos[0],
+        nuevosCodigos[
+            nuevosCodigos.length - 1
+        ]
+    );
+
+
     mostrarResultadoNuevasTarjetas();
 
 
@@ -2498,7 +2675,7 @@ function mostrarResultadoNuevasTarjetas() {
                 return (
                     codigo +
                     " — " +
-                    "https://qonekta.github.io/qr-dinamicos/r/" +
+                    URL_BASE_TARJETAS +
                     codigo
                 );
 
@@ -2537,7 +2714,7 @@ function copiarListaNuevasTarjetas() {
                 return (
                     codigo +
                     " — " +
-                    "https://qonekta.github.io/qr-dinamicos/r/" +
+                    URL_BASE_TARJETAS +
                     codigo
                 );
 
@@ -2561,7 +2738,7 @@ function copiarListaNuevasTarjetas() {
 
 
 /* =====================================================
-   GENERADOR QR
+   QR INDIVIDUAL
 ===================================================== */
 
 function actualizarSelectorQR() {
@@ -2702,8 +2879,7 @@ function generarQRSeleccionado() {
     ) {
 
         alert(
-            "No se pudo cargar el generador de QR.\n\n" +
-            "Revisá tu conexión a Internet y recargá la página."
+            "No se pudo cargar el generador de QR."
         );
 
         return;
@@ -2716,7 +2892,7 @@ function generarQRSeleccionado() {
 
 
     urlQRActual =
-        "https://qonekta.github.io/qr-dinamicos/r/" +
+        URL_BASE_TARJETAS +
         codigo;
 
 
@@ -2744,12 +2920,6 @@ function generarQRSeleccionado() {
     ).style.display =
         "block";
 
-
-    /*
-        El QR interno se genera a 1000 x 1000 px.
-
-        Esto nos da buena resolución para impresión.
-    */
 
     new QRCode(
         contenedor,
@@ -2793,33 +2963,98 @@ function generarQRSeleccionado() {
 
 
 /* =====================================================
-   DESCARGAR QR
+   CREAR PNG QR
 ===================================================== */
 
-function descargarQRSeleccionado() {
+async function crearBlobQR(
+    codigo
+) {
 
     if (
-        !codigoQRActual ||
-        !urlQRActual
+        typeof QRCode ===
+        "undefined"
     ) {
 
-        alert(
-            "Primero seleccioná una tarjeta."
+        throw new Error(
+            "No se cargó la librería de QR."
         );
-
-        return;
 
     }
 
 
-    const contenedor =
-        document.getElementById(
-            "qrContenedor"
+    const url =
+        URL_BASE_TARJETAS +
+        codigo;
+
+
+    const contenedorTemporal =
+        document.createElement(
+            "div"
         );
 
 
+    contenedorTemporal.style.position =
+        "fixed";
+
+
+    contenedorTemporal.style.left =
+        "-10000px";
+
+
+    contenedorTemporal.style.top =
+        "0";
+
+
+    document.body.appendChild(
+        contenedorTemporal
+    );
+
+
+    new QRCode(
+        contenedorTemporal,
+        {
+
+            text:
+                url,
+
+            width:
+                1000,
+
+            height:
+                1000,
+
+            colorDark:
+                "#000000",
+
+            colorLight:
+                "#ffffff",
+
+            correctLevel:
+                QRCode.CorrectLevel.H
+
+        }
+    );
+
+
+    await new Promise(
+        function(resolve) {
+
+            requestAnimationFrame(
+                function() {
+
+                    requestAnimationFrame(
+                        resolve
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
     const canvasOriginal =
-        contenedor.querySelector(
+        contenedorTemporal.querySelector(
             "canvas"
         );
 
@@ -2828,24 +3063,16 @@ function descargarQRSeleccionado() {
         !canvasOriginal
     ) {
 
-        alert(
-            "El QR todavía no está listo."
-        );
+        contenedorTemporal.remove();
 
-        return;
+        throw new Error(
+            "No se pudo generar el QR " +
+            codigo +
+            "."
+        );
 
     }
 
-
-    /*
-        Agregamos margen blanco.
-
-        El QR original es 1000 x 1000.
-        Sumamos 80 px por lado.
-
-        Resultado:
-        1160 x 1160 px.
-    */
 
     const margen =
         80;
@@ -2873,10 +3100,6 @@ function descargarQRSeleccionado() {
         );
 
 
-    /*
-        Fondo blanco
-    */
-
     ctx.fillStyle =
         "#ffffff";
 
@@ -2889,10 +3112,6 @@ function descargarQRSeleccionado() {
     );
 
 
-    /*
-        QR centrado
-    */
-
     ctx.drawImage(
         canvasOriginal,
         margen,
@@ -2900,63 +3119,43 @@ function descargarQRSeleccionado() {
     );
 
 
-    canvasFinal.toBlob(
-        function(blob) {
-
-            if (
-                !blob
-            ) {
-
-                alert(
-                    "No se pudo crear el archivo QR."
-                );
-
-                return;
-
-            }
+    contenedorTemporal.remove();
 
 
-            const url =
-                URL.createObjectURL(
-                    blob
-                );
+    return await new Promise(
+        function(resolve, reject) {
+
+            canvasFinal.toBlob(
+                function(blob) {
+
+                    if (
+                        !blob
+                    ) {
+
+                        reject(
+                            new Error(
+                                "No se pudo crear QR-" +
+                                codigo +
+                                ".png"
+                            )
+                        );
+
+                        return;
+
+                    }
 
 
-            const enlace =
-                document.createElement(
-                    "a"
-                );
+                    resolve(
+                        blob
+                    );
 
+                },
 
-            enlace.href =
-                url;
+                "image/png"
 
-
-            enlace.download =
-                "QR-" +
-                codigoQRActual +
-                ".png";
-
-
-            document.body.appendChild(
-                enlace
             );
 
-
-            enlace.click();
-
-
-            enlace.remove();
-
-
-            URL.revokeObjectURL(
-                url
-            );
-
-        },
-
-        "image/png"
-
+        }
     );
 
 }
@@ -2964,8 +3163,53 @@ function descargarQRSeleccionado() {
 
 
 /* =====================================================
-   COPIAR URL QR
+   DESCARGA QR INDIVIDUAL
 ===================================================== */
+
+async function descargarQRSeleccionado() {
+
+    if (
+        !codigoQRActual
+    ) {
+
+        alert(
+            "Primero seleccioná una tarjeta."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const blob =
+            await crearBlobQR(
+                codigoQRActual
+            );
+
+
+        descargarBlob(
+            blob,
+            "QR-" +
+            codigoQRActual +
+            ".png"
+        );
+
+    }
+
+    catch (error) {
+
+        alert(
+            "No se pudo descargar el QR.\n\n" +
+            error.message
+        );
+
+    }
+
+}
+
+
 
 function copiarUrlQR() {
 
@@ -2992,7 +3236,670 @@ function copiarUrlQR() {
 
 
 /* =====================================================
-   RESUMEN DE STOCK
+   QR POR TANDA
+===================================================== */
+
+function actualizarSelectoresLoteQR() {
+
+    const desde =
+        document.getElementById(
+            "qrLoteDesde"
+        );
+
+
+    const hasta =
+        document.getElementById(
+            "qrLoteHasta"
+        );
+
+
+    if (
+        !desde ||
+        !hasta
+    ) {
+
+        return;
+
+    }
+
+
+    const valorDesdeAnterior =
+        desde.value;
+
+
+    const valorHastaAnterior =
+        hasta.value;
+
+
+    const codigos =
+        obtenerCodigosNumericosOrdenados();
+
+
+    desde.innerHTML =
+        "";
+
+
+    hasta.innerHTML =
+        "";
+
+
+    codigos.forEach(
+        function(codigo) {
+
+            const opcionDesde =
+                document.createElement(
+                    "option"
+                );
+
+
+            opcionDesde.value =
+                codigo;
+
+
+            opcionDesde.textContent =
+                codigo;
+
+
+            desde.appendChild(
+                opcionDesde
+            );
+
+
+            const opcionHasta =
+                document.createElement(
+                    "option"
+                );
+
+
+            opcionHasta.value =
+                codigo;
+
+
+            opcionHasta.textContent =
+                codigo;
+
+
+            hasta.appendChild(
+                opcionHasta
+            );
+
+        }
+    );
+
+
+    if (
+        codigos.length === 0
+    ) {
+
+        actualizarResumenLoteQR();
+
+        return;
+
+    }
+
+
+    if (
+        codigos.includes(
+            valorDesdeAnterior
+        )
+    ) {
+
+        desde.value =
+            valorDesdeAnterior;
+
+    }
+
+    else {
+
+        desde.value =
+            codigos[
+                codigos.length - 1
+            ];
+
+    }
+
+
+    if (
+        codigos.includes(
+            valorHastaAnterior
+        )
+    ) {
+
+        hasta.value =
+            valorHastaAnterior;
+
+    }
+
+    else {
+
+        hasta.value =
+            codigos[
+                codigos.length - 1
+            ];
+
+    }
+
+
+    actualizarResumenLoteQR();
+
+}
+
+
+
+function seleccionarRangoQR(
+    desde,
+    hasta
+) {
+
+    const selectorDesde =
+        document.getElementById(
+            "qrLoteDesde"
+        );
+
+
+    const selectorHasta =
+        document.getElementById(
+            "qrLoteHasta"
+        );
+
+
+    if (
+        selectorDesde &&
+        Array.from(
+            selectorDesde.options
+        ).some(
+            function(opcion) {
+
+                return opcion.value ===
+                    desde;
+
+            }
+        )
+    ) {
+
+        selectorDesde.value =
+            desde;
+
+    }
+
+
+    if (
+        selectorHasta &&
+        Array.from(
+            selectorHasta.options
+        ).some(
+            function(opcion) {
+
+                return opcion.value ===
+                    hasta;
+
+            }
+        )
+    ) {
+
+        selectorHasta.value =
+            hasta;
+
+    }
+
+
+    actualizarResumenLoteQR();
+
+}
+
+
+
+function obtenerCodigosLoteQR() {
+
+    const desde =
+        document.getElementById(
+            "qrLoteDesde"
+        ).value;
+
+
+    const hasta =
+        document.getElementById(
+            "qrLoteHasta"
+        ).value;
+
+
+    if (
+        !desde ||
+        !hasta
+    ) {
+
+        return [];
+
+    }
+
+
+    const numeroDesde =
+        parseInt(
+            desde,
+            10
+        );
+
+
+    const numeroHasta =
+        parseInt(
+            hasta,
+            10
+        );
+
+
+    const menor =
+        Math.min(
+            numeroDesde,
+            numeroHasta
+        );
+
+
+    const mayor =
+        Math.max(
+            numeroDesde,
+            numeroHasta
+        );
+
+
+    return obtenerCodigosNumericosOrdenados().filter(
+        function(codigo) {
+
+            const numero =
+                parseInt(
+                    codigo,
+                    10
+                );
+
+
+            return (
+                numero >= menor &&
+                numero <= mayor
+            );
+
+        }
+    );
+
+}
+
+
+
+function actualizarResumenLoteQR() {
+
+    const resumen =
+        document.getElementById(
+            "resumenLoteQR"
+        );
+
+
+    if (
+        !resumen
+    ) {
+
+        return;
+
+    }
+
+
+    const codigos =
+        obtenerCodigosLoteQR();
+
+
+    if (
+        codigos.length === 0
+    ) {
+
+        resumen.textContent =
+            "No hay tarjetas para generar.";
+
+        return;
+
+    }
+
+
+    if (
+        codigos.length === 1
+    ) {
+
+        resumen.textContent =
+            "Se descargará 1 QR: " +
+            codigos[0] +
+            ".";
+
+        return;
+
+    }
+
+
+    resumen.textContent =
+        "Se descargarán " +
+        codigos.length +
+        " QR: " +
+        codigos[0] +
+        " a " +
+        codigos[
+            codigos.length - 1
+        ] +
+        ".";
+
+}
+
+
+
+/* =====================================================
+   DESCARGAR LOTE ZIP
+===================================================== */
+
+async function descargarLoteQR() {
+
+    const codigos =
+        obtenerCodigosLoteQR();
+
+
+    if (
+        codigos.length === 0
+    ) {
+
+        alert(
+            "Seleccioná un rango válido."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        typeof JSZip ===
+        "undefined"
+    ) {
+
+        alert(
+            "No se pudo cargar el sistema ZIP.\n\n" +
+            "Revisá tu conexión y recargá el panel."
+        );
+
+        return;
+
+    }
+
+
+    const confirmar =
+        confirm(
+            "¿Generar y descargar " +
+            codigos.length +
+            " QR?"
+        );
+
+
+    if (
+        !confirmar
+    ) {
+
+        return;
+
+    }
+
+
+    const boton =
+        document.getElementById(
+            "botonDescargarLoteQR"
+        );
+
+
+    const progreso =
+        document.getElementById(
+            "progresoLoteQR"
+        );
+
+
+    boton.disabled =
+        true;
+
+
+    progreso.style.display =
+        "block";
+
+
+    try {
+
+        const zip =
+            new JSZip();
+
+
+        for (
+            let i = 0;
+            i < codigos.length;
+            i++
+        ) {
+
+            const codigo =
+                codigos[i];
+
+
+            progreso.textContent =
+                "⏳ Generando QR " +
+                (i + 1) +
+                " de " +
+                codigos.length +
+                ": " +
+                codigo;
+
+
+            const blob =
+                await crearBlobQR(
+                    codigo
+                );
+
+
+            zip.file(
+                "QR-" +
+                codigo +
+                ".png",
+                blob
+            );
+
+        }
+
+
+        progreso.textContent =
+            "⏳ Preparando archivo ZIP...";
+
+
+        const zipBlob =
+            await zip.generateAsync(
+                {
+                    type:
+                        "blob",
+
+                    compression:
+                        "DEFLATE"
+                },
+
+                function(metadata) {
+
+                    progreso.textContent =
+                        "⏳ Comprimiendo: " +
+                        Math.round(
+                            metadata.percent
+                        ) +
+                        "%";
+
+                }
+            );
+
+
+        const primero =
+            codigos[0];
+
+
+        const ultimo =
+            codigos[
+                codigos.length - 1
+            ];
+
+
+        const nombreZip =
+            primero === ultimo
+
+                ? "QR-" +
+                  primero +
+                  ".zip"
+
+                : "QR-" +
+                  primero +
+                  "-a-" +
+                  ultimo +
+                  ".zip";
+
+
+        descargarBlob(
+            zipBlob,
+            nombreZip
+        );
+
+
+        progreso.textContent =
+            "✅ " +
+            codigos.length +
+            " QR preparados correctamente.";
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        progreso.textContent =
+            "❌ " +
+            error.message;
+
+
+        alert(
+            "No se pudo generar la tanda.\n\n" +
+            error.message
+        );
+
+    }
+
+    finally {
+
+        boton.disabled =
+            false;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   QR ÚLTIMA TANDA
+===================================================== */
+
+async function descargarQRUltimaTanda() {
+
+    if (
+        ultimasTarjetasCreadas.length === 0
+    ) {
+
+        alert(
+            "No hay una tanda nueva en esta sesión."
+        );
+
+        return;
+
+    }
+
+
+    seleccionarRangoQR(
+
+        ultimasTarjetasCreadas[0],
+
+        ultimasTarjetasCreadas[
+            ultimasTarjetasCreadas.length - 1
+        ]
+
+    );
+
+
+    document.querySelector(
+        ".generador-qr"
+    ).scrollIntoView({
+
+        behavior:
+            "smooth"
+
+    });
+
+
+    await descargarLoteQR();
+
+}
+
+
+
+/* =====================================================
+   DESCARGAR BLOB
+===================================================== */
+
+function descargarBlob(
+    blob,
+    nombreArchivo
+) {
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    const enlace =
+        document.createElement(
+            "a"
+        );
+
+
+    enlace.href =
+        url;
+
+
+    enlace.download =
+        nombreArchivo;
+
+
+    document.body.appendChild(
+        enlace
+    );
+
+
+    enlace.click();
+
+
+    enlace.remove();
+
+
+    setTimeout(
+        function() {
+
+            URL.revokeObjectURL(
+                url
+            );
+
+        },
+
+        1000
+    );
+
+}
+
+
+
+/* =====================================================
+   RESUMEN STOCK
 ===================================================== */
 
 function actualizarResumenStock() {
@@ -3099,13 +4006,8 @@ function actualizarSelectorEstado() {
         function(codigo) {
 
             const cliente =
-                clientes[codigo] || {};
-
-
-            const estado =
-                obtenerEstadoCliente(
-                    cliente
-                );
+                clientes[codigo] ||
+                {};
 
 
             const opcion =
@@ -3122,7 +4024,9 @@ function actualizarSelectorEstado() {
                 codigo +
                 " — " +
                 textoEstado(
-                    estado
+                    obtenerEstadoCliente(
+                        cliente
+                    )
                 ) +
                 " — " +
                 (
@@ -3217,27 +4121,40 @@ function mostrarClienteEstadoSeleccionado() {
         <div class="cliente">
 
             <strong>
+
                 ${escaparHTML(codigo)}
+
                 —
+
                 ${escaparHTML(
                     cliente.nombre ||
                     "Sin nombre"
                 )}
+
             </strong>
 
+
             <div class="cliente-url">
+
                 /r/${escaparHTML(codigo)}
+
             </div>
 
+
             <div class="cliente-info">
+
                 ${botones.length}
                 botón/es configurado/s
+
             </div>
+
 
             <span
                 class="badge-estado badge-${estado}"
             >
+
                 ${textoEstado(estado)}
+
             </span>
 
 
@@ -3247,7 +4164,10 @@ function mostrarClienteEstadoSeleccionado() {
                     Estado de la tarjeta
                 </label>
 
-                <select id="estadoSeleccionado">
+
+                <select
+                    id="estadoSeleccionado"
+                >
 
                     <option
                         value="disponible"
@@ -3277,6 +4197,7 @@ function mostrarClienteEstadoSeleccionado() {
                     Nota interna
                 </label>
 
+
                 <input
                     id="notaSeleccionada"
                     value="${escaparHTML(nota)}"
@@ -3302,6 +4223,7 @@ function mostrarClienteEstadoSeleccionado() {
                 >
                     ✏️ Editar
                 </button>
+
 
                 <button
                     class="boton-eliminar"
@@ -3448,7 +4370,8 @@ function actualizarSelectorRapido() {
         function(codigo) {
 
             const cliente =
-                clientes[codigo] || {};
+                clientes[codigo] ||
+                {};
 
 
             const cantidadBotones =
@@ -4019,13 +4942,9 @@ function mostrarPreviewDesdeUrl(
     }
 
 
-    const imagen =
-        document.getElementById(
-            imagenId
-        );
-
-
-    imagen.src =
+    document.getElementById(
+        imagenId
+    ).src =
         valor;
 
 
@@ -4526,6 +5445,7 @@ async function subirImagenDesdeAdmin(
             await fetch(
                 WORKER_URL,
                 {
+
                     method:
                         "POST",
 
@@ -5118,7 +6038,7 @@ function abrirTarjetaRapida() {
 
 
     window.open(
-        "https://qonekta.github.io/qr-dinamicos/r/" +
+        URL_BASE_TARJETAS +
         codigo,
         "_blank"
     );
@@ -5933,7 +6853,7 @@ async function guardarCliente() {
 
 
     enlaceActual =
-        "https://qonekta.github.io/qr-dinamicos/r/" +
+        URL_BASE_TARJETAS +
         codigo;
 
 
@@ -5958,7 +6878,7 @@ async function guardarCliente() {
 
 
 /* =====================================================
-   SINCRONIZAR CLIENTES.JS
+   SINCRONIZAR
 ===================================================== */
 
 async function sincronizarConGitHub() {
@@ -5969,6 +6889,7 @@ async function sincronizarConGitHub() {
             await fetch(
                 WORKER_URL,
                 {
+
                     method:
                         "POST",
 
