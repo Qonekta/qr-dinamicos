@@ -206,6 +206,64 @@ button:disabled {
 
 
 /* =====================================================
+   GENERADOR QR
+===================================================== */
+
+.generador-qr {
+    border: 2px solid #e9d5ff;
+    background: #fcfaff;
+}
+
+.qr-info {
+    margin-top: 16px;
+    padding: 15px;
+    border-radius: 12px;
+    background: white;
+    border: 1px solid #e8dff3;
+}
+
+.qr-url {
+    margin-top: 8px;
+    font-size: 14px;
+    word-break: break-all;
+    font-weight: bold;
+}
+
+.qr-preview {
+    display: none;
+    margin-top: 20px;
+    padding: 22px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.qr-preview canvas,
+.qr-preview img {
+    display: block !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    height: auto !important;
+    margin: auto !important;
+}
+
+.qr-codigo-grande {
+    margin-top: 14px;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.boton-descargar-qr {
+    background: #7e22ce;
+}
+
+.boton-copiar-qr {
+    background: #555;
+}
+
+
+/* =====================================================
    ALTA RÁPIDA
 ===================================================== */
 
@@ -738,6 +796,98 @@ button:disabled {
 
 
     <!-- =================================================
+         GENERADOR DE QR
+    ================================================== -->
+
+    <div class="tarjeta generador-qr">
+
+        <h2>
+            🔳 Generador de QR
+        </h2>
+
+        <p>
+            Elegí cualquier tarjeta existente y generá su QR permanente.
+        </p>
+
+        <p class="aviso">
+            El QR siempre apunta a la página dinámica de la tarjeta.
+            Los datos del cliente podrán cambiar después sin cambiar el QR.
+        </p>
+
+
+        <label>
+            Tarjeta
+        </label>
+
+        <select
+            id="selectorQR"
+            onchange="generarQRSeleccionado()"
+        >
+
+            <option value="">
+                Seleccioná una tarjeta
+            </option>
+
+        </select>
+
+
+        <div
+            id="qrInfo"
+            class="qr-info"
+            style="display:none;"
+        >
+
+            <strong>
+                Enlace incluido en el QR:
+            </strong>
+
+            <div
+                id="qrUrl"
+                class="qr-url"
+            ></div>
+
+        </div>
+
+
+        <div
+            id="qrPreview"
+            class="qr-preview"
+        >
+
+            <div id="qrContenedor"></div>
+
+            <div
+                id="qrCodigoGrande"
+                class="qr-codigo-grande"
+            ></div>
+
+        </div>
+
+
+        <button
+            id="botonDescargarQR"
+            class="boton-descargar-qr"
+            onclick="descargarQRSeleccionado()"
+            disabled
+        >
+            ⬇️ Descargar QR
+        </button>
+
+
+        <button
+            id="botonCopiarUrlQR"
+            class="boton-copiar-qr"
+            onclick="copiarUrlQR()"
+            disabled
+        >
+            📋 Copiar enlace
+        </button>
+
+    </div>
+
+
+
+    <!-- =================================================
          ALTA RÁPIDA
     ================================================== -->
 
@@ -1102,7 +1252,7 @@ button:disabled {
 
         <input
             id="codigo"
-            placeholder="Ejemplo: 019"
+            placeholder="Ejemplo: 024"
         >
 
 
@@ -1345,6 +1495,16 @@ button:disabled {
 
 
 
+<!-- =====================================================
+     LIBRERÍA QR
+===================================================== -->
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+></script>
+
+
+
 <script>
 
 
@@ -1378,6 +1538,10 @@ let codigoActual = "";
 let clienteEditando = null;
 
 let ultimasTarjetasCreadas = [];
+
+let codigoQRActual = "";
+
+let urlQRActual = "";
 
 
 
@@ -1703,6 +1867,8 @@ function actualizarTodoPanel() {
     actualizarSelectorRapido();
 
     actualizarSelectorEstado();
+
+    actualizarSelectorQR();
 
     actualizarVistaNuevasTarjetas();
 
@@ -2388,6 +2554,437 @@ function copiarListaNuevasTarjetas() {
 
     alert(
         "Códigos y enlaces copiados."
+    );
+
+}
+
+
+
+/* =====================================================
+   GENERADOR QR
+===================================================== */
+
+function actualizarSelectorQR() {
+
+    const selector =
+        document.getElementById(
+            "selectorQR"
+        );
+
+
+    const seleccionadoAntes =
+        selector.value;
+
+
+    selector.innerHTML =
+        '<option value="">' +
+        'Seleccioná una tarjeta' +
+        '</option>';
+
+
+    obtenerCodigosOrdenados().forEach(
+        function(codigo) {
+
+            const cliente =
+                clientes[codigo] ||
+                {};
+
+
+            const opcion =
+                document.createElement(
+                    "option"
+                );
+
+
+            opcion.value =
+                codigo;
+
+
+            opcion.textContent =
+                codigo +
+                " — " +
+                textoEstado(
+                    obtenerEstadoCliente(
+                        cliente
+                    )
+                ) +
+                " — " +
+                (
+                    cliente.nombre ||
+                    "Sin nombre"
+                );
+
+
+            selector.appendChild(
+                opcion
+            );
+
+        }
+    );
+
+
+    if (
+        clientes[
+            seleccionadoAntes
+        ]
+    ) {
+
+        selector.value =
+            seleccionadoAntes;
+
+    }
+
+}
+
+
+
+function generarQRSeleccionado() {
+
+    const codigo =
+        document.getElementById(
+            "selectorQR"
+        ).value;
+
+
+    const contenedor =
+        document.getElementById(
+            "qrContenedor"
+        );
+
+
+    contenedor.innerHTML =
+        "";
+
+
+    if (
+        !codigo
+    ) {
+
+        codigoQRActual =
+            "";
+
+        urlQRActual =
+            "";
+
+
+        document.getElementById(
+            "qrInfo"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "qrPreview"
+        ).style.display =
+            "none";
+
+
+        document.getElementById(
+            "botonDescargarQR"
+        ).disabled =
+            true;
+
+
+        document.getElementById(
+            "botonCopiarUrlQR"
+        ).disabled =
+            true;
+
+
+        return;
+
+    }
+
+
+    if (
+        typeof QRCode ===
+        "undefined"
+    ) {
+
+        alert(
+            "No se pudo cargar el generador de QR.\n\n" +
+            "Revisá tu conexión a Internet y recargá la página."
+        );
+
+        return;
+
+    }
+
+
+    codigoQRActual =
+        codigo;
+
+
+    urlQRActual =
+        "https://qonekta.github.io/qr-dinamicos/r/" +
+        codigo;
+
+
+    document.getElementById(
+        "qrUrl"
+    ).textContent =
+        urlQRActual;
+
+
+    document.getElementById(
+        "qrCodigoGrande"
+    ).textContent =
+        "QR-" +
+        codigo;
+
+
+    document.getElementById(
+        "qrInfo"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "qrPreview"
+    ).style.display =
+        "block";
+
+
+    /*
+        El QR interno se genera a 1000 x 1000 px.
+
+        Esto nos da buena resolución para impresión.
+    */
+
+    new QRCode(
+        contenedor,
+        {
+
+            text:
+                urlQRActual,
+
+            width:
+                1000,
+
+            height:
+                1000,
+
+            colorDark:
+                "#000000",
+
+            colorLight:
+                "#ffffff",
+
+            correctLevel:
+                QRCode.CorrectLevel.H
+
+        }
+    );
+
+
+    document.getElementById(
+        "botonDescargarQR"
+    ).disabled =
+        false;
+
+
+    document.getElementById(
+        "botonCopiarUrlQR"
+    ).disabled =
+        false;
+
+}
+
+
+
+/* =====================================================
+   DESCARGAR QR
+===================================================== */
+
+function descargarQRSeleccionado() {
+
+    if (
+        !codigoQRActual ||
+        !urlQRActual
+    ) {
+
+        alert(
+            "Primero seleccioná una tarjeta."
+        );
+
+        return;
+
+    }
+
+
+    const contenedor =
+        document.getElementById(
+            "qrContenedor"
+        );
+
+
+    const canvasOriginal =
+        contenedor.querySelector(
+            "canvas"
+        );
+
+
+    if (
+        !canvasOriginal
+    ) {
+
+        alert(
+            "El QR todavía no está listo."
+        );
+
+        return;
+
+    }
+
+
+    /*
+        Agregamos margen blanco.
+
+        El QR original es 1000 x 1000.
+        Sumamos 80 px por lado.
+
+        Resultado:
+        1160 x 1160 px.
+    */
+
+    const margen =
+        80;
+
+
+    const canvasFinal =
+        document.createElement(
+            "canvas"
+        );
+
+
+    canvasFinal.width =
+        canvasOriginal.width +
+        margen * 2;
+
+
+    canvasFinal.height =
+        canvasOriginal.height +
+        margen * 2;
+
+
+    const ctx =
+        canvasFinal.getContext(
+            "2d"
+        );
+
+
+    /*
+        Fondo blanco
+    */
+
+    ctx.fillStyle =
+        "#ffffff";
+
+
+    ctx.fillRect(
+        0,
+        0,
+        canvasFinal.width,
+        canvasFinal.height
+    );
+
+
+    /*
+        QR centrado
+    */
+
+    ctx.drawImage(
+        canvasOriginal,
+        margen,
+        margen
+    );
+
+
+    canvasFinal.toBlob(
+        function(blob) {
+
+            if (
+                !blob
+            ) {
+
+                alert(
+                    "No se pudo crear el archivo QR."
+                );
+
+                return;
+
+            }
+
+
+            const url =
+                URL.createObjectURL(
+                    blob
+                );
+
+
+            const enlace =
+                document.createElement(
+                    "a"
+                );
+
+
+            enlace.href =
+                url;
+
+
+            enlace.download =
+                "QR-" +
+                codigoQRActual +
+                ".png";
+
+
+            document.body.appendChild(
+                enlace
+            );
+
+
+            enlace.click();
+
+
+            enlace.remove();
+
+
+            URL.revokeObjectURL(
+                url
+            );
+
+        },
+
+        "image/png"
+
+    );
+
+}
+
+
+
+/* =====================================================
+   COPIAR URL QR
+===================================================== */
+
+function copiarUrlQR() {
+
+    if (
+        !urlQRActual
+    ) {
+
+        return;
+
+    }
+
+
+    navigator.clipboard.writeText(
+        urlQRActual
+    );
+
+
+    alert(
+        "Enlace del QR copiado."
     );
 
 }
