@@ -16,6 +16,10 @@ const negocios = {
 
         colorBotones: "#222222",
 
+        estado: "disponible",
+
+        notaInterna: "",
+
         botones: [
 
             {
@@ -53,6 +57,10 @@ const negocios = {
 
         colorBotones: "#222222",
 
+        estado: "disponible",
+
+        notaInterna: "",
+
         botones: [
 
             {
@@ -80,6 +88,10 @@ const negocios = {
 
         colorBotones: "#222222",
 
+        estado: "disponible",
+
+        notaInterna: "",
+
         botones: [
 
             {
@@ -106,6 +118,10 @@ const negocios = {
         colorCabecera: "#222222",
 
         colorBotones: "#222222",
+
+        estado: "disponible",
+
+        notaInterna: "",
 
         botones: [
 
@@ -149,6 +165,10 @@ const negocios = {
 
         colorBotones: "#222222",
 
+        estado: "disponible",
+
+        notaInterna: "",
+
         botones: [
 
             {
@@ -175,6 +195,10 @@ const negocios = {
         colorCabecera: "#222222",
 
         colorBotones: "#222222",
+
+        estado: "disponible",
+
+        notaInterna: "",
 
         botones: [
 
@@ -203,6 +227,10 @@ const negocios = {
 
         colorBotones: "#222222",
 
+        estado: "disponible",
+
+        notaInterna: "",
+
         botones: [
 
             {
@@ -229,6 +257,10 @@ const negocios = {
         colorCabecera: "#222222",
 
         colorBotones: "#222222",
+
+        estado: "disponible",
+
+        notaInterna: "",
 
         botones: [
 
@@ -257,6 +289,10 @@ const negocios = {
 
         colorBotones: "#222222",
 
+        estado: "disponible",
+
+        notaInterna: "",
+
         botones: [
 
             {
@@ -283,6 +319,10 @@ const negocios = {
         colorCabecera: "#222222",
 
         colorBotones: "#222222",
+
+        estado: "disponible",
+
+        notaInterna: "",
 
         botones: [
 
@@ -311,6 +351,10 @@ const negocios = {
 
         colorBotones: "#222222",
 
+        estado: "disponible",
+
+        notaInterna: "",
+
         botones: [
 
             {
@@ -337,6 +381,10 @@ const negocios = {
         colorCabecera: "#222222",
 
         colorBotones: "#222222",
+
+        estado: "disponible",
+
+        notaInterna: "",
 
         botones: [
 
@@ -365,6 +413,10 @@ const negocios = {
 
         colorBotones: "#222222",
 
+        estado: "disponible",
+
+        notaInterna: "",
+
         botones: [
 
             {
@@ -391,6 +443,10 @@ const negocios = {
         colorCabecera: "#222222",
 
         colorBotones: "#222222",
+
+        estado: "disponible",
+
+        notaInterna: "",
 
         botones: [
 
@@ -419,6 +475,10 @@ const negocios = {
 
         colorBotones: "#222222",
 
+        estado: "disponible",
+
+        notaInterna: "",
+
         botones: [
 
             {
@@ -445,6 +505,10 @@ const negocios = {
         colorCabecera: "#222222",
 
         colorBotones: "#222222",
+
+        estado: "disponible",
+
+        notaInterna: "",
 
         botones: [
 
@@ -473,6 +537,10 @@ const negocios = {
 
         colorBotones: "#222222",
 
+        estado: "disponible",
+
+        notaInterna: "",
+
         botones: [
 
             {
@@ -500,6 +568,10 @@ const negocios = {
 
         colorBotones: "#222222",
 
+        estado: "disponible",
+
+        notaInterna: "",
+
         botones: [
 
             {
@@ -526,6 +598,10 @@ const negocios = {
         colorCabecera: "#f50000",
 
         colorBotones: "#222222",
+
+        estado: "disponible",
+
+        notaInterna: "",
 
         botones: [
 
