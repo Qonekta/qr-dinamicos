@@ -16,7 +16,7 @@ const negocios = {
 
         colorBotones: "#222222",
 
-        estado: "vendida",
+        estado: "disponible",
 
         notaInterna: "",
 
