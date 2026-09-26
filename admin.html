@@ -75,6 +75,11 @@ input[type="color"] {
     cursor: pointer;
 }
 
+input[type="file"] {
+    padding: 10px;
+    background: #fafafa;
+}
+
 button {
     width: 100%;
     padding: 14px;
@@ -104,7 +109,7 @@ button:disabled {
 
 
 /* =====================================================
-   RESUMEN DE STOCK
+   RESUMEN STOCK
 ===================================================== */
 
 .resumen-stock {
@@ -201,7 +206,57 @@ button:disabled {
 
 
 /* =====================================================
-   CONTROL DE ESTADO
+   CARGA DE IMÁGENES
+===================================================== */
+
+.carga-imagen {
+    margin-top: 18px;
+    padding: 16px;
+    background: #f7f9fc;
+    border: 1px solid #dfe5ec;
+    border-radius: 12px;
+}
+
+.carga-imagen h4 {
+    margin: 0 0 10px 0;
+}
+
+.boton-subir-imagen {
+    background: #2563eb;
+    margin-top: 10px;
+}
+
+.estado-imagen {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.preview-imagen {
+    display: none;
+    margin-top: 15px;
+    padding: 10px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.preview-imagen img {
+    max-width: 100%;
+    max-height: 260px;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.preview-logo img {
+    max-height: 150px;
+}
+
+
+/* =====================================================
+   CONTROL ESTADO
 ===================================================== */
 
 .cliente {
@@ -297,7 +352,7 @@ button:disabled {
 
 
 /* =====================================================
-   FORMULARIO AVANZADO
+   AVANZADO
 ===================================================== */
 
 .boton-personalizado {
@@ -572,10 +627,6 @@ button:disabled {
             los datos básicos del cliente.
         </p>
 
-        <p class="aviso">
-            Este modo no cambia el código del QR ni del NFC.
-        </p>
-
 
         <label>
             Tarjeta a configurar
@@ -645,8 +696,7 @@ button:disabled {
             >
 
             <p class="aviso">
-                Para Argentina usá código de área +
-                número, sin 0 ni 15.
+                Código de área + número, sin 0 ni 15.
             </p>
 
 
@@ -659,11 +709,6 @@ button:disabled {
                 placeholder="@cafesanrafael"
             >
 
-            <p class="aviso">
-                Podés escribir @usuario, usuario
-                o pegar el enlace completo.
-            </p>
-
 
             <label>
                 Place ID de Google
@@ -674,38 +719,122 @@ button:disabled {
                 placeholder="Ejemplo: ChIJ..."
             >
 
-            <p class="aviso">
-                Pegá el Place ID obtenido desde
-                Place ID Finder.
-            </p>
-
         </div>
 
 
 
+        <!-- =================================================
+             PERSONALIZACIÓN RÁPIDA
+        ================================================== -->
+
         <div class="bloque-datos">
 
             <h3 style="margin-top:0;">
-                Personalización
+                🎨 Personalización
             </h3>
 
+
+            <!-- FONDO -->
+
+            <div class="carga-imagen">
+
+                <h4>
+                    🖼️ Fondo del negocio
+                </h4>
+
+                <input
+                    type="file"
+                    id="rapidoArchivoFondo"
+                    accept="image/*"
+                >
+
+                <button
+                    type="button"
+                    id="subirFondoRapido"
+                    class="boton-subir-imagen"
+                    onclick="subirImagenDesdeAdmin('fondo','rapido')"
+                >
+                    📤 Subir fondo
+                </button>
+
+                <div
+                    id="estadoFondoRapido"
+                    class="estado-imagen"
+                ></div>
+
+                <div
+                    id="previewFondoRapidoCaja"
+                    class="preview-imagen"
+                >
+                    <img
+                        id="previewFondoRapido"
+                        alt="Vista previa del fondo"
+                    >
+                </div>
+
+            </div>
+
+
             <label>
-                Fondo (opcional)
+                URL del fondo
             </label>
 
             <input
                 id="rapidoFondo"
-                placeholder="https://..."
+                placeholder="Se completa automáticamente"
             >
 
+
+            <!-- LOGO -->
+
+            <div class="carga-imagen">
+
+                <h4>
+                    🏪 Logo del negocio
+                </h4>
+
+                <input
+                    type="file"
+                    id="rapidoArchivoLogo"
+                    accept="image/*"
+                >
+
+                <button
+                    type="button"
+                    id="subirLogoRapido"
+                    class="boton-subir-imagen"
+                    onclick="subirImagenDesdeAdmin('logo','rapido')"
+                >
+                    📤 Subir logo
+                </button>
+
+                <div
+                    id="estadoLogoRapido"
+                    class="estado-imagen"
+                ></div>
+
+                <div
+                    id="previewLogoRapidoCaja"
+                    class="preview-imagen preview-logo"
+                >
+                    <img
+                        id="previewLogoRapido"
+                        alt="Vista previa del logo"
+                    >
+                </div>
+
+            </div>
+
+
             <label>
-                Logo (opcional)
+                URL del logo
             </label>
 
             <input
                 id="rapidoLogo"
-                placeholder="https://..."
+                placeholder="Se completa automáticamente"
             >
+
 
             <label>
                 Color de tarjeta
@@ -717,6 +846,7 @@ button:disabled {
                 value="#00b7ff"
             >
 
+
             <label>
                 Color de cabecera
             </label>
@@ -726,6 +856,7 @@ button:disabled {
                 id="rapidoColorCabecera"
                 value="#222222"
             >
+
 
             <label>
                 Color de botones
@@ -769,7 +900,7 @@ button:disabled {
 
 
     <!-- =================================================
-         CONTROL DE ESTADO
+         ESTADO TARJETAS
     ================================================== -->
 
     <div class="tarjeta">
@@ -780,7 +911,7 @@ button:disabled {
 
         <p class="aviso">
             Elegí una tarjeta para consultar o modificar
-            su estado. Solo se mostrará la tarjeta seleccionada.
+            su estado.
         </p>
 
 
@@ -877,8 +1008,50 @@ button:disabled {
                 🎨 Personalización visual
             </h3>
 
+
+            <!-- FONDO AVANZADO -->
+
+            <div class="carga-imagen">
+
+                <h4>
+                    🖼️ Fondo del negocio
+                </h4>
+
+                <input
+                    type="file"
+                    id="avanzadoArchivoFondo"
+                    accept="image/*"
+                >
+
+                <button
+                    type="button"
+                    id="subirFondoAvanzado"
+                    class="boton-subir-imagen"
+                    onclick="subirImagenDesdeAdmin('fondo','avanzado')"
+                >
+                    📤 Subir fondo
+                </button>
+
+                <div
+                    id="estadoFondoAvanzado"
+                    class="estado-imagen"
+                ></div>
+
+                <div
+                    id="previewFondoAvanzadoCaja"
+                    class="preview-imagen"
+                >
+                    <img
+                        id="previewFondoAvanzado"
+                        alt="Vista previa del fondo"
+                    >
+                </div>
+
+            </div>
+
+
             <label>
-                Imagen de fondo
+                URL del fondo
             </label>
 
             <input
@@ -886,14 +1059,57 @@ button:disabled {
                 placeholder="https://..."
             >
 
+
+            <!-- LOGO AVANZADO -->
+
+            <div class="carga-imagen">
+
+                <h4>
+                    🏪 Logo del negocio
+                </h4>
+
+                <input
+                    type="file"
+                    id="avanzadoArchivoLogo"
+                    accept="image/*"
+                >
+
+                <button
+                    type="button"
+                    id="subirLogoAvanzado"
+                    class="boton-subir-imagen"
+                    onclick="subirImagenDesdeAdmin('logo','avanzado')"
+                >
+                    📤 Subir logo
+                </button>
+
+                <div
+                    id="estadoLogoAvanzado"
+                    class="estado-imagen"
+                ></div>
+
+                <div
+                    id="previewLogoAvanzadoCaja"
+                    class="preview-imagen preview-logo"
+                >
+                    <img
+                        id="previewLogoAvanzado"
+                        alt="Vista previa del logo"
+                    >
+                </div>
+
+            </div>
+
+
             <label>
-                Logo del negocio
+                URL del logo
             </label>
 
             <input
                 id="logo"
                 placeholder="https://..."
             >
+
 
             <label>
                 Color de la tarjeta translúcida
@@ -905,6 +1121,7 @@ button:disabled {
                 value="#00b7ff"
             >
 
+
             <label>
                 Color de la cabecera
             </label>
@@ -914,6 +1131,7 @@ button:disabled {
                 id="colorCabecera"
                 value="#222222"
             >
+
 
             <label>
                 Color de los botones
@@ -1397,25 +1615,20 @@ function obtenerEstadoCliente(
     if (
         valor === "pendiente"
     ) {
-
         return "pendiente";
-
     }
 
 
     if (
         valor === "vendida"
     ) {
-
         return "vendida";
-
     }
 
 
     return "disponible";
 
 }
-
 
 
 function textoEstado(
@@ -1425,18 +1638,14 @@ function textoEstado(
     if (
         estado === "pendiente"
     ) {
-
         return "🟡 Pendiente";
-
     }
 
 
     if (
         estado === "vendida"
     ) {
-
         return "🟢 Vendida";
-
     }
 
 
@@ -1447,7 +1656,7 @@ function textoEstado(
 
 
 /* =====================================================
-   ORDENAR CÓDIGOS
+   ORDEN CÓDIGOS
 ===================================================== */
 
 function obtenerCodigosOrdenados() {
@@ -1510,23 +1719,17 @@ function actualizarResumenStock() {
             if (
                 estado === "pendiente"
             ) {
-
                 pendientes++;
-
             }
 
             else if (
                 estado === "vendida"
             ) {
-
                 vendidas++;
-
             }
 
             else {
-
                 disponibles++;
-
             }
 
         }
@@ -1561,7 +1764,7 @@ function actualizarResumenStock() {
 
 
 /* =====================================================
-   SELECTOR DE ESTADO
+   SELECTOR ESTADO
 ===================================================== */
 
 function actualizarSelectorEstado() {
@@ -1647,19 +1850,15 @@ function actualizarSelectorEstado() {
 
 
 /* =====================================================
-   MOSTRAR SOLO TARJETA SELECCIONADA
+   MOSTRAR ESTADO SELECCIONADO
 ===================================================== */
 
 function mostrarClienteEstadoSeleccionado() {
 
-    const selector =
+    const codigo =
         document.getElementById(
             "selectorEstadoCliente"
-        );
-
-
-    const codigo =
-        selector.value;
+        ).value;
 
 
     const contenedor =
@@ -1756,9 +1955,7 @@ function mostrarClienteEstadoSeleccionado() {
             <div class="control-stock">
 
                 <label>
-
                     Estado de la tarjeta
-
                 </label>
 
 
@@ -1791,9 +1988,7 @@ function mostrarClienteEstadoSeleccionado() {
 
 
                 <label>
-
                     Nota interna
-
                 </label>
 
 
@@ -1804,20 +1999,11 @@ function mostrarClienteEstadoSeleccionado() {
                 >
 
 
-                <p class="aviso">
-
-                    Esta nota solamente la ves vos.
-
-                </p>
-
-
                 <button
                     class="boton-guardar-estado"
                     onclick="guardarEstadoCliente('${escaparJS(codigo)}')"
                 >
-
                     💾 Guardar estado
-
                 </button>
 
             </div>
@@ -1829,9 +2015,7 @@ function mostrarClienteEstadoSeleccionado() {
                     class="boton-editar"
                     onclick="editarCliente('${escaparJS(codigo)}')"
                 >
-
                     ✏️ Editar
-
                 </button>
 
 
@@ -1839,9 +2023,7 @@ function mostrarClienteEstadoSeleccionado() {
                     class="boton-eliminar"
                     onclick="eliminarCliente('${escaparJS(codigo)}')"
                 >
-
                     🗑️ Eliminar
-
                 </button>
 
             </div>
@@ -1869,44 +2051,20 @@ async function guardarEstadoCliente(
     if (
         !cliente
     ) {
-
-        alert(
-            "No se encontró esa tarjeta."
-        );
-
         return;
-
-    }
-
-
-    const selectorEstado =
-        document.getElementById(
-            "estadoSeleccionado"
-        );
-
-
-    const campoNota =
-        document.getElementById(
-            "notaSeleccionada"
-        );
-
-
-    if (
-        !selectorEstado ||
-        !campoNota
-    ) {
-
-        return;
-
     }
 
 
     const nuevoEstado =
-        selectorEstado.value;
+        document.getElementById(
+            "estadoSeleccionado"
+        ).value;
 
 
     const nuevaNota =
-        campoNota.value.trim();
+        document.getElementById(
+            "notaSeleccionada"
+        ).value.trim();
 
 
     const respaldo =
@@ -1929,9 +2087,7 @@ async function guardarEstadoCliente(
 
 
     mostrarEstado(
-        "⏳ Actualizando estado de la tarjeta " +
-        codigo +
-        "...",
+        "⏳ Actualizando estado...",
         "estado-cargando"
     );
 
@@ -1951,21 +2107,6 @@ async function guardarEstadoCliente(
         generarClientesJS();
 
         actualizarTodoPanel();
-
-
-        document.getElementById(
-            "selectorEstadoCliente"
-        ).value =
-            codigo;
-
-
-        mostrarClienteEstadoSeleccionado();
-
-
-        mostrarEstado(
-            "❌ No se pudo actualizar el estado.",
-            "estado-error"
-        );
 
 
         alert(
@@ -1991,9 +2132,7 @@ async function guardarEstadoCliente(
 
 
     mostrarEstado(
-        "✅ Estado de la tarjeta " +
-        codigo +
-        " actualizado.",
+        "✅ Estado actualizado correctamente.",
         "estado-ok"
     );
 
@@ -2002,7 +2141,7 @@ async function guardarEstadoCliente(
 
 
 /* =====================================================
-   SELECTOR ALTA RÁPIDA
+   SELECTOR RÁPIDO
 ===================================================== */
 
 function actualizarSelectorRapido() {
@@ -2023,21 +2162,11 @@ function actualizarSelectorRapido() {
         '</option>';
 
 
-    const codigos =
-        obtenerCodigosOrdenados();
-
-
-    codigos.forEach(
+    obtenerCodigosOrdenados().forEach(
         function(codigo) {
 
             const cliente =
                 clientes[codigo] || {};
-
-
-            const nombre =
-                String(
-                    cliente.nombre || ""
-                ).trim();
 
 
             const cantidadBotones =
@@ -2046,14 +2175,6 @@ function actualizarSelectorRapido() {
                 )
                 ? cliente.botones.length
                 : 0;
-
-
-            const estado =
-                textoEstado(
-                    obtenerEstadoCliente(
-                        cliente
-                    )
-                );
 
 
             const opcion =
@@ -2069,10 +2190,14 @@ function actualizarSelectorRapido() {
             opcion.textContent =
                 codigo +
                 " — " +
-                estado +
+                textoEstado(
+                    obtenerEstadoCliente(
+                        cliente
+                    )
+                ) +
                 " — " +
                 (
-                    nombre ||
+                    cliente.nombre ||
                     "Sin nombre"
                 ) +
                 " — " +
@@ -2104,7 +2229,7 @@ function actualizarSelectorRapido() {
 
 
 /* =====================================================
-   IDENTIFICAR TIPO DE BOTÓN
+   TIPOS DE BOTÓN
 ===================================================== */
 
 function identificarTipoBoton(
@@ -2128,9 +2253,7 @@ function identificarTipoBoton(
         enlace.includes("whatsapp.com") ||
         nombre.includes("whatsapp")
     ) {
-
         return "whatsapp";
-
     }
 
 
@@ -2138,9 +2261,7 @@ function identificarTipoBoton(
         enlace.includes("instagram.com") ||
         nombre.includes("instagram")
     ) {
-
         return "instagram";
-
     }
 
 
@@ -2149,22 +2270,11 @@ function identificarTipoBoton(
             "search.google.com/local/writereview"
         )
         ||
-        (
-            enlace.includes("google")
-            &&
-            (
-                nombre.includes("reseña") ||
-                nombre.includes("opini")
-            )
-        )
-        ||
         nombre.includes("reseña")
         ||
         nombre.includes("opini")
     ) {
-
         return "resena";
-
     }
 
 
@@ -2175,234 +2285,124 @@ function identificarTipoBoton(
 
 
 /* =====================================================
-   EXTRAER WHATSAPP
+   EXTRAER DATOS
 ===================================================== */
 
 function extraerWhatsapp(
     cliente
 ) {
 
-    const botones =
-        Array.isArray(
-            cliente.botones
-        )
-        ? cliente.botones
-        : [];
-
-
     const boton =
-        botones.find(
+        (cliente.botones || []).find(
             function(b) {
-
-                return identificarTipoBoton(
-                    b
-                ) === "whatsapp";
-
+                return identificarTipoBoton(b) ===
+                    "whatsapp";
             }
         );
 
 
-    if (
-        !boton
-    ) {
-
+    if (!boton) {
         return "";
-
     }
 
 
-    const enlace =
+    const coincidencia =
         String(
             boton.enlace || ""
-        );
-
-
-    let coincidencia =
-        enlace.match(
+        ).match(
             /wa\.me\/(\d+)/i
         );
 
 
-    if (
-        coincidencia
-    ) {
-
-        return "+" +
-            coincidencia[1];
-
-    }
-
-
-    coincidencia =
-        enlace.match(
-            /[?&]phone=(\d+)/i
-        );
-
-
-    if (
-        coincidencia
-    ) {
-
-        return "+" +
-            coincidencia[1];
-
-    }
-
-
-    return "";
+    return coincidencia
+        ? "+" + coincidencia[1]
+        : "";
 
 }
 
 
-
-/* =====================================================
-   EXTRAER INSTAGRAM
-===================================================== */
 
 function extraerInstagram(
     cliente
 ) {
 
-    const botones =
-        Array.isArray(
-            cliente.botones
-        )
-        ? cliente.botones
-        : [];
-
-
     const boton =
-        botones.find(
+        (cliente.botones || []).find(
             function(b) {
-
-                return identificarTipoBoton(
-                    b
-                ) === "instagram";
-
+                return identificarTipoBoton(b) ===
+                    "instagram";
             }
         );
 
 
-    if (
-        !boton
-    ) {
-
+    if (!boton) {
         return "";
-
     }
 
 
-    const enlace =
+    const coincidencia =
         String(
             boton.enlace || ""
-        );
-
-
-    const coincidencia =
-        enlace.match(
+        ).match(
             /instagram\.com\/([^/?#]+)/i
         );
 
 
-    if (
-        coincidencia
-    ) {
-
-        return "@" +
-            coincidencia[1];
-
-    }
-
-
-    return "";
+    return coincidencia
+        ? "@" + coincidencia[1]
+        : "";
 
 }
 
 
-
-/* =====================================================
-   EXTRAER PLACE ID
-===================================================== */
 
 function extraerPlaceId(
     cliente
 ) {
 
-    const botones =
-        Array.isArray(
-            cliente.botones
-        )
-        ? cliente.botones
-        : [];
-
-
     const boton =
-        botones.find(
+        (cliente.botones || []).find(
             function(b) {
-
-                return identificarTipoBoton(
-                    b
-                ) === "resena";
-
+                return identificarTipoBoton(b) ===
+                    "resena";
             }
         );
 
 
-    if (
-        !boton
-    ) {
-
+    if (!boton) {
         return "";
-
     }
 
 
-    const enlace =
+    const coincidencia =
         String(
             boton.enlace || ""
-        );
-
-
-    const coincidencia =
-        enlace.match(
+        ).match(
             /[?&]placeid=([^&#]+)/i
         );
 
 
-    if (
-        coincidencia
-    ) {
-
-        return decodeURIComponent(
+    return coincidencia
+        ? decodeURIComponent(
             coincidencia[1]
-        );
-
-    }
-
-
-    return "";
+        )
+        : "";
 
 }
 
 
 
-/* =====================================================
-   BOTONES EXTRA
-===================================================== */
-
 function obtenerBotonesExtra(
     cliente
 ) {
 
-    const botones =
+    return (
         Array.isArray(
             cliente.botones
         )
         ? cliente.botones
-        : [];
-
-
-    return botones.filter(
+        : []
+    ).filter(
         function(boton) {
 
             return identificarTipoBoton(
@@ -2417,7 +2417,7 @@ function obtenerBotonesExtra(
 
 
 /* =====================================================
-   CARGAR ALTA RÁPIDA
+   CARGAR CLIENTE RÁPIDO
 ===================================================== */
 
 function cargarClienteRapido() {
@@ -2522,6 +2522,40 @@ function cargarClienteRapido() {
         );
 
 
+    mostrarPreviewDesdeUrl(
+        cliente.fondo,
+        "previewFondoRapido",
+        "previewFondoRapidoCaja"
+    );
+
+
+    mostrarPreviewDesdeUrl(
+        cliente.logo,
+        "previewLogoRapido",
+        "previewLogoRapidoCaja"
+    );
+
+
+    document.getElementById(
+        "rapidoArchivoFondo"
+    ).value = "";
+
+
+    document.getElementById(
+        "rapidoArchivoLogo"
+    ).value = "";
+
+
+    document.getElementById(
+        "estadoFondoRapido"
+    ).textContent = "";
+
+
+    document.getElementById(
+        "estadoLogoRapido"
+    ).textContent = "";
+
+
     const cantidadBotones =
         Array.isArray(
             cliente.botones
@@ -2530,44 +2564,18 @@ function cargarClienteRapido() {
         : 0;
 
 
-    const extras =
-        obtenerBotonesExtra(
-            cliente
-        );
-
-
-    const estado =
+    resumen.textContent =
+        "Tarjeta " +
+        codigo +
+        " — " +
         textoEstado(
             obtenerEstadoCliente(
                 cliente
             )
-        );
-
-
-    let mensaje =
-        "Tarjeta " +
-        codigo +
-        " — " +
-        estado +
+        ) +
         ". Actualmente tiene " +
         cantidadBotones +
         " botón/es.";
-
-
-    if (
-        extras.length > 0
-    ) {
-
-        mensaje +=
-            " Hay " +
-            extras.length +
-            " botón/es adicional/es que se conservarán.";
-
-    }
-
-
-    resumen.textContent =
-        mensaje;
 
 
     resumen.style.display =
@@ -2578,60 +2586,765 @@ function cargarClienteRapido() {
 
 
 /* =====================================================
-   LIMPIAR ALTA RÁPIDA
+   LIMPIAR RÁPIDO
 ===================================================== */
 
 function limpiarFormularioRapido() {
 
-    document.getElementById(
-        "rapidoNombre"
-    ).value = "";
-
-    document.getElementById(
-        "rapidoDescripcion"
-    ).value = "";
-
-    document.getElementById(
-        "rapidoWhatsapp"
-    ).value = "";
-
-    document.getElementById(
-        "rapidoInstagram"
-    ).value = "";
-
-    document.getElementById(
-        "rapidoPlaceId"
-    ).value = "";
-
-    document.getElementById(
-        "rapidoFondo"
-    ).value = "";
-
-    document.getElementById(
+    [
+        "rapidoNombre",
+        "rapidoDescripcion",
+        "rapidoWhatsapp",
+        "rapidoInstagram",
+        "rapidoPlaceId",
+        "rapidoFondo",
         "rapidoLogo"
-    ).value = "";
+    ].forEach(
+        function(id) {
+
+            document.getElementById(
+                id
+            ).value = "";
+
+        }
+    );
+
 
     document.getElementById(
         "rapidoColorTarjeta"
     ).value =
         "#00b7ff";
 
+
     document.getElementById(
         "rapidoColorCabecera"
     ).value =
         "#222222";
+
 
     document.getElementById(
         "rapidoColorBotones"
     ).value =
         "#222222";
 
+
+    ocultarPreview(
+        "previewFondoRapido",
+        "previewFondoRapidoCaja"
+    );
+
+
+    ocultarPreview(
+        "previewLogoRapido",
+        "previewLogoRapidoCaja"
+    );
+
 }
 
 
 
 /* =====================================================
-   GENERAR WHATSAPP
+   PREVIEWS
+===================================================== */
+
+function mostrarPreviewDesdeUrl(
+    url,
+    imagenId,
+    cajaId
+) {
+
+    const valor =
+        String(
+            url || ""
+        ).trim();
+
+
+    if (!valor) {
+
+        ocultarPreview(
+            imagenId,
+            cajaId
+        );
+
+        return;
+
+    }
+
+
+    const imagen =
+        document.getElementById(
+            imagenId
+        );
+
+
+    const caja =
+        document.getElementById(
+            cajaId
+        );
+
+
+    imagen.src =
+        valor;
+
+
+    caja.style.display =
+        "block";
+
+}
+
+
+
+function mostrarPreviewData(
+    dataUrl,
+    imagenId,
+    cajaId
+) {
+
+    const imagen =
+        document.getElementById(
+            imagenId
+        );
+
+
+    const caja =
+        document.getElementById(
+            cajaId
+        );
+
+
+    imagen.src =
+        dataUrl;
+
+
+    caja.style.display =
+        "block";
+
+}
+
+
+
+function ocultarPreview(
+    imagenId,
+    cajaId
+) {
+
+    document.getElementById(
+        imagenId
+    ).removeAttribute(
+        "src"
+    );
+
+
+    document.getElementById(
+        cajaId
+    ).style.display =
+        "none";
+
+}
+
+
+
+/* =====================================================
+   PROCESAR IMAGEN
+===================================================== */
+
+function procesarImagen(
+    archivo,
+    tipo
+) {
+
+    return new Promise(
+        function(resolve, reject) {
+
+
+            if (
+                !archivo ||
+                !archivo.type.startsWith(
+                    "image/"
+                )
+            ) {
+
+                reject(
+                    new Error(
+                        "Seleccioná una imagen válida."
+                    )
+                );
+
+                return;
+
+            }
+
+
+            const lector =
+                new FileReader();
+
+
+            lector.onload =
+                function(evento) {
+
+
+                    const imagen =
+                        new Image();
+
+
+                    imagen.onload =
+                        function() {
+
+
+                            const maximo =
+                                tipo === "fondo"
+                                    ? 1600
+                                    : 800;
+
+
+                            let ancho =
+                                imagen.width;
+
+
+                            let alto =
+                                imagen.height;
+
+
+                            if (
+                                ancho > maximo ||
+                                alto > maximo
+                            ) {
+
+                                const proporcion =
+                                    Math.min(
+                                        maximo / ancho,
+                                        maximo / alto
+                                    );
+
+
+                                ancho =
+                                    Math.round(
+                                        ancho *
+                                        proporcion
+                                    );
+
+
+                                alto =
+                                    Math.round(
+                                        alto *
+                                        proporcion
+                                    );
+
+                            }
+
+
+                            const canvas =
+                                document.createElement(
+                                    "canvas"
+                                );
+
+
+                            canvas.width =
+                                ancho;
+
+
+                            canvas.height =
+                                alto;
+
+
+                            const ctx =
+                                canvas.getContext(
+                                    "2d"
+                                );
+
+
+                            ctx.drawImage(
+                                imagen,
+                                0,
+                                0,
+                                ancho,
+                                alto
+                            );
+
+
+                            const calidad =
+                                tipo === "fondo"
+                                    ? 0.82
+                                    : 0.90;
+
+
+                            canvas.toBlob(
+                                function(blob) {
+
+
+                                    if (!blob) {
+
+                                        reject(
+                                            new Error(
+                                                "No se pudo procesar la imagen."
+                                            )
+                                        );
+
+                                        return;
+
+                                    }
+
+
+                                    const lectorBlob =
+                                        new FileReader();
+
+
+                                    lectorBlob.onload =
+                                        function(e) {
+
+
+                                            const dataUrl =
+                                                e.target.result;
+
+
+                                            const base64 =
+                                                dataUrl.split(
+                                                    ","
+                                                )[1];
+
+
+                                            resolve({
+
+                                                base64:
+                                                    base64,
+
+                                                dataUrl:
+                                                    dataUrl,
+
+                                                extension:
+                                                    "webp",
+
+                                                ancho:
+                                                    ancho,
+
+                                                alto:
+                                                    alto,
+
+                                                bytes:
+                                                    blob.size
+
+                                            });
+
+                                        };
+
+
+                                    lectorBlob.onerror =
+                                        function() {
+
+                                            reject(
+                                                new Error(
+                                                    "No se pudo leer la imagen procesada."
+                                                )
+                                            );
+
+                                        };
+
+
+                                    lectorBlob.readAsDataURL(
+                                        blob
+                                    );
+
+                                },
+
+                                "image/webp",
+
+                                calidad
+                            );
+
+                        };
+
+
+                    imagen.onerror =
+                        function() {
+
+                            reject(
+                                new Error(
+                                    "El navegador no pudo abrir esa imagen."
+                                )
+                            );
+
+                        };
+
+
+                    imagen.src =
+                        evento.target.result;
+
+                };
+
+
+            lector.onerror =
+                function() {
+
+                    reject(
+                        new Error(
+                            "No se pudo leer el archivo."
+                        )
+                    );
+
+                };
+
+
+            lector.readAsDataURL(
+                archivo
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   SUBIR IMAGEN DESDE ADMIN
+===================================================== */
+
+async function subirImagenDesdeAdmin(
+    tipo,
+    modo
+) {
+
+    let codigo;
+    let archivoInput;
+    let urlInput;
+    let estadoId;
+    let botonId;
+    let previewId;
+    let previewCajaId;
+
+
+    if (
+        modo === "rapido"
+    ) {
+
+        codigo =
+            document.getElementById(
+                "rapidoCodigo"
+            ).value;
+
+
+        archivoInput =
+            document.getElementById(
+                tipo === "fondo"
+                    ? "rapidoArchivoFondo"
+                    : "rapidoArchivoLogo"
+            );
+
+
+        urlInput =
+            document.getElementById(
+                tipo === "fondo"
+                    ? "rapidoFondo"
+                    : "rapidoLogo"
+            );
+
+
+        estadoId =
+            tipo === "fondo"
+                ? "estadoFondoRapido"
+                : "estadoLogoRapido";
+
+
+        botonId =
+            tipo === "fondo"
+                ? "subirFondoRapido"
+                : "subirLogoRapido";
+
+
+        previewId =
+            tipo === "fondo"
+                ? "previewFondoRapido"
+                : "previewLogoRapido";
+
+
+        previewCajaId =
+            tipo === "fondo"
+                ? "previewFondoRapidoCaja"
+                : "previewLogoRapidoCaja";
+
+    }
+
+    else {
+
+        codigo =
+            document.getElementById(
+                "codigo"
+            ).value.trim();
+
+
+        archivoInput =
+            document.getElementById(
+                tipo === "fondo"
+                    ? "avanzadoArchivoFondo"
+                    : "avanzadoArchivoLogo"
+            );
+
+
+        urlInput =
+            document.getElementById(
+                tipo === "fondo"
+                    ? "fondo"
+                    : "logo"
+            );
+
+
+        estadoId =
+            tipo === "fondo"
+                ? "estadoFondoAvanzado"
+                : "estadoLogoAvanzado";
+
+
+        botonId =
+            tipo === "fondo"
+                ? "subirFondoAvanzado"
+                : "subirLogoAvanzado";
+
+
+        previewId =
+            tipo === "fondo"
+                ? "previewFondoAvanzado"
+                : "previewLogoAvanzado";
+
+
+        previewCajaId =
+            tipo === "fondo"
+                ? "previewFondoAvanzadoCaja"
+                : "previewLogoAvanzadoCaja";
+
+    }
+
+
+    if (
+        !codigo
+    ) {
+
+        alert(
+            "Primero seleccioná o escribí el código de la tarjeta."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        archivoInput.files.length === 0
+    ) {
+
+        alert(
+            "Primero elegí una imagen."
+        );
+
+        return;
+
+    }
+
+
+    const archivo =
+        archivoInput.files[0];
+
+
+    const estadoImagen =
+        document.getElementById(
+            estadoId
+        );
+
+
+    const boton =
+        document.getElementById(
+            botonId
+        );
+
+
+    try {
+
+        boton.disabled =
+            true;
+
+
+        boton.textContent =
+            "⏳ Procesando...";
+
+
+        estadoImagen.textContent =
+            "Optimizando imagen...";
+
+
+        const imagenProcesada =
+            await procesarImagen(
+                archivo,
+                tipo
+            );
+
+
+        mostrarPreviewData(
+            imagenProcesada.dataUrl,
+            previewId,
+            previewCajaId
+        );
+
+
+        const kb =
+            Math.round(
+                imagenProcesada.bytes /
+                1024
+            );
+
+
+        estadoImagen.textContent =
+            "Imagen optimizada: " +
+            imagenProcesada.ancho +
+            " × " +
+            imagenProcesada.alto +
+            " px — " +
+            kb +
+            " KB. Subiendo...";
+
+
+        boton.textContent =
+            "⏳ Subiendo...";
+
+
+        const respuesta =
+            await fetch(
+                WORKER_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "X-Admin-Key":
+                            claveSincronizacion
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            action:
+                                "uploadImage",
+
+                            codigo:
+                                codigo,
+
+                            tipo:
+                                tipo,
+
+                            extension:
+                                imagenProcesada.extension,
+
+                            contenidoBase64:
+                                imagenProcesada.base64
+
+                        })
+
+                }
+            );
+
+
+        const datos =
+            await respuesta.json();
+
+
+        if (
+            !respuesta.ok ||
+            !datos.ok
+        ) {
+
+            throw new Error(
+                datos.mensaje ||
+                "No se pudo subir la imagen."
+            );
+
+        }
+
+
+        /*
+            Agregamos una pequeña versión a la URL.
+
+            Esto evita que el navegador siga mostrando
+            una imagen anterior si después reemplazás
+            fondo.webp o logo.webp.
+        */
+
+        const urlFinal =
+            datos.url +
+            "?v=" +
+            Date.now();
+
+
+        urlInput.value =
+            urlFinal;
+
+
+        estadoImagen.textContent =
+            "✅ Imagen subida correctamente.";
+
+
+        boton.textContent =
+            tipo === "fondo"
+                ? "📤 Subir fondo"
+                : "📤 Subir logo";
+
+
+        boton.disabled =
+            false;
+
+
+        alert(
+            "✅ " +
+            (
+                tipo === "fondo"
+                    ? "Fondo"
+                    : "Logo"
+            ) +
+            " subido correctamente.\n\n" +
+            "La URL ya quedó colocada en el formulario."
+        );
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        estadoImagen.textContent =
+            "❌ " +
+            error.message;
+
+
+        boton.disabled =
+            false;
+
+
+        boton.textContent =
+            tipo === "fondo"
+                ? "📤 Subir fondo"
+                : "📤 Subir logo";
+
+
+        alert(
+            "No se pudo subir la imagen:\n\n" +
+            error.message
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   ENLACES AUTOMÁTICOS
 ===================================================== */
 
 function generarEnlaceWhatsapp(
@@ -2647,12 +3360,8 @@ function generarEnlaceWhatsapp(
         );
 
 
-    if (
-        !numero
-    ) {
-
+    if (!numero) {
         return "";
-
     }
 
 
@@ -2697,10 +3406,6 @@ function generarEnlaceWhatsapp(
 
 
 
-/* =====================================================
-   GENERAR INSTAGRAM
-===================================================== */
-
 function generarEnlaceInstagram(
     valor
 ) {
@@ -2711,12 +3416,8 @@ function generarEnlaceInstagram(
         ).trim();
 
 
-    if (
-        !texto
-    ) {
-
+    if (!texto) {
         return "";
-
     }
 
 
@@ -2762,30 +3463,12 @@ function generarEnlaceInstagram(
         );
 
 
-    texto =
-        texto.replace(
-            /^\/+/,
-            ""
-        );
-
-
-    texto =
-        texto.replace(
-            /\/+$/,
-            ""
-        );
-
-
     return "https://instagram.com/" +
         texto;
 
 }
 
 
-
-/* =====================================================
-   GENERAR RESEÑA GOOGLE
-===================================================== */
 
 function generarEnlaceResena(
     placeId
@@ -2797,12 +3480,8 @@ function generarEnlaceResena(
         ).trim();
 
 
-    if (
-        !valor
-    ) {
-
+    if (!valor) {
         return "";
-
     }
 
 
@@ -2829,7 +3508,7 @@ function generarEnlaceResena(
 
 
 /* =====================================================
-   GUARDAR ALTA RÁPIDA
+   GUARDAR RÁPIDO
 ===================================================== */
 
 async function guardarClienteRapido() {
@@ -2900,92 +3579,20 @@ async function guardarClienteRapido() {
         );
 
 
-    const colorTarjeta =
-        document.getElementById(
-            "rapidoColorTarjeta"
-        ).value;
-
-
-    const colorCabecera =
-        document.getElementById(
-            "rapidoColorCabecera"
-        ).value;
-
-
-    const colorBotones =
-        document.getElementById(
-            "rapidoColorBotones"
-        ).value;
-
-
     if (
-        !nombre
-    ) {
-
-        alert(
-            "Ingresá el nombre del negocio."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        !whatsapp
-    ) {
-
-        alert(
-            "Ingresá el número de WhatsApp."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        !instagram
-    ) {
-
-        alert(
-            "Ingresá el Instagram."
-        );
-
-        return;
-
-    }
-
-
-    if (
+        !nombre ||
+        !whatsapp ||
+        !instagram ||
         !placeId
     ) {
 
         alert(
-            "Ingresá el Place ID de Google."
+            "Completá nombre, WhatsApp, Instagram y Place ID."
         );
 
         return;
 
     }
-
-
-    const enlaceWhatsapp =
-        generarEnlaceWhatsapp(
-            whatsapp
-        );
-
-
-    const enlaceInstagram =
-        generarEnlaceInstagram(
-            instagram
-        );
-
-
-    const enlaceResena =
-        generarEnlaceResena(
-            placeId
-        );
 
 
     const clienteAnterior =
@@ -3009,7 +3616,9 @@ async function guardarClienteRapido() {
                 "📱 WhatsApp",
 
             enlace:
-                enlaceWhatsapp
+                generarEnlaceWhatsapp(
+                    whatsapp
+                )
         },
 
         {
@@ -3017,7 +3626,9 @@ async function guardarClienteRapido() {
                 "📸 Instagram",
 
             enlace:
-                enlaceInstagram
+                generarEnlaceInstagram(
+                    instagram
+                )
         },
 
         {
@@ -3025,7 +3636,9 @@ async function guardarClienteRapido() {
                 "⭐ Dejanos tu opinión",
 
             enlace:
-                enlaceResena
+                generarEnlaceResena(
+                    placeId
+                )
         }
 
     ];
@@ -3061,13 +3674,19 @@ async function guardarClienteRapido() {
             logo,
 
         colorTarjeta:
-            colorTarjeta,
+            document.getElementById(
+                "rapidoColorTarjeta"
+            ).value,
 
         colorCabecera:
-            colorCabecera,
+            document.getElementById(
+                "rapidoColorCabecera"
+            ).value,
 
         colorBotones:
-            colorBotones,
+            document.getElementById(
+                "rapidoColorBotones"
+            ).value,
 
         estado:
             obtenerEstadoCliente(
@@ -3075,7 +3694,8 @@ async function guardarClienteRapido() {
             ),
 
         notaInterna:
-            clienteAnterior.notaInterna || "",
+            clienteAnterior.notaInterna ||
+            "",
 
         botones:
             botonesNuevos
@@ -3087,35 +3707,13 @@ async function guardarClienteRapido() {
 
 
     mostrarEstado(
-        "⏳ Guardando configuración rápida...",
+        "⏳ Guardando configuración...",
         "estado-cargando"
     );
 
 
-    const botonGuardar =
-        document.getElementById(
-            "botonGuardarRapido"
-        );
-
-
-    botonGuardar.disabled =
-        true;
-
-
-    botonGuardar.textContent =
-        "⏳ Guardando...";
-
-
     const resultado =
         await sincronizarConGitHub();
-
-
-    botonGuardar.disabled =
-        false;
-
-
-    botonGuardar.textContent =
-        "⚡ Guardar configuración rápida";
 
 
     if (
@@ -3128,23 +3726,6 @@ async function guardarClienteRapido() {
 
         generarClientesJS();
 
-        actualizarTodoPanel();
-
-
-        document.getElementById(
-            "rapidoCodigo"
-        ).value =
-            codigo;
-
-
-        cargarClienteRapido();
-
-
-        mostrarEstado(
-            "❌ No se pudieron guardar los cambios.",
-            "estado-error"
-        );
-
 
         alert(
             resultado.mensaje
@@ -3154,11 +3735,6 @@ async function guardarClienteRapido() {
         return;
 
     }
-
-
-    enlaceActual =
-        "https://qonekta.github.io/qr-dinamicos/r/" +
-        codigo;
 
 
     actualizarTodoPanel();
@@ -3174,9 +3750,7 @@ async function guardarClienteRapido() {
 
 
     mostrarEstado(
-        "✅ Tarjeta " +
-        codigo +
-        " configurada correctamente.",
+        "✅ Cliente configurado correctamente.",
         "estado-ok"
     );
 
@@ -3201,9 +3775,7 @@ function abrirTarjetaRapida() {
         ).value;
 
 
-    if (
-        !codigo
-    ) {
+    if (!codigo) {
 
         alert(
             "Seleccioná una tarjeta."
@@ -3214,15 +3786,11 @@ function abrirTarjetaRapida() {
     }
 
 
-    const enlace =
-        "https://qonekta.github.io/qr-dinamicos/r/" +
-        codigo;
-
-
     window.open(
-        enlace,
-        "_blank",
-        "noopener,noreferrer"
+        "https://qonekta.github.io/qr-dinamicos/r/" +
+        codigo,
+
+        "_blank"
     );
 
 }
@@ -3230,7 +3798,7 @@ function abrirTarjetaRapida() {
 
 
 /* =====================================================
-   ALTA RÁPIDA → AVANZADA
+   RÁPIDO → AVANZADO
 ===================================================== */
 
 function abrirEdicionAvanzadaDesdeRapido() {
@@ -3241,9 +3809,7 @@ function abrirEdicionAvanzadaDesdeRapido() {
         ).value;
 
 
-    if (
-        !codigo
-    ) {
+    if (!codigo) {
 
         alert(
             "Seleccioná una tarjeta."
@@ -3263,7 +3829,7 @@ function abrirEdicionAvanzadaDesdeRapido() {
 
 
 /* =====================================================
-   AGREGAR BOTÓN
+   BOTONES AVANZADOS
 ===================================================== */
 
 function agregarBoton(
@@ -3272,12 +3838,6 @@ function agregarBoton(
 ) {
 
     contadorBotones++;
-
-
-    const contenedor =
-        document.getElementById(
-            "botonesPersonalizados"
-        );
 
 
     const div =
@@ -3303,7 +3863,6 @@ function agregarBoton(
 
         <input
             class="nombre-boton"
-            placeholder="Ejemplo: 📱 WhatsApp"
             value="${escaparHTML(nombreInicial)}"
         >
 
@@ -3314,7 +3873,6 @@ function agregarBoton(
 
         <input
             class="enlace-boton"
-            placeholder="https://..."
             value="${escaparHTML(enlaceInicial)}"
         >
 
@@ -3329,17 +3887,15 @@ function agregarBoton(
     `;
 
 
-    contenedor.appendChild(
+    document.getElementById(
+        "botonesPersonalizados"
+    ).appendChild(
         div
     );
 
 }
 
 
-
-/* =====================================================
-   QUITAR BOTÓN
-===================================================== */
 
 function quitarBoton(id) {
 
@@ -3350,27 +3906,9 @@ function quitarBoton(id) {
 
 
     if (
-        !elemento
-    ) {
-
-        return;
-
-    }
-
-
-    const nombre =
-        elemento.querySelector(
-            ".nombre-boton"
-        ).value.trim()
-        ||
-        "este botón";
-
-
-    if (
+        elemento &&
         confirm(
-            '¿Eliminar "' +
-            nombre +
-            '"?'
+            "¿Eliminar este botón?"
         )
     ) {
 
@@ -3383,25 +3921,19 @@ function quitarBoton(id) {
 
 
 /* =====================================================
-   EDITAR CLIENTE
+   EDITAR AVANZADO
 ===================================================== */
 
-function editarCliente(codigo) {
+function editarCliente(
+    codigo
+) {
 
     const cliente =
         clientes[codigo];
 
 
-    if (
-        !cliente
-    ) {
-
-        alert(
-            "No se encontró ese cliente."
-        );
-
+    if (!cliente) {
         return;
-
     }
 
 
@@ -3414,13 +3946,6 @@ function editarCliente(codigo) {
     ).textContent =
         "✏️ Editar cliente " +
         codigo;
-
-
-    document.getElementById(
-        "tituloFormulario"
-    ).classList.add(
-        "titulo-edicion"
-    );
 
 
     document.getElementById(
@@ -3486,6 +4011,20 @@ function editarCliente(codigo) {
         "#222222";
 
 
+    mostrarPreviewDesdeUrl(
+        cliente.fondo,
+        "previewFondoAvanzado",
+        "previewFondoAvanzadoCaja"
+    );
+
+
+    mostrarPreviewDesdeUrl(
+        cliente.logo,
+        "previewLogoAvanzado",
+        "previewLogoAvanzadoCaja"
+    );
+
+
     document.getElementById(
         "botonesPersonalizados"
     ).innerHTML = "";
@@ -3494,15 +4033,10 @@ function editarCliente(codigo) {
     contadorBotones = 0;
 
 
-    const botones =
-        Array.isArray(
-            cliente.botones
-        )
-        ? cliente.botones
-        : [];
-
-
-    botones.forEach(
+    (
+        cliente.botones ||
+        []
+    ).forEach(
         function(boton) {
 
             agregarBoton(
@@ -3527,15 +4061,12 @@ function editarCliente(codigo) {
 
 
     document.getElementById(
-        "resultado"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
         "formularioCliente"
     ).scrollIntoView({
-        behavior: "smooth"
+
+        behavior:
+            "smooth"
+
     });
 
 }
@@ -3543,51 +4074,30 @@ function editarCliente(codigo) {
 
 
 /* =====================================================
-   ELIMINAR CLIENTE
+   ELIMINAR
 ===================================================== */
 
-async function eliminarCliente(codigo) {
+async function eliminarCliente(
+    codigo
+) {
 
     const cliente =
         clientes[codigo];
 
 
-    if (
-        !cliente
-    ) {
-
+    if (!cliente) {
         return;
-
     }
 
 
-    const confirmar =
-        confirm(
-
-            "⚠️ ¿Seguro que querés borrar " +
-
-            codigo +
-
-            " — " +
-
-            (
-                cliente.nombre ||
-                "Sin nombre"
-            ) +
-
-            "?\n\n" +
-
-            "Recordá que puede existir un QR físico con este código."
-
-        );
-
-
     if (
-        !confirmar
+        !confirm(
+            "⚠️ ¿Seguro que querés borrar " +
+            codigo +
+            "?"
+        )
     ) {
-
         return;
-
     }
 
 
@@ -3605,12 +4115,6 @@ async function eliminarCliente(codigo) {
     generarClientesJS();
 
 
-    mostrarEstado(
-        "⏳ Eliminando cliente...",
-        "estado-cargando"
-    );
-
-
     const resultado =
         await sincronizarConGitHub();
 
@@ -3624,14 +4128,6 @@ async function eliminarCliente(codigo) {
 
 
         generarClientesJS();
-
-        actualizarTodoPanel();
-
-
-        mostrarEstado(
-            "❌ No se pudo eliminar.",
-            "estado-error"
-        );
 
 
         alert(
@@ -3652,21 +4148,12 @@ async function eliminarCliente(codigo) {
         "estado-ok"
     );
 
-
-    if (
-        clienteEditando === codigo
-    ) {
-
-        cancelarEdicion();
-
-    }
-
 }
 
 
 
 /* =====================================================
-   CANCELAR EDICIÓN
+   CANCELAR AVANZADO
 ===================================================== */
 
 function cancelarEdicion() {
@@ -3682,13 +4169,6 @@ function cancelarEdicion() {
 
 
     document.getElementById(
-        "tituloFormulario"
-    ).classList.remove(
-        "titulo-edicion"
-    );
-
-
-    document.getElementById(
         "avisoEdicion"
     ).style.display =
         "none";
@@ -3700,47 +4180,21 @@ function cancelarEdicion() {
         false;
 
 
-    document.getElementById(
-        "codigo"
-    ).value = "";
-
-
-    document.getElementById(
-        "nombre"
-    ).value = "";
-
-
-    document.getElementById(
-        "descripcion"
-    ).value = "";
-
-
-    document.getElementById(
-        "fondo"
-    ).value = "";
-
-
-    document.getElementById(
+    [
+        "codigo",
+        "nombre",
+        "descripcion",
+        "fondo",
         "logo"
-    ).value = "";
+    ].forEach(
+        function(id) {
 
+            document.getElementById(
+                id
+            ).value = "";
 
-    document.getElementById(
-        "colorTarjeta"
-    ).value =
-        "#00b7ff";
-
-
-    document.getElementById(
-        "colorCabecera"
-    ).value =
-        "#222222";
-
-
-    document.getElementById(
-        "colorBotones"
-    ).value =
-        "#222222";
+        }
+    );
 
 
     document.getElementById(
@@ -3749,6 +4203,18 @@ function cancelarEdicion() {
 
 
     contadorBotones = 0;
+
+
+    ocultarPreview(
+        "previewFondoAvanzado",
+        "previewFondoAvanzadoCaja"
+    );
+
+
+    ocultarPreview(
+        "previewLogoAvanzado",
+        "previewLogoAvanzadoCaja"
+    );
 
 
     document.getElementById(
@@ -3767,10 +4233,12 @@ function cancelarEdicion() {
 
 
 /* =====================================================
-   NORMALIZAR ENLACE
+   NORMALIZAR URL
 ===================================================== */
 
-function normalizarEnlace(enlace) {
+function normalizarEnlace(
+    enlace
+) {
 
     let valor =
         String(
@@ -3778,29 +4246,14 @@ function normalizarEnlace(enlace) {
         ).trim();
 
 
-    if (
-        !valor
-    ) {
-
+    if (!valor) {
         return "";
-
     }
 
 
     if (
-        /^https?:\/\//i.test(
-            valor
-        )
-    ) {
-
-        return valor;
-
-    }
-
-
-    if (
-        /^tel:/i.test(valor)
-        ||
+        /^https?:\/\//i.test(valor) ||
+        /^tel:/i.test(valor) ||
         /^mailto:/i.test(valor)
     ) {
 
@@ -3837,46 +4290,6 @@ async function guardarCliente() {
         ).value.trim();
 
 
-    const descripcion =
-        document.getElementById(
-            "descripcion"
-        ).value.trim();
-
-
-    const fondo =
-        normalizarEnlace(
-            document.getElementById(
-                "fondo"
-            ).value
-        );
-
-
-    const logo =
-        normalizarEnlace(
-            document.getElementById(
-                "logo"
-            ).value
-        );
-
-
-    const colorTarjeta =
-        document.getElementById(
-            "colorTarjeta"
-        ).value;
-
-
-    const colorCabecera =
-        document.getElementById(
-            "colorCabecera"
-        ).value;
-
-
-    const colorBotones =
-        document.getElementById(
-            "colorBotones"
-        ).value;
-
-
     if (
         !codigo ||
         !nombre
@@ -3884,20 +4297,6 @@ async function guardarCliente() {
 
         alert(
             "Completá código y nombre."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        !clienteEditando &&
-        clientes[codigo]
-    ) {
-
-        alert(
-            "Ese código ya existe."
         );
 
         return;
@@ -3917,19 +4316,6 @@ async function guardarCliente() {
         );
 
 
-    if (
-        nombres.length === 0
-    ) {
-
-        alert(
-            "Agregá al menos un botón."
-        );
-
-        return;
-
-    }
-
-
     const botones = [];
 
 
@@ -3939,23 +4325,13 @@ async function guardarCliente() {
         i++
     ) {
 
-        const nombreBoton =
-            nombres[i].value.trim();
-
-
-        const enlaceBoton =
-            normalizarEnlace(
-                enlaces[i].value
-            );
-
-
         if (
-            !nombreBoton ||
-            !enlaceBoton
+            !nombres[i].value.trim() ||
+            !enlaces[i].value.trim()
         ) {
 
             alert(
-                "Completá nombre y enlace de cada botón."
+                "Completá todos los botones."
             );
 
             return;
@@ -3966,12 +4342,27 @@ async function guardarCliente() {
         botones.push({
 
             nombre:
-                nombreBoton,
+                nombres[i].value.trim(),
 
             enlace:
-                enlaceBoton
+                normalizarEnlace(
+                    enlaces[i].value
+                )
 
         });
+
+    }
+
+
+    if (
+        botones.length === 0
+    ) {
+
+        alert(
+            "Agregá al menos un botón."
+        );
+
+        return;
 
     }
 
@@ -3984,15 +4375,11 @@ async function guardarCliente() {
 
     const respaldo =
         estabaEditando
-
             ? JSON.parse(
                 JSON.stringify(
-                    clientes[
-                        clienteEditando
-                    ]
+                    clientes[codigo]
                 )
             )
-
             : null;
 
 
@@ -4002,22 +4389,38 @@ async function guardarCliente() {
             nombre,
 
         descripcion:
-            descripcion,
+            document.getElementById(
+                "descripcion"
+            ).value.trim(),
 
         fondo:
-            fondo,
+            normalizarEnlace(
+                document.getElementById(
+                    "fondo"
+                ).value
+            ),
 
         logo:
-            logo,
+            normalizarEnlace(
+                document.getElementById(
+                    "logo"
+                ).value
+            ),
 
         colorTarjeta:
-            colorTarjeta,
+            document.getElementById(
+                "colorTarjeta"
+            ).value,
 
         colorCabecera:
-            colorCabecera,
+            document.getElementById(
+                "colorCabecera"
+            ).value,
 
         colorBotones:
-            colorBotones,
+            document.getElementById(
+                "colorBotones"
+            ).value,
 
         estado:
             estabaEditando
@@ -4043,32 +4446,8 @@ async function guardarCliente() {
     generarClientesJS();
 
 
-    mostrarEstado(
-        "⏳ Guardando cambios...",
-        "estado-cargando"
-    );
-
-
-    const botonGuardar =
-        document.getElementById(
-            "botonGuardar"
-        );
-
-
-    botonGuardar.disabled =
-        true;
-
-
-    botonGuardar.textContent =
-        "⏳ Guardando...";
-
-
     const resultado =
         await sincronizarConGitHub();
-
-
-    botonGuardar.disabled =
-        false;
 
 
     if (
@@ -4093,20 +4472,6 @@ async function guardarCliente() {
 
         generarClientesJS();
 
-        actualizarTodoPanel();
-
-
-        botonGuardar.textContent =
-            estabaEditando
-                ? "💾 Guardar cambios"
-                : "Crear cliente";
-
-
-        mostrarEstado(
-            "❌ No se pudo guardar.",
-            "estado-error"
-        );
-
 
         alert(
             resultado.mensaje
@@ -4123,24 +4488,6 @@ async function guardarCliente() {
         codigo;
 
 
-    document.getElementById(
-        "urlCliente"
-    ).textContent =
-        enlaceActual;
-
-
-    document.getElementById(
-        "codigoGenerado"
-    ).textContent =
-        codigoActual;
-
-
-    document.getElementById(
-        "resultado"
-    ).style.display =
-        "block";
-
-
     actualizarTodoPanel();
 
 
@@ -4151,9 +4498,7 @@ async function guardarCliente() {
 
 
     alert(
-        estabaEditando
-            ? "Cliente actualizado correctamente."
-            : "Cliente creado correctamente."
+        "✅ Cliente guardado correctamente."
     );
 
 
@@ -4164,26 +4509,10 @@ async function guardarCliente() {
 
 
 /* =====================================================
-   SINCRONIZAR
+   SINCRONIZAR CLIENTES.JS
 ===================================================== */
 
 async function sincronizarConGitHub() {
-
-    if (
-        !claveSincronizacion
-    ) {
-
-        return {
-
-            ok: false,
-
-            mensaje:
-                "No hay clave de sincronización."
-
-        };
-
-    }
-
 
     try {
 
@@ -4192,7 +4521,8 @@ async function sincronizarConGitHub() {
                 WORKER_URL,
                 {
 
-                    method: "POST",
+                    method:
+                        "POST",
 
                     headers: {
 
@@ -4227,11 +4557,12 @@ async function sincronizarConGitHub() {
 
             return {
 
-                ok: false,
+                ok:
+                    false,
 
                 mensaje:
                     datos.mensaje ||
-                    "Cloudflare rechazó la actualización."
+                    "No se pudo actualizar GitHub."
 
             };
 
@@ -4239,12 +4570,7 @@ async function sincronizarConGitHub() {
 
 
         return {
-
-            ok: true,
-
-            mensaje:
-                datos.mensaje
-
+            ok: true
         };
 
     }
@@ -4253,10 +4579,10 @@ async function sincronizarConGitHub() {
 
         return {
 
-            ok: false,
+            ok:
+                false,
 
             mensaje:
-                "No se pudo conectar con Cloudflare.\n\n" +
                 error.message
 
         };
@@ -4280,11 +4606,7 @@ function generarClientesJS() {
 `;
 
 
-    const codigos =
-        obtenerCodigosOrdenados();
-
-
-    codigos.forEach(
+    obtenerCodigosOrdenados().forEach(
         function(id) {
 
             const cliente =
@@ -4318,15 +4640,10 @@ function generarClientesJS() {
 `;
 
 
-            const botones =
-                Array.isArray(
-                    cliente.botones
-                )
-                ? cliente.botones
-                : [];
-
-
-            botones.forEach(
+            (
+                cliente.botones ||
+                []
+            ).forEach(
                 function(boton) {
 
                     codigo +=
@@ -4408,7 +4725,9 @@ function copiarCodigo() {
    ESCAPAR HTML
 ===================================================== */
 
-function escaparHTML(texto) {
+function escaparHTML(
+    texto
+) {
 
     return String(texto)
 
@@ -4437,10 +4756,12 @@ function escaparHTML(texto) {
 
 
 /* =====================================================
-   ESCAPAR JAVASCRIPT
+   ESCAPAR JS
 ===================================================== */
 
-function escaparJS(texto) {
+function escaparJS(
+    texto
+) {
 
     return String(texto)
 
