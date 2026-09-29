@@ -78,13 +78,13 @@ const negocios = {
 
         descripcion: "SR CURSOS PERSONALIZADOS Ext.Pestañas Lifting pestañas Perfilado de cejas Laminado cejas",
 
-        fondo: "",
+        fondo: "https://qonekta.github.io/qr-dinamicos/imagenes/003/fondo.webp?v=1790719422523",
 
         logo: "https://qonekta.github.io/qr-dinamicos/imagenes/003/logo.webp?v=1790718589138",
 
         colorTarjeta: "#ff00ff",
 
-        colorCabecera: "#ff0000",
+        colorCabecera: "#000000",
 
         colorBotones: "#222222",
 
