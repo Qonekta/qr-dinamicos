@@ -74,17 +74,17 @@ const negocios = {
 
     "003": {
 
-        nombre: "negocio 3",
+        nombre: "Lassh",
 
-        descripcion: "",
+        descripcion: "SR CURSOS PERSONALIZADOS Ext.Pestañas Lifting pestañas Perfilado de cejas Laminado cejas",
 
         fondo: "",
 
-        logo: "",
+        logo: "https://qonekta.github.io/qr-dinamicos/imagenes/003/logo.webp?v=1790718589138",
 
-        colorTarjeta: "#00b7ff",
+        colorTarjeta: "#ff00ff",
 
-        colorCabecera: "#222222",
+        colorCabecera: "#ff0000",
 
         colorBotones: "#222222",
 
@@ -96,7 +96,17 @@ const negocios = {
 
             {
                 nombre: "⭐ Dejar una reseña",
-                enlace: "https://search.google.com/local/writereview?placeid="
+                enlace: "https://search.google.com/local/writereview?placeid=ChIJDRAsroYJeZYRqRGukL5ibo0"
+            },
+
+            {
+                nombre: "📷 Instagram",
+                enlace: "https://www.instagram.com/lashh.ml?stkn=Z3lsNHJibzkzM21p"
+            },
+
+            {
+                nombre: "📩 Contacto",
+                enlace: "https://wa.me/5492604267735"
             },
 
         ]
