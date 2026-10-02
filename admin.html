@@ -59,7 +59,8 @@ label {
 }
 
 input,
-select {
+select,
+textarea {
     width: 100%;
     padding: 12px;
     margin-top: 6px;
@@ -67,6 +68,13 @@ select {
     border-radius: 8px;
     font-size: 15px;
     background: white;
+    font-family: Arial, sans-serif;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+    line-height: 1.5;
 }
 
 input[type="color"] {
@@ -1092,10 +1100,11 @@ button:disabled {
                 Descripción breve
             </label>
 
-            <input
+            <textarea
                 id="rapidoDescripcion"
+                rows="4"
                 placeholder="Ejemplo: Café, desayunos y pastelería"
-            >
+            ></textarea>
 
         </div>
 
@@ -1411,10 +1420,11 @@ button:disabled {
             Descripción breve (opcional)
         </label>
 
-        <input
+        <textarea
             id="descripcion"
+            rows="4"
             placeholder="Ejemplo: Turnos por WhatsApp"
-        >
+        ></textarea>
 
 
 
