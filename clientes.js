@@ -192,15 +192,15 @@ const negocios = {
 
     "006": {
 
-        nombre: "negocio 6",
+        nombre: "Me gusta Ese Look",
 
-        descripcion: "",
+        descripcion: "🧢TIENDA ROPA UNISEX\n⏰Lunes a sábado\n10.00 a 13.00 y 18.00 a 21.00hs.",
 
         fondo: "",
 
-        logo: "",
+        logo: "https://qonekta.github.io/qr-dinamicos/imagenes/006/logo.webp?v=1790975016928",
 
-        colorTarjeta: "#00b7ff",
+        colorTarjeta: "#eeff00",
 
         colorCabecera: "#222222",
 
@@ -214,7 +214,12 @@ const negocios = {
 
             {
                 nombre: "⭐ Danos una opinión",
-                enlace: "https://search.google.com/local/writereview?placeid="
+                enlace: "https://search.google.com/local/writereview?placeid=ChIJg_ISDQAHeZYR2kqnoaXUtO4"
+            },
+
+            {
+                nombre: "📷 Instagram",
+                enlace: "https://www.instagram.com/megustaeselook/"
             },
 
         ]
