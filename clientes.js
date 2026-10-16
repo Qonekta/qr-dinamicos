@@ -259,11 +259,11 @@ const negocios = {
 
     "008": {
 
-        nombre: "negocio 8",
+        nombre: "Cotillón Arco",
 
-        descripcion: "",
+        descripcion: "✨Todo para tu fiesta 🧁Repostería. 🌰Dietética. 🔝Productos de calidad premium  📩 Ingresa a nuestro chat desde \"Contacto\" 📍ALMAFUERTE 140",
 
-        fondo: "",
+        fondo: "https://qonekta.github.io/qr-dinamicos/imagenes/004/Fondo.jpg",
 
         logo: "",
 
@@ -278,6 +278,21 @@ const negocios = {
         notaInterna: "",
 
         botones: [
+
+            {
+                nombre: "📱 WhatsApp",
+                enlace: "https://wa.me/5492604058439"
+            },
+
+            {
+                nombre: "📸 Instagram",
+                enlace: "https://instagram.com/cotillonarco.sanrafael"
+            },
+
+            {
+                nombre: "⭐ Dejanos tu opinión",
+                enlace: "https://search.google.com/local/writereview?placeid=ChIJjVtoucAHeZYRbq9CCC6p4kk"
+            },
 
             {
                 nombre: "a",
