@@ -367,13 +367,13 @@ const negocios = {
 
     "011": {
 
-        nombre: "negocio 11",
+        nombre: "Arma Tu Caja",
 
-        descripcion: "",
+        descripcion: "Chocolateria y Vinoteca\nHorarios de 8:00hs a 22:00hs",
 
         fondo: "",
 
-        logo: "",
+        logo: "https://qonekta.github.io/qr-dinamicos/imagenes/011/logo.webp?v=1792618592914",
 
         colorTarjeta: "#00b7ff",
 
@@ -389,7 +389,17 @@ const negocios = {
 
             {
                 nombre: "⭐ Dejar una reseña",
-                enlace: "https://google.com"
+                enlace: "https://search.google.com/local/writereview?placeid=ChIJ4_GxbB8HeZYRgO1RDykrpAs"
+            },
+
+            {
+                nombre: "📷 Instagram",
+                enlace: "https://www.instagram.com/armatucaja22?rpxt=NjNyYmZsdHBpZGg0"
+            },
+
+            {
+                nombre: "📍 Donde Encontrarnos",
+                enlace: "https://maps.app.goo.gl/jbemykDvytqTxs5e6?g_st=ac"
             },
 
         ]
